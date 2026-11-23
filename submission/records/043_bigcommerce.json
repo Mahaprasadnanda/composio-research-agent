@@ -1,0 +1,108 @@
+{
+  "app_name": "BigCommerce",
+  "category": "ecommerce",
+  "description": "E‑commerce platform offering REST and GraphQL APIs to manage products, orders, customers, and store settings.",
+  "auth_methods": [
+    "oauth2",
+    "bearer_token"
+  ],
+  "self_service_access": "free_self_service",
+  "developer_access_tier": "free_self_service",
+  "production_access_tier": "paid_subscription",
+  "access_requirements": "Create a sandbox store and generate API credentials via Settings > API Accounts in the store control panel",
+  "api_types": [
+    "rest",
+    "graphql"
+  ],
+  "api_breadth": "comprehensive",
+  "mcp_availability": "official",
+  "has_composio_integration": true,
+  "composio_toolkit_slug": "bigcommerce",
+  "buildability_verdict": "buildable",
+  "primary_blocker": "none",
+  "blocker_details": null,
+  "evidence_urls": [
+    "https://docs.bigcommerce.com/developer/api-reference/rest/admin/management/abandoned-carts",
+    "https://docs.bigcommerce.com/developer/docs/overview/quick-start"
+  ],
+  "evidence_excerpts": [
+    "Use /abandoned-carts/{token} on headless storefronts to retrieve the cart_id ... you can use the REST Storefront API, the REST Management API, or the GraphQL Storefront API.",
+    "Add your API token to the authorization header in the following code sample ... 'Authorization' : `Bearer {{TOKEN}}`",
+    "Create a sandbox store ... Generate API credentials ... Navigate to Settings > API Accounts in your store control panel. Create credentials with the scopes you need.",
+    "Use REST and GraphQL APIs to manage products, orders, customers, and store settings programmatically.",
+    "Docs MCP Server"
+  ],
+  "evidence_items": [
+    {
+      "url": "https://docs.bigcommerce.com/developer/api-reference/rest/admin/management/abandoned-carts",
+      "title": null,
+      "excerpt": "Use /abandoned-carts/{token} on headless storefronts to retrieve the cart_id ... you can use the REST Storefront API, the REST Management API, or the GraphQL Storefront API.",
+      "retrieved_at": "2026-11-23T13:36:57.166068Z"
+    },
+    {
+      "url": "https://docs.bigcommerce.com/developer/api-reference/rest/admin/management/abandoned-carts",
+      "title": null,
+      "excerpt": "Add your API token to the authorization header in the following code sample ... 'Authorization' : `Bearer {{TOKEN}}`",
+      "retrieved_at": "2026-11-23T13:36:57.166074Z"
+    },
+    {
+      "url": "https://docs.bigcommerce.com/developer/api-reference/rest/admin/management/abandoned-carts",
+      "title": null,
+      "excerpt": "Create a sandbox store ... Generate API credentials ... Navigate to Settings > API Accounts in your store control panel. Create credentials with the scopes you need.",
+      "retrieved_at": "2026-11-23T13:36:57.166077Z"
+    },
+    {
+      "url": "https://docs.bigcommerce.com/developer/api-reference/rest/admin/management/abandoned-carts",
+      "title": null,
+      "excerpt": "Use REST and GraphQL APIs to manage products, orders, customers, and store settings programmatically.",
+      "retrieved_at": "2026-11-23T13:36:57.166079Z"
+    },
+    {
+      "url": "https://docs.bigcommerce.com/developer/api-reference/rest/admin/management/abandoned-carts",
+      "title": null,
+      "excerpt": "Docs MCP Server",
+      "retrieved_at": "2026-11-23T13:36:57.166081Z"
+    }
+  ],
+  "research_status": "completed",
+  "confidence_level": "high",
+  "uncertainty_notes": "Production access tier inferred as paid subscription based on typical BigCommerce plans; exact plan requirements not explicitly stated in provided docs.",
+  "llm_execution_source": "real_network",
+  "provenance": {
+    "execution_mode": "live",
+    "doc_execution_source": "real_network",
+    "llm_execution_source": "real_network",
+    "composio_execution_source": "real_network",
+    "documentation_live_fetched": true,
+    "documentation_urls_attempted": [
+      "https://developer.bigcommerce.com/docs/rest",
+      "https://developer.bigcommerce.com"
+    ],
+    "documentation_urls_succeeded": [
+      "https://docs.bigcommerce.com/developer/api-reference/rest/admin/management/abandoned-carts",
+      "https://docs.bigcommerce.com/developer/docs/overview/quick-start"
+    ],
+    "documentation_truncated": true,
+    "documentation_truncation_notes": "Original documentation length was 7594 chars. Truncated to 1853 chars prioritizing authentication, endpoints, access tiers, and MCP.",
+    "llm_inference_attempted": true,
+    "llm_inference_executed": true,
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_error": null,
+    "composio_adapter_configured": true,
+    "composio_discovery_attempted": true,
+    "composio_discovery_succeeded": true,
+    "composio_toolkit_found": true,
+    "composio_discovery_error": null,
+    "composio_mcp_session_attempted": true,
+    "composio_mcp_session_created": true,
+    "composio_mcp_endpoint_returned": true,
+    "composio_mcp_endpoint": "https://backend.composio.dev/tool_router/trs_lBhfArWgYI7W/mcp",
+    "composio_mcp_session_error": null,
+    "live_verified": true,
+    "notes": "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+  },
+  "verification_status": "unverified",
+  "verification_notes": null,
+  "created_at": "2026-11-23T13:36:57.166107Z",
+  "updated_at": "2026-11-23T13:36:57.166108Z"
+}

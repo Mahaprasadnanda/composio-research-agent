@@ -1,0 +1,91 @@
+{
+  "app_name": "MrScraper",
+  "category": "developer_tools",
+  "description": "API for scraping product details, pricing, and availability from e-commerce sites.",
+  "auth_methods": [
+    "api_key"
+  ],
+  "self_service_access": "unknown",
+  "developer_access_tier": null,
+  "production_access_tier": null,
+  "access_requirements": "Requires subscription plan",
+  "api_types": [
+    "unknown"
+  ],
+  "api_breadth": "unknown",
+  "mcp_availability": "official",
+  "has_composio_integration": true,
+  "composio_toolkit_slug": "mrscraper",
+  "buildability_verdict": "conditionally_buildable",
+  "primary_blocker": "paywall_restricted",
+  "blocker_details": "API access requires a paid subscription; no free self‑service tier documented.",
+  "evidence_urls": [
+    "https://docs.mrscraper.com/docs/getting-started/overview"
+  ],
+  "evidence_excerpts": [
+    "Learn how tokens work and create an API token for authentication.",
+    "The MrScraper MCP server source code is available on GitHub for local setup, contributions, and issue reports.",
+    "Let AI agents fetch pages and search Google through the Model Context Protocol."
+  ],
+  "evidence_items": [
+    {
+      "url": "https://docs.mrscraper.com/docs/getting-started/overview",
+      "title": null,
+      "excerpt": "Learn how tokens work and create an API token for authentication.",
+      "retrieved_at": "2026-11-23T13:39:46.570607Z"
+    },
+    {
+      "url": "https://docs.mrscraper.com/docs/getting-started/overview",
+      "title": null,
+      "excerpt": "The MrScraper MCP server source code is available on GitHub for local setup, contributions, and issue reports.",
+      "retrieved_at": "2026-11-23T13:39:46.570618Z"
+    },
+    {
+      "url": "https://docs.mrscraper.com/docs/getting-started/overview",
+      "title": null,
+      "excerpt": "Let AI agents fetch pages and search Google through the Model Context Protocol.",
+      "retrieved_at": "2026-11-23T13:39:46.570621Z"
+    }
+  ],
+  "research_status": "completed",
+  "confidence_level": "medium",
+  "uncertainty_notes": "Documentation does not specify pricing tiers, free trial availability, or exact REST endpoint details.",
+  "llm_execution_source": "real_network",
+  "provenance": {
+    "execution_mode": "live",
+    "doc_execution_source": "real_network",
+    "llm_execution_source": "real_network",
+    "composio_execution_source": "real_network",
+    "documentation_live_fetched": true,
+    "documentation_urls_attempted": [
+      "https://docs.mrscraper.com",
+      "https://docs.mrscraper.com"
+    ],
+    "documentation_urls_succeeded": [
+      "https://docs.mrscraper.com/docs/getting-started/overview",
+      "https://docs.mrscraper.com/docs/getting-started/overview"
+    ],
+    "documentation_truncated": true,
+    "documentation_truncation_notes": "Original documentation length was 5476 chars. Truncated to 791 chars prioritizing authentication, endpoints, access tiers, and MCP.; Original documentation length was 5476 chars. Truncated to 791 chars prioritizing authentication, endpoints, access tiers, and MCP.",
+    "llm_inference_attempted": true,
+    "llm_inference_executed": true,
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_error": null,
+    "composio_adapter_configured": true,
+    "composio_discovery_attempted": true,
+    "composio_discovery_succeeded": true,
+    "composio_toolkit_found": true,
+    "composio_discovery_error": null,
+    "composio_mcp_session_attempted": true,
+    "composio_mcp_session_created": true,
+    "composio_mcp_endpoint_returned": true,
+    "composio_mcp_endpoint": "https://backend.composio.dev/tool_router/trs_KeJ0Pfvb10Ef/mcp",
+    "composio_mcp_session_error": null,
+    "live_verified": true,
+    "notes": "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+  },
+  "verification_status": "unverified",
+  "verification_notes": null,
+  "created_at": "2026-11-23T13:39:46.570648Z",
+  "updated_at": "2026-11-23T13:39:46.570649Z"
+}

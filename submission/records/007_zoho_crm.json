@@ -1,0 +1,127 @@
+{
+  "app_name": "Zoho CRM",
+  "category": "crm",
+  "description": "A cloud‑based CRM platform offering RESTful APIs for managing contacts, leads, deals and other sales data.",
+  "auth_methods": [
+    "unknown"
+  ],
+  "self_service_access": "free_trial_self_service",
+  "developer_access_tier": null,
+  "production_access_tier": "paid_subscription",
+  "access_requirements": "Free trial self‑serve",
+  "api_types": [
+    "rest"
+  ],
+  "api_breadth": "comprehensive",
+  "mcp_availability": "none",
+  "has_composio_integration": false,
+  "composio_toolkit_slug": "zoho_crm",
+  "buildability_verdict": "conditionally_buildable",
+  "primary_blocker": "documentation_incomplete",
+  "blocker_details": "Authentication details (OAuth2, API key, etc.) are not described in the provided documentation excerpts, preventing full implementation planning.",
+  "evidence_urls": [
+    "https://www.zoho.com/crm/developer/docs/api/v3/",
+    "https://www.zoho.com/en-in/crm/"
+  ],
+  "evidence_excerpts": [
+    "Perform CRUD operations on CRM module entities and integrate with any third party application through flexible RESTful endpoints.",
+    "Entity APIs",
+    "Metadata APIs",
+    "Composite API",
+    "Bulk APIs",
+    "Notification APIs",
+    "Query APIs",
+    "flexible free trial"
+  ],
+  "evidence_items": [
+    {
+      "url": "https://www.zoho.com/crm/developer/docs/api/v3/",
+      "title": null,
+      "excerpt": "Perform CRUD operations on CRM module entities and integrate with any third party application through flexible RESTful endpoints.",
+      "retrieved_at": "2026-11-23T13:27:18.685995Z"
+    },
+    {
+      "url": "https://www.zoho.com/crm/developer/docs/api/v3/",
+      "title": null,
+      "excerpt": "Entity APIs",
+      "retrieved_at": "2026-11-23T13:27:18.686002Z"
+    },
+    {
+      "url": "https://www.zoho.com/crm/developer/docs/api/v3/",
+      "title": null,
+      "excerpt": "Metadata APIs",
+      "retrieved_at": "2026-11-23T13:27:18.686004Z"
+    },
+    {
+      "url": "https://www.zoho.com/crm/developer/docs/api/v3/",
+      "title": null,
+      "excerpt": "Composite API",
+      "retrieved_at": "2026-11-23T13:27:18.686007Z"
+    },
+    {
+      "url": "https://www.zoho.com/crm/developer/docs/api/v3/",
+      "title": null,
+      "excerpt": "Bulk APIs",
+      "retrieved_at": "2026-11-23T13:27:18.686009Z"
+    },
+    {
+      "url": "https://www.zoho.com/crm/developer/docs/api/v3/",
+      "title": null,
+      "excerpt": "Notification APIs",
+      "retrieved_at": "2026-11-23T13:27:18.686011Z"
+    },
+    {
+      "url": "https://www.zoho.com/crm/developer/docs/api/v3/",
+      "title": null,
+      "excerpt": "Query APIs",
+      "retrieved_at": "2026-11-23T13:27:18.686014Z"
+    },
+    {
+      "url": "https://www.zoho.com/crm/developer/docs/api/v3/",
+      "title": null,
+      "excerpt": "flexible free trial",
+      "retrieved_at": "2026-11-23T13:27:18.686016Z"
+    }
+  ],
+  "research_status": "completed",
+  "confidence_level": "medium",
+  "uncertainty_notes": "Auth method not explicitly mentioned; assumed unknown pending further docs.",
+  "llm_execution_source": "real_network",
+  "provenance": {
+    "execution_mode": "live",
+    "doc_execution_source": "real_network",
+    "llm_execution_source": "real_network",
+    "composio_execution_source": "real_network",
+    "documentation_live_fetched": true,
+    "documentation_urls_attempted": [
+      "https://www.zoho.com/crm/developer/docs/api/v3/",
+      "https://www.zoho.com/crm"
+    ],
+    "documentation_urls_succeeded": [
+      "https://www.zoho.com/crm/developer/docs/api/v3/",
+      "https://www.zoho.com/en-in/crm/"
+    ],
+    "documentation_truncated": true,
+    "documentation_truncation_notes": "Original documentation length was 5754 chars. Truncated to 621 chars prioritizing authentication, endpoints, access tiers, and MCP.",
+    "llm_inference_attempted": true,
+    "llm_inference_executed": true,
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_error": null,
+    "composio_adapter_configured": true,
+    "composio_discovery_attempted": true,
+    "composio_discovery_succeeded": true,
+    "composio_toolkit_found": false,
+    "composio_discovery_error": null,
+    "composio_mcp_session_attempted": false,
+    "composio_mcp_session_created": false,
+    "composio_mcp_endpoint_returned": false,
+    "composio_mcp_endpoint": null,
+    "composio_mcp_session_error": null,
+    "live_verified": true,
+    "notes": "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+  },
+  "verification_status": "unverified",
+  "verification_notes": null,
+  "created_at": "2026-11-23T13:27:18.686047Z",
+  "updated_at": "2026-11-23T13:27:18.686048Z"
+}

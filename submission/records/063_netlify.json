@@ -1,0 +1,99 @@
+{
+  "app_name": "Netlify",
+  "category": "developer_tools",
+  "description": "Netlify provides a REST API to manage site deployments, forms, DNS, environment variables, and other hosting features.",
+  "auth_methods": [
+    "oauth2",
+    "bearer_token"
+  ],
+  "self_service_access": "free_self_service",
+  "developer_access_tier": "free_self_service",
+  "production_access_tier": null,
+  "access_requirements": "Free tier self‑serve (generate personal access token)",
+  "api_types": [
+    "rest"
+  ],
+  "api_breadth": "comprehensive",
+  "mcp_availability": "none",
+  "has_composio_integration": false,
+  "composio_toolkit_slug": null,
+  "buildability_verdict": "buildable",
+  "primary_blocker": "none",
+  "blocker_details": null,
+  "evidence_urls": [
+    "https://docs.netlify.com/api-and-cli-guides/api-guides/get-started-with-api/"
+  ],
+  "evidence_excerpts": [
+    "\"Netlify uses OAuth2 for authentication ... To authenticate API requests, include the token in the authorization header: Authorization: Bearer <YOUR_PERSONAL_ACCESS_TOKEN>\"",
+    "\"If you’re making a public integration with Netlify for others to enjoy, you must use OAuth2.\"",
+    "\"Use the Netlify REST API to manage atomic deploys of your sites and apps, manage form submissions, inject JavaScript snippets, manage DNS ... and so much more.\"",
+    "\"Go to Applications > Personal access tokens . Use your PAT for manual authentication in shell scripts or commands that use the Netlify API.\""
+  ],
+  "evidence_items": [
+    {
+      "url": "https://docs.netlify.com/api-and-cli-guides/api-guides/get-started-with-api/",
+      "title": null,
+      "excerpt": "\"Netlify uses OAuth2 for authentication ... To authenticate API requests, include the token in the authorization header: Authorization: Bearer <YOUR_PERSONAL_ACCESS_TOKEN>\"",
+      "retrieved_at": "2026-11-23T14:10:24.233394Z"
+    },
+    {
+      "url": "https://docs.netlify.com/api-and-cli-guides/api-guides/get-started-with-api/",
+      "title": null,
+      "excerpt": "\"If you’re making a public integration with Netlify for others to enjoy, you must use OAuth2.\"",
+      "retrieved_at": "2026-11-23T14:10:24.233408Z"
+    },
+    {
+      "url": "https://docs.netlify.com/api-and-cli-guides/api-guides/get-started-with-api/",
+      "title": null,
+      "excerpt": "\"Use the Netlify REST API to manage atomic deploys of your sites and apps, manage form submissions, inject JavaScript snippets, manage DNS ... and so much more.\"",
+      "retrieved_at": "2026-11-23T14:10:24.233412Z"
+    },
+    {
+      "url": "https://docs.netlify.com/api-and-cli-guides/api-guides/get-started-with-api/",
+      "title": null,
+      "excerpt": "\"Go to Applications > Personal access tokens . Use your PAT for manual authentication in shell scripts or commands that use the Netlify API.\"",
+      "retrieved_at": "2026-11-23T14:10:24.233414Z"
+    }
+  ],
+  "research_status": "completed",
+  "confidence_level": "high",
+  "uncertainty_notes": null,
+  "llm_execution_source": "real_network",
+  "provenance": {
+    "execution_mode": "live",
+    "doc_execution_source": "real_network",
+    "llm_execution_source": "real_network",
+    "composio_execution_source": "real_network",
+    "documentation_live_fetched": true,
+    "documentation_urls_attempted": [
+      "https://docs.netlify.com/api/get-started/",
+      "https://docs.netlify.com/api"
+    ],
+    "documentation_urls_succeeded": [
+      "https://docs.netlify.com/api-and-cli-guides/api-guides/get-started-with-api/",
+      "https://docs.netlify.com/api-and-cli-guides/api-guides/get-started-with-api/"
+    ],
+    "documentation_truncated": true,
+    "documentation_truncation_notes": "Original documentation length was 27528 chars. Truncated to 3793 chars prioritizing authentication, endpoints, access tiers, and MCP.; Original documentation length was 27528 chars. Truncated to 3793 chars prioritizing authentication, endpoints, access tiers, and MCP.",
+    "llm_inference_attempted": true,
+    "llm_inference_executed": true,
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_error": null,
+    "composio_adapter_configured": true,
+    "composio_discovery_attempted": true,
+    "composio_discovery_succeeded": true,
+    "composio_toolkit_found": false,
+    "composio_discovery_error": null,
+    "composio_mcp_session_attempted": false,
+    "composio_mcp_session_created": false,
+    "composio_mcp_endpoint_returned": false,
+    "composio_mcp_endpoint": null,
+    "composio_mcp_session_error": null,
+    "live_verified": true,
+    "notes": "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+  },
+  "verification_status": "unverified",
+  "verification_notes": null,
+  "created_at": "2026-11-23T14:10:24.233489Z",
+  "updated_at": "2026-11-23T14:10:24.233494Z"
+}

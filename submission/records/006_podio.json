@@ -1,0 +1,85 @@
+{
+  "app_name": "Podio",
+  "category": "crm",
+  "description": "Podio is a work management platform enabling customizable digital workspaces, CRM, project tracking, and automation.",
+  "auth_methods": [
+    "unknown"
+  ],
+  "self_service_access": "unknown",
+  "developer_access_tier": null,
+  "production_access_tier": null,
+  "access_requirements": "unknown",
+  "api_types": [
+    "unknown"
+  ],
+  "api_breadth": "unknown",
+  "mcp_availability": "none",
+  "has_composio_integration": true,
+  "composio_toolkit_slug": "podio",
+  "buildability_verdict": "unknown",
+  "primary_blocker": "documentation_incomplete",
+  "blocker_details": "No evidence of authentication method, API endpoints, or access tiers in provided documentation.",
+  "evidence_urls": [
+    "https://podio.com/login?provider=podio&return_to=https%3A%2F%2Fpodio.com%2Fdeveloper",
+    "https://podio.com"
+  ],
+  "evidence_excerpts": [
+    "\"flexible architecture, robust APIs\"",
+    "\"Podio supports businesses of all sizes streamline operations, improve visibility and make more informed decisions\""
+  ],
+  "evidence_items": [
+    {
+      "url": "https://podio.com/login?provider=podio&return_to=https%3A%2F%2Fpodio.com%2Fdeveloper",
+      "title": null,
+      "excerpt": "\"flexible architecture, robust APIs\"",
+      "retrieved_at": "2026-11-23T13:27:09.393456Z"
+    },
+    {
+      "url": "https://podio.com/login?provider=podio&return_to=https%3A%2F%2Fpodio.com%2Fdeveloper",
+      "title": null,
+      "excerpt": "\"Podio supports businesses of all sizes streamline operations, improve visibility and make more informed decisions\"",
+      "retrieved_at": "2026-11-23T13:27:09.393467Z"
+    }
+  ],
+  "research_status": "completed",
+  "confidence_level": "low",
+  "uncertainty_notes": "Documentation excerpts do not contain explicit details on auth mechanisms, API type, access tiers, or pricing, making assessment uncertain.",
+  "llm_execution_source": "real_network",
+  "provenance": {
+    "execution_mode": "live",
+    "doc_execution_source": "real_network",
+    "llm_execution_source": "real_network",
+    "composio_execution_source": "real_network",
+    "documentation_live_fetched": true,
+    "documentation_urls_attempted": [
+      "https://developer.podio.com",
+      "https://podio.com"
+    ],
+    "documentation_urls_succeeded": [
+      "https://podio.com/login?provider=podio&return_to=https%3A%2F%2Fpodio.com%2Fdeveloper",
+      "https://podio.com"
+    ],
+    "documentation_truncated": true,
+    "documentation_truncation_notes": "Original documentation length was 5910 chars. Truncated to 1279 chars prioritizing authentication, endpoints, access tiers, and MCP.",
+    "llm_inference_attempted": true,
+    "llm_inference_executed": true,
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_error": null,
+    "composio_adapter_configured": true,
+    "composio_discovery_attempted": true,
+    "composio_discovery_succeeded": true,
+    "composio_toolkit_found": true,
+    "composio_discovery_error": null,
+    "composio_mcp_session_attempted": true,
+    "composio_mcp_session_created": false,
+    "composio_mcp_endpoint_returned": false,
+    "composio_mcp_endpoint": null,
+    "composio_mcp_session_error": "400 The following toolkits require auth configs but none exist and cannot be auto-created: podio. Please specify them in auth_configs.",
+    "live_verified": true,
+    "notes": "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+  },
+  "verification_status": "unverified",
+  "verification_notes": null,
+  "created_at": "2026-11-23T13:27:09.393495Z",
+  "updated_at": "2026-11-23T13:27:09.393496Z"
+}

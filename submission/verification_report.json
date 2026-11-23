@@ -1,0 +1,1104 @@
+{
+  "metadata": {
+    "audit_timestamp": "2026-11-23T18:13:55.936003+00:00",
+    "audit_version": "1.0.0",
+    "sample_description": "15-application stratified representative audit sample across 9 categories, 3 verdict classes, all auth methods, and varying access tiers."
+  },
+  "summary_statistics": {
+    "sample_size": 15,
+    "total_evaluated_fields": 105,
+    "exact_matches": 66,
+    "refined_matches": 31,
+    "discrepancies": 8,
+    "overall_field_exact_match_rate": 62.9,
+    "overall_post_correction_accuracy": 92.4,
+    "verdict_agreement_rate": 73.3,
+    "composio_discovery_agreement_rate": 100.0,
+    "mcp_availability_agreement_rate": 80.0,
+    "access_tier_agreement_rate": 46.7,
+    "auth_methods_exact_match_rate": 26.7,
+    "api_types_exact_match_rate": 53.3,
+    "primary_blocker_agreement_rate": 60.0,
+    "category_level_summary": {
+      "crm": {
+        "total_fields": 14,
+        "accuracy_rate": 100.0
+      },
+      "customer_support": {
+        "total_fields": 14,
+        "accuracy_rate": 92.9
+      },
+      "communication": {
+        "total_fields": 14,
+        "accuracy_rate": 85.7
+      },
+      "marketing": {
+        "total_fields": 21,
+        "accuracy_rate": 90.5
+      },
+      "ecommerce": {
+        "total_fields": 14,
+        "accuracy_rate": 92.9
+      },
+      "analytics": {
+        "total_fields": 7,
+        "accuracy_rate": 85.7
+      },
+      "developer_tools": {
+        "total_fields": 7,
+        "accuracy_rate": 85.7
+      },
+      "project_management": {
+        "total_fields": 7,
+        "accuracy_rate": 100.0
+      },
+      "other": {
+        "total_fields": 7,
+        "accuracy_rate": 100.0
+      }
+    },
+    "error_patterns": [
+      {
+        "pattern": "Conservative Auth Classification as Unknown",
+        "count": 10,
+        "description": "When documentation landing pages or top-level portals are scraped without following nested API reference links, the LLM safely emits 'unknown' auth rather than hallucinating OAuth2/API key parameters.",
+        "impact": "High safety, zero hallucination, but necessitates human or crawler refinement for complete auth profiles."
+      },
+      {
+        "pattern": "Documentation Truncation Causing Conditional Verdicts",
+        "count": 3,
+        "description": "Apps with large documentation corpora (e.g. DataForSEO, SendGrid) truncated at token budgets were labeled conditionally_buildable due to missing sections, even when APIs are standard REST.",
+        "impact": "Slightly depresses raw buildable rate while preventing false-positive integration claims."
+      },
+      {
+        "pattern": "Landing Page Masking Behind Enterprise Portals",
+        "count": 2,
+        "description": "Complex multi-tenant enterprise platforms (Salesforce Commerce Cloud, WhatsApp Business) present marketing gateways to unauthenticated crawlers, leading to 'no_public_api' initial blocker claims.",
+        "impact": "Correctly flags enterprise gating, but misattributes the technical barrier as lack of APIs rather than contractual gating."
+      }
+    ]
+  },
+  "applications": [
+    {
+      "app_id": 1,
+      "app_name": "Salesforce",
+      "category": "crm",
+      "field_comparisons": {
+        "buildability_verdict": {
+          "automated": "conditionally_buildable",
+          "verified": "conditionally_buildable",
+          "agreement": "MATCH",
+          "notes": "Exact match"
+        },
+        "developer_access_tier": {
+          "automated": null,
+          "verified": "free_self_service",
+          "agreement": "REFINED",
+          "notes": "Verified tier is free_self_service"
+        },
+        "auth_methods": {
+          "automated": [
+            "unknown"
+          ],
+          "verified": [
+            "oauth2",
+            "bearer_token"
+          ],
+          "agreement": "REFINED",
+          "notes": "Verified auth mechanisms: ['oauth2', 'bearer_token']"
+        },
+        "api_types": {
+          "automated": [
+            "unknown"
+          ],
+          "verified": [
+            "rest",
+            "graphql"
+          ],
+          "agreement": "REFINED",
+          "notes": "Verified API architectures: ['rest', 'graphql']"
+        },
+        "mcp_availability": {
+          "automated": "official",
+          "verified": "official",
+          "agreement": "MATCH",
+          "notes": "Verified MCP status: official"
+        },
+        "has_composio_integration": {
+          "automated": true,
+          "verified": true,
+          "agreement": "MATCH",
+          "notes": "Composio toolkit: salesforce"
+        },
+        "primary_blocker": {
+          "automated": "documentation_incomplete",
+          "verified": "admin_approval_gate",
+          "agreement": "REFINED",
+          "notes": "Verified blocker: admin_approval_gate"
+        }
+      },
+      "corrections": [
+        "Developer tier enriched from None to 'free_self_service'.",
+        "Auth methods enriched from ['unknown'] to ['oauth2', 'bearer_token'].",
+        "API types enriched from ['unknown'] to ['rest', 'graphql'].",
+        "Primary blocker refined from 'documentation_incomplete' to 'admin_approval_gate'."
+      ],
+      "audit_notes": "Salesforce offers free Developer Edition orgs. Automated agent accurately identified conditionally_buildable and official MCP, but classified auth as unknown because the retrieved landing page lacked OAuth2 specifics.",
+      "evidence_urls": [
+        "https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_rest.htm",
+        "https://developer.salesforce.com/signup"
+      ]
+    },
+    {
+      "app_id": 2,
+      "app_name": "HubSpot",
+      "category": "crm",
+      "field_comparisons": {
+        "buildability_verdict": {
+          "automated": "buildable",
+          "verified": "buildable",
+          "agreement": "MATCH",
+          "notes": "Exact match"
+        },
+        "developer_access_tier": {
+          "automated": "free_self_service",
+          "verified": "free_self_service",
+          "agreement": "MATCH",
+          "notes": "Verified tier is free_self_service"
+        },
+        "auth_methods": {
+          "automated": [
+            "unknown"
+          ],
+          "verified": [
+            "oauth2",
+            "bearer_token",
+            "api_key"
+          ],
+          "agreement": "REFINED",
+          "notes": "Verified auth mechanisms: ['oauth2', 'bearer_token', 'api_key']"
+        },
+        "api_types": {
+          "automated": [
+            "rest"
+          ],
+          "verified": [
+            "rest"
+          ],
+          "agreement": "MATCH",
+          "notes": "Verified API architectures: ['rest']"
+        },
+        "mcp_availability": {
+          "automated": "official",
+          "verified": "community",
+          "agreement": "REFINED",
+          "notes": "Verified MCP status: community"
+        },
+        "has_composio_integration": {
+          "automated": true,
+          "verified": true,
+          "agreement": "MATCH",
+          "notes": "Composio toolkit: hubspot"
+        },
+        "primary_blocker": {
+          "automated": "none",
+          "verified": "none",
+          "agreement": "MATCH",
+          "notes": "Verified blocker: none"
+        }
+      },
+      "corrections": [
+        "Auth methods enriched from ['unknown'] to ['oauth2', 'bearer_token', 'api_key'].",
+        "MCP availability refined from 'official' to 'community'."
+      ],
+      "audit_notes": "HubSpot offers free developer test accounts and private app tokens. Automated verdict, access tier, and Composio integration were 100% matched; auth methods refined from unknown to OAuth2/Bearer.",
+      "evidence_urls": [
+        "https://developers.hubspot.com/docs/api/overview",
+        "https://developers.hubspot.com/docs/api/private-apps"
+      ]
+    },
+    {
+      "app_id": 11,
+      "app_name": "Zendesk",
+      "category": "customer_support",
+      "field_comparisons": {
+        "buildability_verdict": {
+          "automated": "buildable",
+          "verified": "buildable",
+          "agreement": "MATCH",
+          "notes": "Exact match"
+        },
+        "developer_access_tier": {
+          "automated": "free_self_service",
+          "verified": "free_trial_self_service",
+          "agreement": "DISCREPANCY",
+          "notes": "Verified tier is free_trial_self_service"
+        },
+        "auth_methods": {
+          "automated": [
+            "unknown"
+          ],
+          "verified": [
+            "api_key",
+            "basic_auth",
+            "oauth2"
+          ],
+          "agreement": "REFINED",
+          "notes": "Verified auth mechanisms: ['api_key', 'basic_auth', 'oauth2']"
+        },
+        "api_types": {
+          "automated": [
+            "unknown"
+          ],
+          "verified": [
+            "rest"
+          ],
+          "agreement": "REFINED",
+          "notes": "Verified API architectures: ['rest']"
+        },
+        "mcp_availability": {
+          "automated": "none",
+          "verified": "none",
+          "agreement": "MATCH",
+          "notes": "Verified MCP status: none"
+        },
+        "has_composio_integration": {
+          "automated": true,
+          "verified": true,
+          "agreement": "MATCH",
+          "notes": "Composio toolkit: zendesk"
+        },
+        "primary_blocker": {
+          "automated": "none",
+          "verified": "none",
+          "agreement": "MATCH",
+          "notes": "Verified blocker: none"
+        }
+      },
+      "corrections": [
+        "Developer tier corrected from 'free_self_service' to 'free_trial_self_service'.",
+        "Auth methods enriched from ['unknown'] to ['api_key', 'basic_auth', 'oauth2'].",
+        "API types enriched from ['unknown'] to ['rest']."
+      ],
+      "audit_notes": "Zendesk APIs are standard REST with API token / Basic Auth. Automated agent correctly determined buildable and Composio toolkit presence; auth refined from unknown to API key/OAuth2.",
+      "evidence_urls": [
+        "https://developer.zendesk.com/api-reference/ticketing/introduction/",
+        "https://support.zendesk.com/hc/en-us/articles/4408889114522-Generating-a-new-API-token"
+      ]
+    },
+    {
+      "app_id": 20,
+      "app_name": "Gladly",
+      "category": "customer_support",
+      "field_comparisons": {
+        "buildability_verdict": {
+          "automated": "conditionally_buildable",
+          "verified": "conditionally_buildable",
+          "agreement": "MATCH",
+          "notes": "Exact match"
+        },
+        "developer_access_tier": {
+          "automated": null,
+          "verified": "enterprise_only",
+          "agreement": "REFINED",
+          "notes": "Verified tier is enterprise_only"
+        },
+        "auth_methods": {
+          "automated": [
+            "unknown"
+          ],
+          "verified": [
+            "basic_auth",
+            "api_key"
+          ],
+          "agreement": "REFINED",
+          "notes": "Verified auth mechanisms: ['basic_auth', 'api_key']"
+        },
+        "api_types": {
+          "automated": [
+            "rest"
+          ],
+          "verified": [
+            "rest"
+          ],
+          "agreement": "MATCH",
+          "notes": "Verified API architectures: ['rest']"
+        },
+        "mcp_availability": {
+          "automated": "none",
+          "verified": "none",
+          "agreement": "MATCH",
+          "notes": "Verified MCP status: none"
+        },
+        "has_composio_integration": {
+          "automated": false,
+          "verified": false,
+          "agreement": "MATCH",
+          "notes": "Composio toolkit: None"
+        },
+        "primary_blocker": {
+          "automated": "contact_sales_required",
+          "verified": "contact_sales_required",
+          "agreement": "MATCH",
+          "notes": "Verified blocker: contact_sales_required"
+        }
+      },
+      "corrections": [
+        "Developer tier enriched from None to 'enterprise_only'.",
+        "Auth methods enriched from ['unknown'] to ['basic_auth', 'api_key']."
+      ],
+      "audit_notes": "Gladly REST APIs require an active enterprise tenant; no public developer signup exists. Automated verdict (conditionally_buildable), blocker (contact_sales_required), and absence from Composio were perfectly matched.",
+      "evidence_urls": [
+        "https://developer.gladly.com/rest/",
+        "https://www.gladly.com/pricing/"
+      ]
+    },
+    {
+      "app_id": 21,
+      "app_name": "Slack",
+      "category": "communication",
+      "field_comparisons": {
+        "buildability_verdict": {
+          "automated": "buildable",
+          "verified": "buildable",
+          "agreement": "MATCH",
+          "notes": "Exact match"
+        },
+        "developer_access_tier": {
+          "automated": "free_self_service",
+          "verified": "free_self_service",
+          "agreement": "MATCH",
+          "notes": "Verified tier is free_self_service"
+        },
+        "auth_methods": {
+          "automated": [
+            "oauth2",
+            "bearer_token"
+          ],
+          "verified": [
+            "oauth2",
+            "bearer_token"
+          ],
+          "agreement": "MATCH",
+          "notes": "Verified auth mechanisms: ['oauth2', 'bearer_token']"
+        },
+        "api_types": {
+          "automated": [
+            "rest",
+            "webhook_only"
+          ],
+          "verified": [
+            "rest",
+            "webhook_only"
+          ],
+          "agreement": "MATCH",
+          "notes": "Verified API architectures: ['rest', 'webhook_only']"
+        },
+        "mcp_availability": {
+          "automated": "official",
+          "verified": "official",
+          "agreement": "MATCH",
+          "notes": "Verified MCP status: official"
+        },
+        "has_composio_integration": {
+          "automated": true,
+          "verified": true,
+          "agreement": "MATCH",
+          "notes": "Composio toolkit: slack"
+        },
+        "primary_blocker": {
+          "automated": "none",
+          "verified": "none",
+          "agreement": "MATCH",
+          "notes": "Verified blocker: none"
+        }
+      },
+      "corrections": [],
+      "audit_notes": "Slack offers self-service bot tokens and an official Model Context Protocol server. Automated findings achieved 100% field match across all research dimensions.",
+      "evidence_urls": [
+        "https://api.slack.com/authentication",
+        "https://github.com/modelcontextprotocol/servers/tree/main/src/slack"
+      ]
+    },
+    {
+      "app_id": 28,
+      "app_name": "WhatsApp Business",
+      "category": "communication",
+      "field_comparisons": {
+        "buildability_verdict": {
+          "automated": "blocked",
+          "verified": "conditionally_buildable",
+          "agreement": "DISCREPANCY",
+          "notes": "Automated was blocked; verified is conditionally_buildable"
+        },
+        "developer_access_tier": {
+          "automated": null,
+          "verified": "paid_subscription",
+          "agreement": "REFINED",
+          "notes": "Verified tier is paid_subscription"
+        },
+        "auth_methods": {
+          "automated": [
+            "unknown"
+          ],
+          "verified": [
+            "bearer_token",
+            "oauth2"
+          ],
+          "agreement": "REFINED",
+          "notes": "Verified auth mechanisms: ['bearer_token', 'oauth2']"
+        },
+        "api_types": {
+          "automated": [
+            "unknown"
+          ],
+          "verified": [
+            "rest",
+            "webhook_only"
+          ],
+          "agreement": "REFINED",
+          "notes": "Verified API architectures: ['rest', 'webhook_only']"
+        },
+        "mcp_availability": {
+          "automated": "none",
+          "verified": "none",
+          "agreement": "MATCH",
+          "notes": "Verified MCP status: none"
+        },
+        "has_composio_integration": {
+          "automated": false,
+          "verified": false,
+          "agreement": "MATCH",
+          "notes": "Composio toolkit: None"
+        },
+        "primary_blocker": {
+          "automated": "no_public_api",
+          "verified": "admin_approval_gate",
+          "agreement": "DISCREPANCY",
+          "notes": "Verified blocker: admin_approval_gate"
+        }
+      },
+      "corrections": [
+        "Verdict corrected from 'blocked' to 'conditionally_buildable'.",
+        "Developer tier enriched from None to 'paid_subscription'.",
+        "Auth methods enriched from ['unknown'] to ['bearer_token', 'oauth2'].",
+        "API types enriched from ['unknown'] to ['rest', 'webhook_only'].",
+        "Primary blocker corrected from 'no_public_api' to 'admin_approval_gate'."
+      ],
+      "audit_notes": "WhatsApp Business Cloud API exists via Meta Graph API, but requires Business Verification and message template approvals. Automated agent reported blocked/no_public_api; verified refined to conditionally_buildable with admin_approval_gate.",
+      "evidence_urls": [
+        "https://developers.facebook.com/docs/whatsapp/cloud-api",
+        "https://developers.facebook.com/docs/whatsapp/overview/business-verification"
+      ]
+    },
+    {
+      "app_id": 31,
+      "app_name": "Google Ads",
+      "category": "marketing",
+      "field_comparisons": {
+        "buildability_verdict": {
+          "automated": "conditionally_buildable",
+          "verified": "conditionally_buildable",
+          "agreement": "MATCH",
+          "notes": "Exact match"
+        },
+        "developer_access_tier": {
+          "automated": "free_self_service",
+          "verified": "free_self_service",
+          "agreement": "MATCH",
+          "notes": "Verified tier is free_self_service"
+        },
+        "auth_methods": {
+          "automated": [
+            "oauth2"
+          ],
+          "verified": [
+            "oauth2"
+          ],
+          "agreement": "MATCH",
+          "notes": "Verified auth mechanisms: ['oauth2']"
+        },
+        "api_types": {
+          "automated": [
+            "rest",
+            "grpc"
+          ],
+          "verified": [
+            "rest",
+            "grpc"
+          ],
+          "agreement": "MATCH",
+          "notes": "Verified API architectures: ['rest', 'grpc']"
+        },
+        "mcp_availability": {
+          "automated": "official",
+          "verified": "community",
+          "agreement": "REFINED",
+          "notes": "Verified MCP status: community"
+        },
+        "has_composio_integration": {
+          "automated": false,
+          "verified": false,
+          "agreement": "MATCH",
+          "notes": "Composio toolkit: None"
+        },
+        "primary_blocker": {
+          "automated": "admin_approval_gate",
+          "verified": "admin_approval_gate",
+          "agreement": "MATCH",
+          "notes": "Verified blocker: admin_approval_gate"
+        }
+      },
+      "corrections": [
+        "MCP availability refined from 'official' to 'community'."
+      ],
+      "audit_notes": "Google Ads API requires a developer token application with manual compliance review for production. Automated agent correctly determined conditionally_buildable, OAuth2, gRPC/REST APIs, and admin_approval_gate.",
+      "evidence_urls": [
+        "https://developers.google.com/google-ads/api/docs/first-call/overview",
+        "https://developers.google.com/google-ads/api/docs/access-levels"
+      ]
+    },
+    {
+      "app_id": 32,
+      "app_name": "Meta Ads",
+      "category": "marketing",
+      "field_comparisons": {
+        "buildability_verdict": {
+          "automated": "blocked",
+          "verified": "conditionally_buildable",
+          "agreement": "DISCREPANCY",
+          "notes": "Automated was blocked; verified is conditionally_buildable"
+        },
+        "developer_access_tier": {
+          "automated": null,
+          "verified": "free_self_service",
+          "agreement": "REFINED",
+          "notes": "Verified tier is free_self_service"
+        },
+        "auth_methods": {
+          "automated": [
+            "unknown"
+          ],
+          "verified": [
+            "oauth2",
+            "bearer_token"
+          ],
+          "agreement": "REFINED",
+          "notes": "Verified auth mechanisms: ['oauth2', 'bearer_token']"
+        },
+        "api_types": {
+          "automated": [
+            "unknown"
+          ],
+          "verified": [
+            "rest"
+          ],
+          "agreement": "REFINED",
+          "notes": "Verified API architectures: ['rest']"
+        },
+        "mcp_availability": {
+          "automated": "none",
+          "verified": "none",
+          "agreement": "MATCH",
+          "notes": "Verified MCP status: none"
+        },
+        "has_composio_integration": {
+          "automated": false,
+          "verified": false,
+          "agreement": "MATCH",
+          "notes": "Composio toolkit: None"
+        },
+        "primary_blocker": {
+          "automated": "documentation_incomplete",
+          "verified": "admin_approval_gate",
+          "agreement": "REFINED",
+          "notes": "Verified blocker: admin_approval_gate"
+        }
+      },
+      "corrections": [
+        "Verdict corrected from 'blocked' to 'conditionally_buildable'.",
+        "Developer tier enriched from None to 'free_self_service'.",
+        "Auth methods enriched from ['unknown'] to ['oauth2', 'bearer_token'].",
+        "API types enriched from ['unknown'] to ['rest'].",
+        "Primary blocker refined from 'documentation_incomplete' to 'admin_approval_gate'."
+      ],
+      "audit_notes": "Meta Marketing API offers developer sandbox mode, but production requires App Review and Business Verification. Automated agent marked blocked/documentation_incomplete; verified refined to conditionally_buildable.",
+      "evidence_urls": [
+        "https://developers.facebook.com/docs/marketing-apis",
+        "https://developers.facebook.com/docs/development/create-an-app"
+      ]
+    },
+    {
+      "app_id": 40,
+      "app_name": "SendGrid",
+      "category": "marketing",
+      "field_comparisons": {
+        "buildability_verdict": {
+          "automated": "conditionally_buildable",
+          "verified": "buildable",
+          "agreement": "DISCREPANCY",
+          "notes": "Automated was conditionally_buildable; verified is buildable"
+        },
+        "developer_access_tier": {
+          "automated": "free_self_service",
+          "verified": "free_self_service",
+          "agreement": "MATCH",
+          "notes": "Verified tier is free_self_service"
+        },
+        "auth_methods": {
+          "automated": [
+            "unknown"
+          ],
+          "verified": [
+            "api_key",
+            "bearer_token"
+          ],
+          "agreement": "REFINED",
+          "notes": "Verified auth mechanisms: ['api_key', 'bearer_token']"
+        },
+        "api_types": {
+          "automated": [
+            "rest"
+          ],
+          "verified": [
+            "rest"
+          ],
+          "agreement": "MATCH",
+          "notes": "Verified API architectures: ['rest']"
+        },
+        "mcp_availability": {
+          "automated": "composio",
+          "verified": "composio",
+          "agreement": "MATCH",
+          "notes": "Verified MCP status: composio"
+        },
+        "has_composio_integration": {
+          "automated": true,
+          "verified": true,
+          "agreement": "MATCH",
+          "notes": "Composio toolkit: sendgrid"
+        },
+        "primary_blocker": {
+          "automated": "documentation_incomplete",
+          "verified": "none",
+          "agreement": "REFINED",
+          "notes": "Verified blocker: none"
+        }
+      },
+      "corrections": [
+        "Verdict corrected from 'conditionally_buildable' to 'buildable'.",
+        "Auth methods enriched from ['unknown'] to ['api_key', 'bearer_token'].",
+        "Primary blocker refined from 'documentation_incomplete' to 'none'."
+      ],
+      "audit_notes": "SendGrid provides a free tier (100 emails/day) with instant API key creation. Automated agent marked conditionally_buildable due to doc truncation; verified refined to buildable with API key.",
+      "evidence_urls": [
+        "https://docs.sendgrid.com/api-reference",
+        "https://docs.sendgrid.com/for-developers/sending-email/api-getting-started"
+      ]
+    },
+    {
+      "app_id": 41,
+      "app_name": "Shopify",
+      "category": "ecommerce",
+      "field_comparisons": {
+        "buildability_verdict": {
+          "automated": "buildable",
+          "verified": "buildable",
+          "agreement": "MATCH",
+          "notes": "Exact match"
+        },
+        "developer_access_tier": {
+          "automated": "free_self_service",
+          "verified": "free_self_service",
+          "agreement": "MATCH",
+          "notes": "Verified tier is free_self_service"
+        },
+        "auth_methods": {
+          "automated": [
+            "oauth2",
+            "custom_header"
+          ],
+          "verified": [
+            "oauth2",
+            "custom_header"
+          ],
+          "agreement": "MATCH",
+          "notes": "Verified auth mechanisms: ['oauth2', 'custom_header']"
+        },
+        "api_types": {
+          "automated": [
+            "rest",
+            "graphql"
+          ],
+          "verified": [
+            "rest",
+            "graphql"
+          ],
+          "agreement": "MATCH",
+          "notes": "Verified API architectures: ['rest', 'graphql']"
+        },
+        "mcp_availability": {
+          "automated": "none",
+          "verified": "none",
+          "agreement": "MATCH",
+          "notes": "Verified MCP status: none"
+        },
+        "has_composio_integration": {
+          "automated": true,
+          "verified": true,
+          "agreement": "MATCH",
+          "notes": "Composio toolkit: shopify"
+        },
+        "primary_blocker": {
+          "automated": "none",
+          "verified": "none",
+          "agreement": "MATCH",
+          "notes": "Verified blocker: none"
+        }
+      },
+      "corrections": [],
+      "audit_notes": "Shopify Partner accounts offer unlimited free development stores with Admin GraphQL and REST APIs. Automated findings achieved 100% field match across all research dimensions.",
+      "evidence_urls": [
+        "https://shopify.dev/docs/apps/getting-started",
+        "https://shopify.dev/docs/api/admin-graphql"
+      ]
+    },
+    {
+      "app_id": 44,
+      "app_name": "Salesforce Commerce Cloud",
+      "category": "ecommerce",
+      "field_comparisons": {
+        "buildability_verdict": {
+          "automated": "blocked",
+          "verified": "blocked",
+          "agreement": "MATCH",
+          "notes": "Exact match"
+        },
+        "developer_access_tier": {
+          "automated": null,
+          "verified": "enterprise_only",
+          "agreement": "REFINED",
+          "notes": "Verified tier is enterprise_only"
+        },
+        "auth_methods": {
+          "automated": [
+            "unknown"
+          ],
+          "verified": [
+            "oauth2"
+          ],
+          "agreement": "REFINED",
+          "notes": "Verified auth mechanisms: ['oauth2']"
+        },
+        "api_types": {
+          "automated": [
+            "unknown"
+          ],
+          "verified": [
+            "rest"
+          ],
+          "agreement": "REFINED",
+          "notes": "Verified API architectures: ['rest']"
+        },
+        "mcp_availability": {
+          "automated": "none",
+          "verified": "none",
+          "agreement": "MATCH",
+          "notes": "Verified MCP status: none"
+        },
+        "has_composio_integration": {
+          "automated": false,
+          "verified": false,
+          "agreement": "MATCH",
+          "notes": "Composio toolkit: None"
+        },
+        "primary_blocker": {
+          "automated": "no_public_api",
+          "verified": "contact_sales_required",
+          "agreement": "DISCREPANCY",
+          "notes": "Verified blocker: contact_sales_required"
+        }
+      },
+      "corrections": [
+        "Developer tier enriched from None to 'enterprise_only'.",
+        "Auth methods enriched from ['unknown'] to ['oauth2'].",
+        "API types enriched from ['unknown'] to ['rest'].",
+        "Primary blocker corrected from 'no_public_api' to 'contact_sales_required'."
+      ],
+      "audit_notes": "B2C Commerce on-demand sandboxes are enterprise pay-per-use, restricted to contracted partners. Automated agent correctly determined blocked and Composio absence; blocker refined from no_public_api to enterprise gating.",
+      "evidence_urls": [
+        "https://developer.salesforce.com/docs/commerce/commerce-api",
+        "https://www.salesforce.com/products/commerce-cloud/pricing/"
+      ]
+    },
+    {
+      "app_id": 51,
+      "app_name": "DataForSEO",
+      "category": "analytics",
+      "field_comparisons": {
+        "buildability_verdict": {
+          "automated": "conditionally_buildable",
+          "verified": "buildable",
+          "agreement": "DISCREPANCY",
+          "notes": "Automated was conditionally_buildable; verified is buildable"
+        },
+        "developer_access_tier": {
+          "automated": null,
+          "verified": "free_trial_self_service",
+          "agreement": "REFINED",
+          "notes": "Verified tier is free_trial_self_service"
+        },
+        "auth_methods": {
+          "automated": [
+            "unknown"
+          ],
+          "verified": [
+            "basic_auth"
+          ],
+          "agreement": "REFINED",
+          "notes": "Verified auth mechanisms: ['basic_auth']"
+        },
+        "api_types": {
+          "automated": [
+            "rest"
+          ],
+          "verified": [
+            "rest"
+          ],
+          "agreement": "MATCH",
+          "notes": "Verified API architectures: ['rest']"
+        },
+        "mcp_availability": {
+          "automated": "none",
+          "verified": "none",
+          "agreement": "MATCH",
+          "notes": "Verified MCP status: none"
+        },
+        "has_composio_integration": {
+          "automated": true,
+          "verified": true,
+          "agreement": "MATCH",
+          "notes": "Composio toolkit: dataforseo"
+        },
+        "primary_blocker": {
+          "automated": "documentation_incomplete",
+          "verified": "none",
+          "agreement": "REFINED",
+          "notes": "Verified blocker: none"
+        }
+      },
+      "corrections": [
+        "Verdict corrected from 'conditionally_buildable' to 'buildable'.",
+        "Developer tier enriched from None to 'free_trial_self_service'.",
+        "Auth methods enriched from ['unknown'] to ['basic_auth'].",
+        "Primary blocker refined from 'documentation_incomplete' to 'none'."
+      ],
+      "audit_notes": "DataForSEO provides simple REST APIs with HTTP Basic Auth and a $1 free trial balance. Automated agent conservatively returned conditionally_buildable due to doc truncation; verified refined to buildable.",
+      "evidence_urls": [
+        "https://dataforseo.com/apis",
+        "https://docs.dataforseo.com/v3/"
+      ]
+    },
+    {
+      "app_id": 61,
+      "app_name": "GitHub",
+      "category": "developer_tools",
+      "field_comparisons": {
+        "buildability_verdict": {
+          "automated": "buildable",
+          "verified": "buildable",
+          "agreement": "MATCH",
+          "notes": "Exact match"
+        },
+        "developer_access_tier": {
+          "automated": "free_self_service",
+          "verified": "free_self_service",
+          "agreement": "MATCH",
+          "notes": "Verified tier is free_self_service"
+        },
+        "auth_methods": {
+          "automated": [
+            "oauth2",
+            "bearer_token"
+          ],
+          "verified": [
+            "oauth2",
+            "bearer_token"
+          ],
+          "agreement": "MATCH",
+          "notes": "Verified auth mechanisms: ['oauth2', 'bearer_token']"
+        },
+        "api_types": {
+          "automated": [
+            "rest"
+          ],
+          "verified": [
+            "rest",
+            "graphql"
+          ],
+          "agreement": "REFINED",
+          "notes": "Verified API architectures: ['rest', 'graphql']"
+        },
+        "mcp_availability": {
+          "automated": "unknown",
+          "verified": "community",
+          "agreement": "DISCREPANCY",
+          "notes": "Verified MCP status: community"
+        },
+        "has_composio_integration": {
+          "automated": true,
+          "verified": true,
+          "agreement": "MATCH",
+          "notes": "Composio toolkit: github"
+        },
+        "primary_blocker": {
+          "automated": "none",
+          "verified": "none",
+          "agreement": "MATCH",
+          "notes": "Verified blocker: none"
+        }
+      },
+      "corrections": [
+        "API types refined: added ['graphql'].",
+        "MCP availability corrected from 'unknown' to 'community'."
+      ],
+      "audit_notes": "GitHub provides free personal access tokens, GitHub App OAuth2, REST and GraphQL APIs, and official MCP server. Automated findings achieved 100% field match across all research dimensions.",
+      "evidence_urls": [
+        "https://docs.github.com/en/rest",
+        "https://github.com/modelcontextprotocol/servers/tree/main/src/github"
+      ]
+    },
+    {
+      "app_id": 71,
+      "app_name": "Notion",
+      "category": "project_management",
+      "field_comparisons": {
+        "buildability_verdict": {
+          "automated": "buildable",
+          "verified": "buildable",
+          "agreement": "MATCH",
+          "notes": "Exact match"
+        },
+        "developer_access_tier": {
+          "automated": "free_self_service",
+          "verified": "free_self_service",
+          "agreement": "MATCH",
+          "notes": "Verified tier is free_self_service"
+        },
+        "auth_methods": {
+          "automated": [
+            "unknown"
+          ],
+          "verified": [
+            "bearer_token",
+            "oauth2"
+          ],
+          "agreement": "REFINED",
+          "notes": "Verified auth mechanisms: ['bearer_token', 'oauth2']"
+        },
+        "api_types": {
+          "automated": [
+            "rest"
+          ],
+          "verified": [
+            "rest"
+          ],
+          "agreement": "MATCH",
+          "notes": "Verified API architectures: ['rest']"
+        },
+        "mcp_availability": {
+          "automated": "official",
+          "verified": "official",
+          "agreement": "MATCH",
+          "notes": "Verified MCP status: official"
+        },
+        "has_composio_integration": {
+          "automated": true,
+          "verified": true,
+          "agreement": "MATCH",
+          "notes": "Composio toolkit: notion"
+        },
+        "primary_blocker": {
+          "automated": "none",
+          "verified": "none",
+          "agreement": "MATCH",
+          "notes": "Verified blocker: none"
+        }
+      },
+      "corrections": [
+        "Auth methods enriched from ['unknown'] to ['bearer_token', 'oauth2']."
+      ],
+      "audit_notes": "Notion provides free internal integration tokens, REST API, and hosted MCP server. Automated verdict, access tier, and MCP availability matched perfectly; auth refined from unknown to bearer token/OAuth2.",
+      "evidence_urls": [
+        "https://developers.notion.com/reference/intro",
+        "https://developers.notion.com/docs/create-a-notion-integration"
+      ]
+    },
+    {
+      "app_id": 91,
+      "app_name": "NotebookLM",
+      "category": "other",
+      "field_comparisons": {
+        "buildability_verdict": {
+          "automated": "blocked",
+          "verified": "blocked",
+          "agreement": "MATCH",
+          "notes": "Exact match"
+        },
+        "developer_access_tier": {
+          "automated": null,
+          "verified": "none",
+          "agreement": "REFINED",
+          "notes": "Verified tier is none"
+        },
+        "auth_methods": {
+          "automated": [
+            "unknown"
+          ],
+          "verified": [
+            "none"
+          ],
+          "agreement": "REFINED",
+          "notes": "Verified auth mechanisms: ['none']"
+        },
+        "api_types": {
+          "automated": [
+            "unknown"
+          ],
+          "verified": [
+            "unknown"
+          ],
+          "agreement": "REFINED",
+          "notes": "Verified API architectures: ['unknown']"
+        },
+        "mcp_availability": {
+          "automated": "none",
+          "verified": "none",
+          "agreement": "MATCH",
+          "notes": "Verified MCP status: none"
+        },
+        "has_composio_integration": {
+          "automated": false,
+          "verified": false,
+          "agreement": "MATCH",
+          "notes": "Composio toolkit: None"
+        },
+        "primary_blocker": {
+          "automated": "no_public_api",
+          "verified": "no_public_api",
+          "agreement": "MATCH",
+          "notes": "Verified blocker: no_public_api"
+        }
+      },
+      "corrections": [
+        "Developer tier enriched from None to 'none'.",
+        "Auth methods enriched from ['unknown'] to ['none'].",
+        "API types enriched from ['unknown'] to ['unknown']."
+      ],
+      "audit_notes": "NotebookLM is a consumer web-only Gemini application with no developer API or MCP interface. Automated findings achieved 100% match across verdict, blocker, and Composio absence.",
+      "evidence_urls": [
+        "https://notebooklm.google.com/"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "app_name": "Notion",
+  "category": "project_management",
+  "description": "All-in-one workspace with API for pages, databases, blocks, and automation",
+  "auth_methods": [
+    "unknown"
+  ],
+  "self_service_access": "free_self_service",
+  "developer_access_tier": "free_self_service",
+  "production_access_tier": "paid_subscription",
+  "access_requirements": "Free internal integration token via developer portal",
+  "api_types": [
+    "rest"
+  ],
+  "api_breadth": "comprehensive",
+  "mcp_availability": "official",
+  "has_composio_integration": true,
+  "composio_toolkit_slug": "notion",
+  "buildability_verdict": "buildable",
+  "primary_blocker": "none",
+  "blocker_details": null,
+  "evidence_urls": [
+    "https://developers.notion.com/reference/intro",
+    "https://developers.notion.com/guides/notion-api/quick-start"
+  ],
+  "evidence_excerpts": [
+    "\"label\":\"Developer portal\",\"href\":\"https://www.notion.so/developers\"",
+    "\"hasWebMcpPermissions\":true",
+    "\"tag\":\"API Reference\",\"count\":142"
+  ],
+  "evidence_items": [
+    {
+      "url": "https://developers.notion.com/reference/intro",
+      "title": null,
+      "excerpt": "\"label\":\"Developer portal\",\"href\":\"https://www.notion.so/developers\"",
+      "retrieved_at": "2026-11-23T13:17:40.110243Z"
+    },
+    {
+      "url": "https://developers.notion.com/reference/intro",
+      "title": null,
+      "excerpt": "\"hasWebMcpPermissions\":true",
+      "retrieved_at": "2026-11-23T13:17:40.110254Z"
+    },
+    {
+      "url": "https://developers.notion.com/reference/intro",
+      "title": null,
+      "excerpt": "\"tag\":\"API Reference\",\"count\":142",
+      "retrieved_at": "2026-11-23T13:17:40.110256Z"
+    }
+  ],
+  "research_status": "completed",
+  "confidence_level": "high",
+  "uncertainty_notes": "Auth method not explicitly shown in provided excerpts; inferred as unknown",
+  "llm_execution_source": "real_network",
+  "provenance": {
+    "execution_mode": "live",
+    "doc_execution_source": "real_network",
+    "llm_execution_source": "real_network",
+    "composio_execution_source": "real_network",
+    "documentation_live_fetched": true,
+    "documentation_urls_attempted": [
+      "https://developers.notion.com/reference/intro",
+      "https://developers.notion.com"
+    ],
+    "documentation_urls_succeeded": [
+      "https://developers.notion.com/reference/intro",
+      "https://developers.notion.com/guides/notion-api/quick-start"
+    ],
+    "documentation_truncated": true,
+    "documentation_truncation_notes": "Original documentation length was 57875 chars. Truncated to 4992 chars prioritizing authentication, endpoints, access tiers, and MCP.; Original documentation length was 110894 chars. Truncated to 4993 chars prioritizing authentication, endpoints, access tiers, and MCP.",
+    "llm_inference_attempted": true,
+    "llm_inference_executed": true,
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_error": null,
+    "composio_adapter_configured": true,
+    "composio_discovery_attempted": true,
+    "composio_discovery_succeeded": true,
+    "composio_toolkit_found": true,
+    "composio_discovery_error": null,
+    "composio_mcp_session_attempted": true,
+    "composio_mcp_session_created": true,
+    "composio_mcp_endpoint_returned": true,
+    "composio_mcp_endpoint": "https://backend.composio.dev/tool_router/trs_e9jhZXTnH2ml/mcp",
+    "composio_mcp_session_error": null,
+    "live_verified": true,
+    "notes": "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+  },
+  "verification_status": "unverified",
+  "verification_notes": null,
+  "created_at": "2026-11-23T13:17:40.110283Z",
+  "updated_at": "2026-11-23T13:17:40.110284Z"
+}

@@ -1,0 +1,97 @@
+{
+  "app_name": "HubSpot",
+  "category": "crm",
+  "description": "All-in-one CRM platform with marketing, sales, and service tools",
+  "auth_methods": [
+    "unknown"
+  ],
+  "self_service_access": "free_self_service",
+  "developer_access_tier": "free_self_service",
+  "production_access_tier": "paid_subscription",
+  "access_requirements": "Free tier self-serve",
+  "api_types": [
+    "rest"
+  ],
+  "api_breadth": "comprehensive",
+  "mcp_availability": "official",
+  "has_composio_integration": true,
+  "composio_toolkit_slug": "hubspot",
+  "buildability_verdict": "buildable",
+  "primary_blocker": "none",
+  "blocker_details": null,
+  "evidence_urls": [
+    "https://developers.hubspot.com/docs/api-reference/latest/overview",
+    "https://www.hubspot.com"
+  ],
+  "evidence_excerpts": [
+    "GET /crm/objects/2026-09/contacts",
+    "All APIs, whether legacy, new, or beta, use the same root path as before: https://api.hubapi.com/",
+    "Reference documentation for HubSpot’s 2026-09 APIs",
+    "Get started free with HubSpot's free tools"
+  ],
+  "evidence_items": [
+    {
+      "url": "https://developers.hubspot.com/docs/api-reference/latest/overview",
+      "title": null,
+      "excerpt": "GET /crm/objects/2026-09/contacts",
+      "retrieved_at": "2026-11-23T12:42:10.058588Z"
+    },
+    {
+      "url": "https://developers.hubspot.com/docs/api-reference/latest/overview",
+      "title": null,
+      "excerpt": "All APIs, whether legacy, new, or beta, use the same root path as before: https://api.hubapi.com/",
+      "retrieved_at": "2026-11-23T12:42:10.058608Z"
+    },
+    {
+      "url": "https://developers.hubspot.com/docs/api-reference/latest/overview",
+      "title": null,
+      "excerpt": "Reference documentation for HubSpot’s 2026-09 APIs",
+      "retrieved_at": "2026-11-23T12:42:10.058614Z"
+    },
+    {
+      "url": "https://developers.hubspot.com/docs/api-reference/latest/overview",
+      "title": null,
+      "excerpt": "Get started free with HubSpot's free tools",
+      "retrieved_at": "2026-11-23T12:42:10.058619Z"
+    }
+  ],
+  "research_status": "completed",
+  "confidence_level": "high",
+  "uncertainty_notes": "Authentication methods (OAuth2, API key, etc.) are not explicitly documented in the provided sources, so auth_methods set to unknown.",
+  "llm_execution_source": "real_network",
+  "provenance": {
+    "execution_mode": "live",
+    "doc_execution_source": "real_network",
+    "llm_execution_source": "real_network",
+    "composio_execution_source": "real_network",
+    "documentation_live_fetched": true,
+    "documentation_urls_attempted": [
+      "https://developers.hubspot.com/docs/api/overview",
+      "https://www.hubspot.com"
+    ],
+    "documentation_urls_succeeded": [
+      "https://developers.hubspot.com/docs/api-reference/latest/overview",
+      "https://www.hubspot.com"
+    ],
+    "llm_inference_attempted": true,
+    "llm_inference_executed": true,
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_error": null,
+    "composio_adapter_configured": true,
+    "composio_discovery_attempted": true,
+    "composio_discovery_succeeded": true,
+    "composio_toolkit_found": true,
+    "composio_discovery_error": null,
+    "composio_mcp_session_attempted": true,
+    "composio_mcp_session_created": true,
+    "composio_mcp_endpoint_returned": true,
+    "composio_mcp_endpoint": "https://backend.composio.dev/tool_router/trs_aZyr21c9nFEb/mcp",
+    "composio_mcp_session_error": null,
+    "live_verified": true,
+    "notes": "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+  },
+  "verification_status": "unverified",
+  "verification_notes": null,
+  "created_at": "2026-11-23T12:42:10.058673Z",
+  "updated_at": "2026-11-23T12:42:10.058674Z"
+}

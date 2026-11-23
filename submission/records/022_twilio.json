@@ -1,0 +1,85 @@
+{
+  "app_name": "Twilio",
+  "category": "communication",
+  "description": "Twilio provides cloud APIs for messaging, voice, video, and other communications.",
+  "auth_methods": [
+    "basic_auth"
+  ],
+  "self_service_access": "free_trial_self_service",
+  "developer_access_tier": "free_trial_self_service",
+  "production_access_tier": "paid_subscription",
+  "access_requirements": "Free trial account self‑serve; production requires paid usage",
+  "api_types": [
+    "rest"
+  ],
+  "api_breadth": "comprehensive",
+  "mcp_availability": "official",
+  "has_composio_integration": true,
+  "composio_toolkit_slug": "twilio",
+  "buildability_verdict": "buildable",
+  "primary_blocker": "none",
+  "blocker_details": null,
+  "evidence_urls": [
+    "https://www.twilio.com/docs/usage/api",
+    "https://www.twilio.com/en-us"
+  ],
+  "evidence_excerpts": [
+    "The Twilio APIs are organized around REST .",
+    "Free trial"
+  ],
+  "evidence_items": [
+    {
+      "url": "https://www.twilio.com/docs/usage/api",
+      "title": null,
+      "excerpt": "The Twilio APIs are organized around REST .",
+      "retrieved_at": "2026-11-23T13:31:13.850716Z"
+    },
+    {
+      "url": "https://www.twilio.com/docs/usage/api",
+      "title": null,
+      "excerpt": "Free trial",
+      "retrieved_at": "2026-11-23T13:31:13.850728Z"
+    }
+  ],
+  "research_status": "completed",
+  "confidence_level": "high",
+  "uncertainty_notes": "Auth method inferred from Twilio’s standard Basic Auth (Account SID + Auth Token); explicit auth details not quoted in provided excerpts.",
+  "llm_execution_source": "real_network",
+  "provenance": {
+    "execution_mode": "live",
+    "doc_execution_source": "real_network",
+    "llm_execution_source": "real_network",
+    "composio_execution_source": "real_network",
+    "documentation_live_fetched": true,
+    "documentation_urls_attempted": [
+      "https://www.twilio.com/docs/usage/api",
+      "https://www.twilio.com"
+    ],
+    "documentation_urls_succeeded": [
+      "https://www.twilio.com/docs/usage/api",
+      "https://www.twilio.com/en-us"
+    ],
+    "documentation_truncated": true,
+    "documentation_truncation_notes": "Original documentation length was 11144 chars. Truncated to 515 chars prioritizing authentication, endpoints, access tiers, and MCP.",
+    "llm_inference_attempted": true,
+    "llm_inference_executed": true,
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_error": null,
+    "composio_adapter_configured": true,
+    "composio_discovery_attempted": true,
+    "composio_discovery_succeeded": true,
+    "composio_toolkit_found": true,
+    "composio_discovery_error": null,
+    "composio_mcp_session_attempted": true,
+    "composio_mcp_session_created": true,
+    "composio_mcp_endpoint_returned": true,
+    "composio_mcp_endpoint": "https://backend.composio.dev/tool_router/trs_7mdIlQXLhqv6/mcp",
+    "composio_mcp_session_error": null,
+    "live_verified": true,
+    "notes": "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+  },
+  "verification_status": "unverified",
+  "verification_notes": null,
+  "created_at": "2026-11-23T13:31:13.850760Z",
+  "updated_at": "2026-11-23T13:31:13.850761Z"
+}

@@ -1,0 +1,100 @@
+{
+  "app_name": "Ahrefs",
+  "category": "developer_tools",
+  "description": "Provides SEO and marketing data via REST API and MCP for AI agents",
+  "auth_methods": [
+    "api_key",
+    "oauth2"
+  ],
+  "self_service_access": "free_self_service",
+  "developer_access_tier": "free_self_service",
+  "production_access_tier": "paid_subscription",
+  "access_requirements": "Free test queries available; full production access requires paid plan",
+  "api_types": [
+    "rest"
+  ],
+  "api_breadth": "comprehensive",
+  "mcp_availability": "official",
+  "has_composio_integration": true,
+  "composio_toolkit_slug": "ahrefs",
+  "buildability_verdict": "buildable",
+  "primary_blocker": "none",
+  "blocker_details": null,
+  "evidence_urls": [
+    "https://docs.ahrefs.com",
+    "https://docs.ahrefs.com"
+  ],
+  "evidence_excerpts": [
+    "\"Free test queries\\nTry API endpoints without an Enterprise plan\"",
+    "\"API keys\\nCreate and manage your API keys\"",
+    "\"OAuth guide\\nImplement OAuth 2.0 authorization\"",
+    "\"MCP\\nConnect your Ahrefs data to AI assistants and agents to enhance their answers with real marketing insights.\""
+  ],
+  "evidence_items": [
+    {
+      "url": "https://docs.ahrefs.com",
+      "title": null,
+      "excerpt": "\"Free test queries\\nTry API endpoints without an Enterprise plan\"",
+      "retrieved_at": "2026-11-23T13:39:27.687957Z"
+    },
+    {
+      "url": "https://docs.ahrefs.com",
+      "title": null,
+      "excerpt": "\"API keys\\nCreate and manage your API keys\"",
+      "retrieved_at": "2026-11-23T13:39:27.687965Z"
+    },
+    {
+      "url": "https://docs.ahrefs.com",
+      "title": null,
+      "excerpt": "\"OAuth guide\\nImplement OAuth 2.0 authorization\"",
+      "retrieved_at": "2026-11-23T13:39:27.687968Z"
+    },
+    {
+      "url": "https://docs.ahrefs.com",
+      "title": null,
+      "excerpt": "\"MCP\\nConnect your Ahrefs data to AI assistants and agents to enhance their answers with real marketing insights.\"",
+      "retrieved_at": "2026-11-23T13:39:27.687971Z"
+    }
+  ],
+  "research_status": "completed",
+  "confidence_level": "high",
+  "uncertainty_notes": null,
+  "llm_execution_source": "real_network",
+  "provenance": {
+    "execution_mode": "live",
+    "doc_execution_source": "real_network",
+    "llm_execution_source": "real_network",
+    "composio_execution_source": "real_network",
+    "documentation_live_fetched": true,
+    "documentation_urls_attempted": [
+      "https://ahrefs.com/api/documentation",
+      "https://ahrefs.com/api"
+    ],
+    "documentation_urls_succeeded": [
+      "https://docs.ahrefs.com",
+      "https://docs.ahrefs.com"
+    ],
+    "documentation_truncated": false,
+    "documentation_truncation_notes": null,
+    "llm_inference_attempted": true,
+    "llm_inference_executed": true,
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_error": null,
+    "composio_adapter_configured": true,
+    "composio_discovery_attempted": true,
+    "composio_discovery_succeeded": true,
+    "composio_toolkit_found": true,
+    "composio_discovery_error": null,
+    "composio_mcp_session_attempted": true,
+    "composio_mcp_session_created": true,
+    "composio_mcp_endpoint_returned": true,
+    "composio_mcp_endpoint": "https://backend.composio.dev/tool_router/trs_lVoH2VvR-ihv/mcp",
+    "composio_mcp_session_error": null,
+    "live_verified": true,
+    "notes": "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+  },
+  "verification_status": "unverified",
+  "verification_notes": null,
+  "created_at": "2026-11-23T13:39:27.688003Z",
+  "updated_at": "2026-11-23T13:39:27.688004Z"
+}

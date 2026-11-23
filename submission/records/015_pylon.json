@@ -1,0 +1,85 @@
+{
+  "app_name": "Pylon",
+  "category": "customer_support",
+  "description": "Agentic B2B support platform that combines AI agents with human workflows to manage customer issues across channels.",
+  "auth_methods": [
+    "unknown"
+  ],
+  "self_service_access": "contact_sales",
+  "developer_access_tier": null,
+  "production_access_tier": null,
+  "access_requirements": "Contact sales for access",
+  "api_types": [
+    "unknown"
+  ],
+  "api_breadth": "unknown",
+  "mcp_availability": "none",
+  "has_composio_integration": false,
+  "composio_toolkit_slug": null,
+  "buildability_verdict": "blocked",
+  "primary_blocker": "no_public_api",
+  "blocker_details": "Documentation only mentions a Broadcasts API but provides no authentication, endpoint, or access details; sign‑up requires contacting sales.",
+  "evidence_urls": [
+    "https://docs.usepylon.com/pylon-docs",
+    "https://www.usepylon.com/"
+  ],
+  "evidence_excerpts": [
+    "\"Broadcasts API\" (Source 1)",
+    "\"Register now\" and \"Book a demo\" indicate access requires contacting sales (Source 2)"
+  ],
+  "evidence_items": [
+    {
+      "url": "https://docs.usepylon.com/pylon-docs",
+      "title": null,
+      "excerpt": "\"Broadcasts API\" (Source 1)",
+      "retrieved_at": "2026-11-23T13:29:27.002354Z"
+    },
+    {
+      "url": "https://docs.usepylon.com/pylon-docs",
+      "title": null,
+      "excerpt": "\"Register now\" and \"Book a demo\" indicate access requires contacting sales (Source 2)",
+      "retrieved_at": "2026-11-23T13:29:27.002362Z"
+    }
+  ],
+  "research_status": "completed",
+  "confidence_level": "medium",
+  "uncertainty_notes": "No detailed public API documentation, authentication methods, or self‑service pricing information found.",
+  "llm_execution_source": "real_network",
+  "provenance": {
+    "execution_mode": "live",
+    "doc_execution_source": "real_network",
+    "llm_execution_source": "real_network",
+    "composio_execution_source": "real_network",
+    "documentation_live_fetched": true,
+    "documentation_urls_attempted": [
+      "https://docs.usepylon.com",
+      "https://usepylon.com"
+    ],
+    "documentation_urls_succeeded": [
+      "https://docs.usepylon.com/pylon-docs",
+      "https://www.usepylon.com/"
+    ],
+    "documentation_truncated": false,
+    "documentation_truncation_notes": null,
+    "llm_inference_attempted": true,
+    "llm_inference_executed": true,
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_error": null,
+    "composio_adapter_configured": true,
+    "composio_discovery_attempted": true,
+    "composio_discovery_succeeded": true,
+    "composio_toolkit_found": false,
+    "composio_discovery_error": null,
+    "composio_mcp_session_attempted": false,
+    "composio_mcp_session_created": false,
+    "composio_mcp_endpoint_returned": false,
+    "composio_mcp_endpoint": null,
+    "composio_mcp_session_error": null,
+    "live_verified": true,
+    "notes": "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+  },
+  "verification_status": "unverified",
+  "verification_notes": null,
+  "created_at": "2026-11-23T13:29:27.002393Z",
+  "updated_at": "2026-11-23T13:29:27.002394Z"
+}

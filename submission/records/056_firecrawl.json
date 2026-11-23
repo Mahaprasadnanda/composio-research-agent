@@ -1,0 +1,106 @@
+{
+  "app_name": "Firecrawl",
+  "category": "developer_tools",
+  "description": "Web crawling, scraping, search and interaction API for AI agents and developers",
+  "auth_methods": [
+    "api_key"
+  ],
+  "self_service_access": "free_self_service",
+  "developer_access_tier": "free_self_service",
+  "production_access_tier": "paid_subscription",
+  "access_requirements": "Free tier self-serve (1,000 free credits, no card required)",
+  "api_types": [
+    "rest"
+  ],
+  "api_breadth": "comprehensive",
+  "mcp_availability": "official",
+  "has_composio_integration": true,
+  "composio_toolkit_slug": "firecrawl",
+  "buildability_verdict": "buildable",
+  "primary_blocker": "none",
+  "blocker_details": null,
+  "evidence_urls": [
+    "https://docs.firecrawl.dev/introduction",
+    "https://www.firecrawl.dev/"
+  ],
+  "evidence_excerpts": [
+    "\"Click on the dashboard button on the top navigation menu when logged in and you will find your API key in the main screen and under API Keys.\"",
+    "\"Firecrawl gives you 1,000 free credits every month, which covers about 1,000 pages, and no card is required.\"",
+    "\"You can also call the REST API directly from any language.\"",
+    "\"Firecrawl has an official MCP server so agents in Cursor, Claude, Windsurf, and other MCP‑compatible tools can search, scrape, and interact with the web directly.\"",
+    "\"Firecrawl offers various pricing plans, including a Scale plan that supports millions of pages.\""
+  ],
+  "evidence_items": [
+    {
+      "url": "https://docs.firecrawl.dev/introduction",
+      "title": null,
+      "excerpt": "\"Click on the dashboard button on the top navigation menu when logged in and you will find your API key in the main screen and under API Keys.\"",
+      "retrieved_at": "2026-11-23T13:40:32.329959Z"
+    },
+    {
+      "url": "https://docs.firecrawl.dev/introduction",
+      "title": null,
+      "excerpt": "\"Firecrawl gives you 1,000 free credits every month, which covers about 1,000 pages, and no card is required.\"",
+      "retrieved_at": "2026-11-23T13:40:32.329968Z"
+    },
+    {
+      "url": "https://docs.firecrawl.dev/introduction",
+      "title": null,
+      "excerpt": "\"You can also call the REST API directly from any language.\"",
+      "retrieved_at": "2026-11-23T13:40:32.329971Z"
+    },
+    {
+      "url": "https://docs.firecrawl.dev/introduction",
+      "title": null,
+      "excerpt": "\"Firecrawl has an official MCP server so agents in Cursor, Claude, Windsurf, and other MCP‑compatible tools can search, scrape, and interact with the web directly.\"",
+      "retrieved_at": "2026-11-23T13:40:32.329975Z"
+    },
+    {
+      "url": "https://docs.firecrawl.dev/introduction",
+      "title": null,
+      "excerpt": "\"Firecrawl offers various pricing plans, including a Scale plan that supports millions of pages.\"",
+      "retrieved_at": "2026-11-23T13:40:32.329978Z"
+    }
+  ],
+  "research_status": "completed",
+  "confidence_level": "high",
+  "uncertainty_notes": "Auth method inferred as API key based on dashboard UI; exact header format (Bearer vs custom) not explicitly documented in provided excerpts.",
+  "llm_execution_source": "real_network",
+  "provenance": {
+    "execution_mode": "live",
+    "doc_execution_source": "real_network",
+    "llm_execution_source": "real_network",
+    "composio_execution_source": "real_network",
+    "documentation_live_fetched": true,
+    "documentation_urls_attempted": [
+      "https://docs.firecrawl.dev",
+      "https://firecrawl.dev"
+    ],
+    "documentation_urls_succeeded": [
+      "https://docs.firecrawl.dev/introduction",
+      "https://www.firecrawl.dev/"
+    ],
+    "documentation_truncated": true,
+    "documentation_truncation_notes": "Original documentation length was 175292 chars. Truncated to 4993 chars prioritizing authentication, endpoints, access tiers, and MCP.; Original documentation length was 19921 chars. Truncated to 4409 chars prioritizing authentication, endpoints, access tiers, and MCP.",
+    "llm_inference_attempted": true,
+    "llm_inference_executed": true,
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_error": null,
+    "composio_adapter_configured": true,
+    "composio_discovery_attempted": true,
+    "composio_discovery_succeeded": true,
+    "composio_toolkit_found": true,
+    "composio_discovery_error": null,
+    "composio_mcp_session_attempted": true,
+    "composio_mcp_session_created": true,
+    "composio_mcp_endpoint_returned": true,
+    "composio_mcp_endpoint": "https://backend.composio.dev/tool_router/trs_Kh8CmiX7G5_1/mcp",
+    "composio_mcp_session_error": null,
+    "live_verified": true,
+    "notes": "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+  },
+  "verification_status": "unverified",
+  "verification_notes": null,
+  "created_at": "2026-11-23T13:40:32.330011Z",
+  "updated_at": "2026-11-23T13:40:32.330012Z"
+}

@@ -1,0 +1,93 @@
+{
+  "app_name": "Vonage",
+  "category": "communication",
+  "description": "Provides REST APIs for messaging, voice, video, numbers, and account management.",
+  "auth_methods": [
+    "api_key",
+    "bearer_token"
+  ],
+  "self_service_access": "free_self_service",
+  "developer_access_tier": "free_self_service",
+  "production_access_tier": "paid_subscription",
+  "access_requirements": "Free tier self‑serve; production requires paid subscription",
+  "api_types": [
+    "rest"
+  ],
+  "api_breadth": "comprehensive",
+  "mcp_availability": "none",
+  "has_composio_integration": false,
+  "composio_toolkit_slug": null,
+  "buildability_verdict": "buildable",
+  "primary_blocker": "none",
+  "blocker_details": null,
+  "evidence_urls": [
+    "https://developer.vonage.com/en/api",
+    "https://developer.vonage.com/en/home"
+  ],
+  "evidence_excerpts": [
+    "\"Messages API allows easy integration with multiple messaging platforms through a single integration.\"",
+    "\"Application API ... manage your applications and authentication.\"",
+    "\"JWT authentication available\""
+  ],
+  "evidence_items": [
+    {
+      "url": "https://developer.vonage.com/en/api",
+      "title": null,
+      "excerpt": "\"Messages API allows easy integration with multiple messaging platforms through a single integration.\"",
+      "retrieved_at": "2026-11-23T13:33:44.179735Z"
+    },
+    {
+      "url": "https://developer.vonage.com/en/api",
+      "title": null,
+      "excerpt": "\"Application API ... manage your applications and authentication.\"",
+      "retrieved_at": "2026-11-23T13:33:44.179747Z"
+    },
+    {
+      "url": "https://developer.vonage.com/en/api",
+      "title": null,
+      "excerpt": "\"JWT authentication available\"",
+      "retrieved_at": "2026-11-23T13:33:44.179750Z"
+    }
+  ],
+  "research_status": "completed",
+  "confidence_level": "high",
+  "uncertainty_notes": "Exact self‑service sign‑up flow not explicitly documented in provided excerpts, but Vonage offers a developer portal for free API key generation.",
+  "llm_execution_source": "real_network",
+  "provenance": {
+    "execution_mode": "live",
+    "doc_execution_source": "real_network",
+    "llm_execution_source": "real_network",
+    "composio_execution_source": "real_network",
+    "documentation_live_fetched": true,
+    "documentation_urls_attempted": [
+      "https://developer.vonage.com/en/api",
+      "https://developer.vonage.com"
+    ],
+    "documentation_urls_succeeded": [
+      "https://developer.vonage.com/en/api",
+      "https://developer.vonage.com/en/home"
+    ],
+    "documentation_truncated": true,
+    "documentation_truncation_notes": "Original documentation length was 9352 chars. Truncated to 566 chars prioritizing authentication, endpoints, access tiers, and MCP.",
+    "llm_inference_attempted": true,
+    "llm_inference_executed": true,
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_error": null,
+    "composio_adapter_configured": true,
+    "composio_discovery_attempted": true,
+    "composio_discovery_succeeded": true,
+    "composio_toolkit_found": false,
+    "composio_discovery_error": null,
+    "composio_mcp_session_attempted": false,
+    "composio_mcp_session_created": false,
+    "composio_mcp_endpoint_returned": false,
+    "composio_mcp_endpoint": null,
+    "composio_mcp_session_error": null,
+    "live_verified": true,
+    "notes": "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+  },
+  "verification_status": "unverified",
+  "verification_notes": null,
+  "created_at": "2026-11-23T13:33:44.179783Z",
+  "updated_at": "2026-11-23T13:33:44.179784Z"
+}

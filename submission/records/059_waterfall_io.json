@@ -1,0 +1,83 @@
+{
+  "app_name": "Waterfall.io",
+  "category": "analytics",
+  "description": "B2B data enrichment platform offering high‑volume lookup and usage‑based pricing",
+  "auth_methods": [
+    "unknown"
+  ],
+  "self_service_access": "unknown",
+  "developer_access_tier": null,
+  "production_access_tier": null,
+  "access_requirements": "unknown",
+  "api_types": [
+    "unknown"
+  ],
+  "api_breadth": "unknown",
+  "mcp_availability": "none",
+  "has_composio_integration": false,
+  "composio_toolkit_slug": "waterfall_io",
+  "buildability_verdict": "blocked",
+  "primary_blocker": "no_public_api",
+  "blocker_details": "No public API documentation or authentication details are provided in the available source; only marketing information is present.",
+  "evidence_urls": [
+    "https://www.waterfall.io/"
+  ],
+  "evidence_excerpts": [
+    "High rate limits",
+    "Transparent pricing"
+  ],
+  "evidence_items": [
+    {
+      "url": "https://www.waterfall.io/",
+      "title": null,
+      "excerpt": "High rate limits",
+      "retrieved_at": "2026-11-23T13:52:59.547764Z"
+    },
+    {
+      "url": "https://www.waterfall.io/",
+      "title": null,
+      "excerpt": "Transparent pricing",
+      "retrieved_at": "2026-11-23T13:52:59.547775Z"
+    }
+  ],
+  "research_status": "completed",
+  "confidence_level": "low",
+  "uncertainty_notes": "The source is a marketing homepage with no technical API reference; it is unclear whether any API exists, its auth method, or access tiers.",
+  "llm_execution_source": "real_network",
+  "provenance": {
+    "execution_mode": "live",
+    "doc_execution_source": "real_network",
+    "llm_execution_source": "real_network",
+    "composio_execution_source": "real_network",
+    "documentation_live_fetched": true,
+    "documentation_urls_attempted": [
+      "https://waterfall.io (marketing messaging/data platform; public API to be investigated)",
+      "https://waterfall.io"
+    ],
+    "documentation_urls_succeeded": [
+      "https://www.waterfall.io/"
+    ],
+    "documentation_truncated": true,
+    "documentation_truncation_notes": "Original documentation length was 7496 chars. Truncated to 689 chars prioritizing authentication, endpoints, access tiers, and MCP.",
+    "llm_inference_attempted": true,
+    "llm_inference_executed": true,
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_error": null,
+    "composio_adapter_configured": true,
+    "composio_discovery_attempted": true,
+    "composio_discovery_succeeded": true,
+    "composio_toolkit_found": false,
+    "composio_discovery_error": null,
+    "composio_mcp_session_attempted": false,
+    "composio_mcp_session_created": false,
+    "composio_mcp_endpoint_returned": false,
+    "composio_mcp_endpoint": null,
+    "composio_mcp_session_error": null,
+    "live_verified": true,
+    "notes": "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+  },
+  "verification_status": "unverified",
+  "verification_notes": null,
+  "created_at": "2026-11-23T13:52:59.547811Z",
+  "updated_at": "2026-11-23T13:52:59.547812Z"
+}

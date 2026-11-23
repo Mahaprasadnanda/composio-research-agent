@@ -1,0 +1,83 @@
+{
+  "app_name": "Attio",
+  "category": "crm",
+  "description": "Attio: The CRM for agentic revenue",
+  "auth_methods": [
+    "unknown"
+  ],
+  "self_service_access": "unknown",
+  "developer_access_tier": null,
+  "production_access_tier": null,
+  "access_requirements": "unknown",
+  "api_types": [
+    "unknown"
+  ],
+  "api_breadth": "unknown",
+  "mcp_availability": "unknown",
+  "has_composio_integration": true,
+  "composio_toolkit_slug": "attio",
+  "buildability_verdict": "conditionally_buildable",
+  "primary_blocker": "documentation_incomplete",
+  "blocker_details": "Documentation excerpt does not specify authentication methods, access tiers, or API scope, limiting certainty about building an autonomous agent toolkit.",
+  "evidence_urls": [
+    "https://attio.com"
+  ],
+  "evidence_excerpts": [
+    "SDK. API. MCP. Build anything on Attio.",
+    "MCP tool calls/month"
+  ],
+  "evidence_items": [
+    {
+      "url": "https://attio.com",
+      "title": null,
+      "excerpt": "SDK. API. MCP. Build anything on Attio.",
+      "retrieved_at": "2026-11-23T13:26:36.737091Z"
+    },
+    {
+      "url": "https://attio.com",
+      "title": null,
+      "excerpt": "MCP tool calls/month",
+      "retrieved_at": "2026-11-23T13:26:36.737097Z"
+    }
+  ],
+  "research_status": "completed",
+  "confidence_level": "medium",
+  "uncertainty_notes": "Missing details on auth mechanisms, pricing tiers, and API coverage; only high‑level mention of SDK/API/MCP is available.",
+  "llm_execution_source": "real_network",
+  "provenance": {
+    "execution_mode": "live",
+    "doc_execution_source": "real_network",
+    "llm_execution_source": "real_network",
+    "composio_execution_source": "real_network",
+    "documentation_live_fetched": true,
+    "documentation_urls_attempted": [
+      "https://developers.attio.com",
+      "https://attio.com"
+    ],
+    "documentation_urls_succeeded": [
+      "https://attio.com"
+    ],
+    "documentation_truncated": true,
+    "documentation_truncation_notes": "Original documentation length was 10358 chars. Truncated to 445 chars prioritizing authentication, endpoints, access tiers, and MCP.",
+    "llm_inference_attempted": true,
+    "llm_inference_executed": true,
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_error": null,
+    "composio_adapter_configured": true,
+    "composio_discovery_attempted": true,
+    "composio_discovery_succeeded": true,
+    "composio_toolkit_found": true,
+    "composio_discovery_error": null,
+    "composio_mcp_session_attempted": true,
+    "composio_mcp_session_created": true,
+    "composio_mcp_endpoint_returned": true,
+    "composio_mcp_endpoint": "https://backend.composio.dev/tool_router/trs_PimuEgAeZgfA/mcp",
+    "composio_mcp_session_error": null,
+    "live_verified": true,
+    "notes": "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+  },
+  "verification_status": "unverified",
+  "verification_notes": null,
+  "created_at": "2026-11-23T13:26:36.737118Z",
+  "updated_at": "2026-11-23T13:26:36.737118Z"
+}

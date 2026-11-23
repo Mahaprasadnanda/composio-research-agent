@@ -1,0 +1,83 @@
+{
+  "app_name": "Intercom",
+  "category": "customer_support",
+  "description": "Customer messaging platform with live chat, help center, and automation",
+  "auth_methods": [
+    "unknown"
+  ],
+  "self_service_access": "free_trial_self_service",
+  "developer_access_tier": "free_trial_self_service",
+  "production_access_tier": "paid_subscription",
+  "access_requirements": "14 day free trial (no credit card required)",
+  "api_types": [
+    "unknown"
+  ],
+  "api_breadth": "unknown",
+  "mcp_availability": "official",
+  "has_composio_integration": true,
+  "composio_toolkit_slug": "intercom",
+  "buildability_verdict": "conditionally_buildable",
+  "primary_blocker": "documentation_incomplete",
+  "blocker_details": "Public documentation does not provide explicit details on authentication methods, API type, or scope coverage, making full automation uncertain",
+  "evidence_urls": [
+    "https://www.intercom.com"
+  ],
+  "evidence_excerpts": [
+    "Start free trial View demo 14 day free trial. No credit card required.",
+    "Fin pulls in customer data and takes action through APIs or MCP."
+  ],
+  "evidence_items": [
+    {
+      "url": "https://www.intercom.com",
+      "title": null,
+      "excerpt": "Start free trial View demo 14 day free trial. No credit card required.",
+      "retrieved_at": "2026-11-23T13:28:19.846184Z"
+    },
+    {
+      "url": "https://www.intercom.com",
+      "title": null,
+      "excerpt": "Fin pulls in customer data and takes action through APIs or MCP.",
+      "retrieved_at": "2026-11-23T13:28:19.846192Z"
+    }
+  ],
+  "research_status": "completed",
+  "confidence_level": "medium",
+  "uncertainty_notes": "Auth methods, API type (REST/GraphQL), and breadth of endpoints are not explicitly described in the provided excerpt; assumptions are based on typical Intercom offerings.",
+  "llm_execution_source": "real_network",
+  "provenance": {
+    "execution_mode": "live",
+    "doc_execution_source": "real_network",
+    "llm_execution_source": "real_network",
+    "composio_execution_source": "real_network",
+    "documentation_live_fetched": true,
+    "documentation_urls_attempted": [
+      "https://developers.intercom.com/docs/references/rest-api/api.config.json/",
+      "https://www.intercom.com"
+    ],
+    "documentation_urls_succeeded": [
+      "https://www.intercom.com"
+    ],
+    "documentation_truncated": true,
+    "documentation_truncation_notes": "Original documentation length was 8581 chars. Truncated to 1056 chars prioritizing authentication, endpoints, access tiers, and MCP.",
+    "llm_inference_attempted": true,
+    "llm_inference_executed": true,
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_error": null,
+    "composio_adapter_configured": true,
+    "composio_discovery_attempted": true,
+    "composio_discovery_succeeded": true,
+    "composio_toolkit_found": true,
+    "composio_discovery_error": null,
+    "composio_mcp_session_attempted": true,
+    "composio_mcp_session_created": true,
+    "composio_mcp_endpoint_returned": true,
+    "composio_mcp_endpoint": "https://backend.composio.dev/tool_router/trs_miA3ht2BqO5I/mcp",
+    "composio_mcp_session_error": null,
+    "live_verified": true,
+    "notes": "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+  },
+  "verification_status": "unverified",
+  "verification_notes": null,
+  "created_at": "2026-11-23T13:28:19.846223Z",
+  "updated_at": "2026-11-23T13:28:19.846225Z"
+}

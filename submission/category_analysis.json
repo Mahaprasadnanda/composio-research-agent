@@ -1,0 +1,432 @@
+{
+  "crm": {
+    "category_key": "crm",
+    "display_name": "CRM & Sales",
+    "target_applications_count": 10,
+    "researched_count": 10,
+    "missing_count": 0,
+    "research_coverage_rate": 100.0,
+    "verdicts": {
+      "buildable": 5,
+      "conditionally_buildable": 4,
+      "blocked": 0,
+      "unknown": 1
+    },
+    "buildability_rate": 50.0,
+    "composio_toolkits_found": 8,
+    "composio_toolkit_discovery_rate": 80.0,
+    "mcp_sessions_created": 7,
+    "mcp_session_creation_rate": 87.5,
+    "live_verified_count": 10,
+    "live_verification_rate": 100.0,
+    "top_auth_methods": {
+      "unknown": 7,
+      "oauth2": 3,
+      "api_key": 2
+    },
+    "common_blockers": {
+      "documentation_incomplete": 5,
+      "none": 5
+    },
+    "researched_app_names": [
+      "Salesforce",
+      "HubSpot",
+      "Pipedrive",
+      "Attio",
+      "Twenty",
+      "Podio",
+      "Zoho CRM",
+      "Close",
+      "Copper",
+      "DealCloud"
+    ],
+    "missing_app_names": []
+  },
+  "customer_support": {
+    "category_key": "customer_support",
+    "display_name": "Support & Helpdesk",
+    "target_applications_count": 10,
+    "researched_count": 10,
+    "missing_count": 0,
+    "research_coverage_rate": 100.0,
+    "verdicts": {
+      "buildable": 4,
+      "conditionally_buildable": 3,
+      "blocked": 2,
+      "unknown": 1
+    },
+    "buildability_rate": 40.0,
+    "composio_toolkits_found": 7,
+    "composio_toolkit_discovery_rate": 70.0,
+    "mcp_sessions_created": 6,
+    "mcp_session_creation_rate": 85.7,
+    "live_verified_count": 10,
+    "live_verification_rate": 100.0,
+    "top_auth_methods": {
+      "unknown": 8,
+      "oauth2": 2,
+      "basic_auth": 1
+    },
+    "common_blockers": {
+      "none": 4,
+      "documentation_incomplete": 3,
+      "no_public_api": 2
+    },
+    "researched_app_names": [
+      "Zendesk",
+      "Intercom",
+      "Freshdesk",
+      "Front",
+      "Pylon",
+      "LiveAgent",
+      "Plain",
+      "Help Scout",
+      "Gorgias",
+      "Gladly"
+    ],
+    "missing_app_names": []
+  },
+  "communication": {
+    "category_key": "communication",
+    "display_name": "Communications & Messaging",
+    "target_applications_count": 10,
+    "researched_count": 10,
+    "missing_count": 0,
+    "research_coverage_rate": 100.0,
+    "verdicts": {
+      "buildable": 8,
+      "conditionally_buildable": 0,
+      "blocked": 1,
+      "unknown": 1
+    },
+    "buildability_rate": 80.0,
+    "composio_toolkits_found": 8,
+    "composio_toolkit_discovery_rate": 80.0,
+    "mcp_sessions_created": 6,
+    "mcp_session_creation_rate": 75.0,
+    "live_verified_count": 9,
+    "live_verification_rate": 90.0,
+    "top_auth_methods": {
+      "oauth2": 3,
+      "bearer_token": 3,
+      "unknown": 3
+    },
+    "common_blockers": {
+      "none": 8,
+      "documentation_incomplete": 1,
+      "no_public_api": 1
+    },
+    "researched_app_names": [
+      "Slack",
+      "Twilio",
+      "Zoho Cliq",
+      "Lark (Larksuite)",
+      "Pumble",
+      "Discord",
+      "Telegram",
+      "WhatsApp Business",
+      "Aircall",
+      "Vonage"
+    ],
+    "missing_app_names": []
+  },
+  "marketing": {
+    "category_key": "marketing",
+    "display_name": "Marketing, Ads & Social",
+    "target_applications_count": 10,
+    "researched_count": 10,
+    "missing_count": 0,
+    "research_coverage_rate": 100.0,
+    "verdicts": {
+      "buildable": 2,
+      "conditionally_buildable": 4,
+      "blocked": 4,
+      "unknown": 0
+    },
+    "buildability_rate": 20.0,
+    "composio_toolkits_found": 6,
+    "composio_toolkit_discovery_rate": 60.0,
+    "mcp_sessions_created": 4,
+    "mcp_session_creation_rate": 66.7,
+    "live_verified_count": 8,
+    "live_verification_rate": 80.0,
+    "top_auth_methods": {
+      "unknown": 6,
+      "oauth2": 4,
+      "api_key": 2
+    },
+    "common_blockers": {
+      "documentation_incomplete": 3,
+      "no_public_api": 3,
+      "admin_approval_gate": 2
+    },
+    "researched_app_names": [
+      "Google Ads",
+      "Meta Ads",
+      "LinkedIn Ads",
+      "GoHighLevel",
+      "Mailchimp",
+      "Klaviyo",
+      "systeme.io",
+      "Pinterest",
+      "Threads (Meta)",
+      "SendGrid"
+    ],
+    "missing_app_names": []
+  },
+  "ecommerce": {
+    "category_key": "ecommerce",
+    "display_name": "Ecommerce",
+    "target_applications_count": 10,
+    "researched_count": 10,
+    "missing_count": 0,
+    "research_coverage_rate": 100.0,
+    "verdicts": {
+      "buildable": 5,
+      "conditionally_buildable": 1,
+      "blocked": 3,
+      "unknown": 1
+    },
+    "buildability_rate": 50.0,
+    "composio_toolkits_found": 3,
+    "composio_toolkit_discovery_rate": 30.0,
+    "mcp_sessions_created": 2,
+    "mcp_session_creation_rate": 66.7,
+    "live_verified_count": 9,
+    "live_verification_rate": 90.0,
+    "top_auth_methods": {
+      "unknown": 6,
+      "oauth2": 3,
+      "custom_header": 2
+    },
+    "common_blockers": {
+      "none": 5,
+      "documentation_incomplete": 3,
+      "no_public_api": 2
+    },
+    "researched_app_names": [
+      "Shopify",
+      "WooCommerce",
+      "BigCommerce",
+      "Salesforce Commerce Cloud",
+      "Magento (Adobe Commerce)",
+      "Squarespace",
+      "Ecwid",
+      "Gumroad",
+      "Amazon Selling Partner",
+      "fanbasis"
+    ],
+    "missing_app_names": []
+  },
+  "developer_tools": {
+    "category_key": "developer_tools",
+    "display_name": "Developer, Infra & Data",
+    "target_applications_count": 10,
+    "researched_count": 2,
+    "missing_count": 8,
+    "research_coverage_rate": 20.0,
+    "verdicts": {
+      "buildable": 2,
+      "conditionally_buildable": 0,
+      "blocked": 0,
+      "unknown": 0
+    },
+    "buildability_rate": 100.0,
+    "composio_toolkits_found": 1,
+    "composio_toolkit_discovery_rate": 50.0,
+    "mcp_sessions_created": 1,
+    "mcp_session_creation_rate": 100.0,
+    "live_verified_count": 2,
+    "live_verification_rate": 100.0,
+    "top_auth_methods": {
+      "oauth2": 2,
+      "bearer_token": 2
+    },
+    "common_blockers": {
+      "none": 2
+    },
+    "researched_app_names": [
+      "GitHub",
+      "Netlify"
+    ],
+    "missing_app_names": [
+      "Vercel",
+      "Cloudflare",
+      "Supabase",
+      "Neo4j",
+      "Snowflake",
+      "MongoDB Atlas",
+      "Datadog",
+      "Sentry"
+    ]
+  },
+  "analytics": {
+    "category_key": "analytics",
+    "display_name": "Data, SEO & Scraping",
+    "target_applications_count": 10,
+    "researched_count": 8,
+    "missing_count": 2,
+    "research_coverage_rate": 80.0,
+    "verdicts": {
+      "buildable": 5,
+      "conditionally_buildable": 2,
+      "blocked": 1,
+      "unknown": 0
+    },
+    "buildability_rate": 62.5,
+    "composio_toolkits_found": 5,
+    "composio_toolkit_discovery_rate": 62.5,
+    "mcp_sessions_created": 5,
+    "mcp_session_creation_rate": 100.0,
+    "live_verified_count": 8,
+    "live_verification_rate": 100.0,
+    "top_auth_methods": {
+      "api_key": 5,
+      "unknown": 3,
+      "oauth2": 1
+    },
+    "common_blockers": {
+      "none": 5,
+      "documentation_incomplete": 1,
+      "paywall_restricted": 1
+    },
+    "researched_app_names": [
+      "DataForSEO",
+      "SE Ranking",
+      "Ahrefs",
+      "MrScraper",
+      "Apify",
+      "Firecrawl",
+      "Bright Data",
+      "Waterfall.io"
+    ],
+    "missing_app_names": [
+      "Sherlock",
+      "Clay"
+    ]
+  },
+  "project_management": {
+    "category_key": "project_management",
+    "display_name": "Productivity & Projects",
+    "target_applications_count": 10,
+    "researched_count": 1,
+    "missing_count": 9,
+    "research_coverage_rate": 10.0,
+    "verdicts": {
+      "buildable": 1,
+      "conditionally_buildable": 0,
+      "blocked": 0,
+      "unknown": 0
+    },
+    "buildability_rate": 100.0,
+    "composio_toolkits_found": 1,
+    "composio_toolkit_discovery_rate": 100.0,
+    "mcp_sessions_created": 1,
+    "mcp_session_creation_rate": 100.0,
+    "live_verified_count": 1,
+    "live_verification_rate": 100.0,
+    "top_auth_methods": {
+      "unknown": 1
+    },
+    "common_blockers": {
+      "none": 1
+    },
+    "researched_app_names": [
+      "Notion"
+    ],
+    "missing_app_names": [
+      "Airtable",
+      "Linear",
+      "Jira",
+      "Asana",
+      "Monday.com",
+      "ClickUp",
+      "Coda",
+      "Smartsheet",
+      "Harvest"
+    ]
+  },
+  "finance_accounting": {
+    "category_key": "finance_accounting",
+    "display_name": "Finance & Fintech",
+    "target_applications_count": 10,
+    "researched_count": 1,
+    "missing_count": 9,
+    "research_coverage_rate": 10.0,
+    "verdicts": {
+      "buildable": 1,
+      "conditionally_buildable": 0,
+      "blocked": 0,
+      "unknown": 0
+    },
+    "buildability_rate": 100.0,
+    "composio_toolkits_found": 1,
+    "composio_toolkit_discovery_rate": 100.0,
+    "mcp_sessions_created": 1,
+    "mcp_session_creation_rate": 100.0,
+    "live_verified_count": 1,
+    "live_verification_rate": 100.0,
+    "top_auth_methods": {
+      "basic_auth": 1,
+      "bearer_token": 1
+    },
+    "common_blockers": {
+      "none": 1
+    },
+    "researched_app_names": [
+      "Stripe"
+    ],
+    "missing_app_names": [
+      "Plaid",
+      "Binance",
+      "Paygent Connect",
+      "iPayX",
+      "QuickBooks",
+      "Xero",
+      "Brex",
+      "Ramp",
+      "PitchBook"
+    ]
+  },
+  "other": {
+    "category_key": "other",
+    "display_name": "AI & Media-native",
+    "target_applications_count": 10,
+    "researched_count": 1,
+    "missing_count": 9,
+    "research_coverage_rate": 10.0,
+    "verdicts": {
+      "buildable": 0,
+      "conditionally_buildable": 0,
+      "blocked": 1,
+      "unknown": 0
+    },
+    "buildability_rate": 0.0,
+    "composio_toolkits_found": 0,
+    "composio_toolkit_discovery_rate": 0.0,
+    "mcp_sessions_created": 0,
+    "mcp_session_creation_rate": 0.0,
+    "live_verified_count": 1,
+    "live_verification_rate": 100.0,
+    "top_auth_methods": {
+      "unknown": 1
+    },
+    "common_blockers": {
+      "no_public_api": 1
+    },
+    "researched_app_names": [
+      "NotebookLM"
+    ],
+    "missing_app_names": [
+      "Otter AI",
+      "Fathom",
+      "Consensus",
+      "Reducto",
+      "Devin",
+      "higgsfield",
+      "Mermaid CLI",
+      "YouTube Transcript",
+      "Grain"
+    ]
+  }
+}

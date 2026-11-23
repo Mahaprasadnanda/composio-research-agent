@@ -1,0 +1,101 @@
+{
+  "app_name": "Close",
+  "category": "crm",
+  "description": "Close is a CRM platform offering a REST API, webhooks, and an MCP server for AI agent integration.",
+  "auth_methods": [
+    "api_key",
+    "oauth2"
+  ],
+  "self_service_access": "paid_subscription",
+  "developer_access_tier": null,
+  "production_access_tier": "paid_subscription",
+  "access_requirements": "Requires a Close subscription (paid)",
+  "api_types": [
+    "rest",
+    "webhook_only"
+  ],
+  "api_breadth": "comprehensive",
+  "mcp_availability": "official",
+  "has_composio_integration": true,
+  "composio_toolkit_slug": "close",
+  "buildability_verdict": "buildable",
+  "primary_blocker": "none",
+  "blocker_details": null,
+  "evidence_urls": [
+    "https://developer.close.com",
+    "https://close.com/"
+  ],
+  "evidence_excerpts": [
+    "Authentication\\n\\nAPI keys for scripts or OAuth 2.0 for user-facing integrations.",
+    "REST API Reference\\nFull endpoint docs with schemas, examples, and an interactive API explorer.",
+    "Webhooks & Events\\nReal-time event notifications and a 30-day event log.",
+    "MCP Server\\nModel Context Protocol for AI agents."
+  ],
+  "evidence_items": [
+    {
+      "url": "https://developer.close.com",
+      "title": null,
+      "excerpt": "Authentication\\n\\nAPI keys for scripts or OAuth 2.0 for user-facing integrations.",
+      "retrieved_at": "2026-11-23T13:27:30.571853Z"
+    },
+    {
+      "url": "https://developer.close.com",
+      "title": null,
+      "excerpt": "REST API Reference\\nFull endpoint docs with schemas, examples, and an interactive API explorer.",
+      "retrieved_at": "2026-11-23T13:27:30.571859Z"
+    },
+    {
+      "url": "https://developer.close.com",
+      "title": null,
+      "excerpt": "Webhooks & Events\\nReal-time event notifications and a 30-day event log.",
+      "retrieved_at": "2026-11-23T13:27:30.571861Z"
+    },
+    {
+      "url": "https://developer.close.com",
+      "title": null,
+      "excerpt": "MCP Server\\nModel Context Protocol for AI agents.",
+      "retrieved_at": "2026-11-23T13:27:30.571863Z"
+    }
+  ],
+  "research_status": "completed",
+  "confidence_level": "high",
+  "uncertainty_notes": "Exact self‑service tier for developer sandbox not explicitly documented; assumed access requires a paid Close subscription.",
+  "llm_execution_source": "real_network",
+  "provenance": {
+    "execution_mode": "live",
+    "doc_execution_source": "real_network",
+    "llm_execution_source": "real_network",
+    "composio_execution_source": "real_network",
+    "documentation_live_fetched": true,
+    "documentation_urls_attempted": [
+      "https://developer.close.com",
+      "https://www.close.com"
+    ],
+    "documentation_urls_succeeded": [
+      "https://developer.close.com",
+      "https://close.com/"
+    ],
+    "documentation_truncated": true,
+    "documentation_truncation_notes": "Original documentation length was 30831 chars. Truncated to 1330 chars prioritizing authentication, endpoints, access tiers, and MCP.",
+    "llm_inference_attempted": true,
+    "llm_inference_executed": true,
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_error": null,
+    "composio_adapter_configured": true,
+    "composio_discovery_attempted": true,
+    "composio_discovery_succeeded": true,
+    "composio_toolkit_found": true,
+    "composio_discovery_error": null,
+    "composio_mcp_session_attempted": true,
+    "composio_mcp_session_created": true,
+    "composio_mcp_endpoint_returned": true,
+    "composio_mcp_endpoint": "https://backend.composio.dev/tool_router/trs_hEDxXQwQeqSf/mcp",
+    "composio_mcp_session_error": null,
+    "live_verified": true,
+    "notes": "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+  },
+  "verification_status": "unverified",
+  "verification_notes": null,
+  "created_at": "2026-11-23T13:27:30.571883Z",
+  "updated_at": "2026-11-23T13:27:30.571884Z"
+}

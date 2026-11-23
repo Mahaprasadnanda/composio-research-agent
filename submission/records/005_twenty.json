@@ -1,0 +1,92 @@
+{
+  "app_name": "Twenty",
+  "category": "crm",
+  "description": "Open source CRM with AI-powered automation and native MCP server",
+  "auth_methods": [
+    "oauth2"
+  ],
+  "self_service_access": "paid_subscription",
+  "developer_access_tier": "free_self_service",
+  "production_access_tier": "paid_subscription",
+  "access_requirements": "Cloud Pro plan ($9/user/month) or Organization plan",
+  "api_types": [
+    "rest"
+  ],
+  "api_breadth": "moderate",
+  "mcp_availability": "official",
+  "has_composio_integration": true,
+  "composio_toolkit_slug": "twenty",
+  "buildability_verdict": "buildable",
+  "primary_blocker": "none",
+  "blocker_details": null,
+  "evidence_urls": [
+    "https://docs.twenty.com/getting-started/introduction",
+    "https://twenty.com"
+  ],
+  "evidence_excerpts": [
+    "\"Connect your AI assistant via OAuth and it can read and write your CRM data in natural language.\"",
+    "\"Every Cloud workspace ships with a native MCP server.\"",
+    "\"Cloud Pro is $9/user/month and Organization is $39/user/month, billed yearly.\""
+  ],
+  "evidence_items": [
+    {
+      "url": "https://docs.twenty.com/getting-started/introduction",
+      "title": null,
+      "excerpt": "\"Connect your AI assistant via OAuth and it can read and write your CRM data in natural language.\"",
+      "retrieved_at": "2026-11-23T13:26:48.060449Z"
+    },
+    {
+      "url": "https://docs.twenty.com/getting-started/introduction",
+      "title": null,
+      "excerpt": "\"Every Cloud workspace ships with a native MCP server.\"",
+      "retrieved_at": "2026-11-23T13:26:48.060457Z"
+    },
+    {
+      "url": "https://docs.twenty.com/getting-started/introduction",
+      "title": null,
+      "excerpt": "\"Cloud Pro is $9/user/month and Organization is $39/user/month, billed yearly.\"",
+      "retrieved_at": "2026-11-23T13:26:48.060460Z"
+    }
+  ],
+  "research_status": "completed",
+  "confidence_level": "high",
+  "uncertainty_notes": "API type (REST vs GraphQL) not explicitly documented; inferred as REST based on typical MCP implementations.",
+  "llm_execution_source": "real_network",
+  "provenance": {
+    "execution_mode": "live",
+    "doc_execution_source": "real_network",
+    "llm_execution_source": "real_network",
+    "composio_execution_source": "real_network",
+    "documentation_live_fetched": true,
+    "documentation_urls_attempted": [
+      "https://docs.twenty.com",
+      "https://twenty.com"
+    ],
+    "documentation_urls_succeeded": [
+      "https://docs.twenty.com/getting-started/introduction",
+      "https://twenty.com"
+    ],
+    "documentation_truncated": true,
+    "documentation_truncation_notes": "Original documentation length was 52120 chars. Truncated to 4992 chars prioritizing authentication, endpoints, access tiers, and MCP.; Original documentation length was 11321 chars. Truncated to 718 chars prioritizing authentication, endpoints, access tiers, and MCP.",
+    "llm_inference_attempted": true,
+    "llm_inference_executed": true,
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_error": null,
+    "composio_adapter_configured": true,
+    "composio_discovery_attempted": true,
+    "composio_discovery_succeeded": true,
+    "composio_toolkit_found": true,
+    "composio_discovery_error": null,
+    "composio_mcp_session_attempted": true,
+    "composio_mcp_session_created": true,
+    "composio_mcp_endpoint_returned": true,
+    "composio_mcp_endpoint": "https://backend.composio.dev/tool_router/trs_CEInCFemVb53/mcp",
+    "composio_mcp_session_error": null,
+    "live_verified": true,
+    "notes": "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+  },
+  "verification_status": "unverified",
+  "verification_notes": null,
+  "created_at": "2026-11-23T13:26:48.060492Z",
+  "updated_at": "2026-11-23T13:26:48.060493Z"
+}

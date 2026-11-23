@@ -1,0 +1,460 @@
+{
+  "sample_size": 15,
+  "selected_application_ids": [
+    1,
+    2,
+    11,
+    20,
+    21,
+    28,
+    31,
+    32,
+    40,
+    41,
+    44,
+    51,
+    61,
+    71,
+    91
+  ],
+  "applications": [
+    {
+      "app_id": 1,
+      "app_name": "Salesforce",
+      "category": "crm",
+      "benchmarks": {
+        "app_id": 1,
+        "app_name": "Salesforce",
+        "category": "crm",
+        "buildability_verdict": "conditionally_buildable",
+        "auth_methods": [
+          "oauth2",
+          "bearer_token"
+        ],
+        "developer_access_tier": "free_self_service",
+        "api_types": [
+          "rest",
+          "graphql"
+        ],
+        "mcp_availability": "official",
+        "has_composio_integration": true,
+        "composio_toolkit_slug": "salesforce",
+        "primary_blocker": "admin_approval_gate",
+        "confidence_level": "high",
+        "evidence_urls": [
+          "https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_rest.htm",
+          "https://developer.salesforce.com/signup"
+        ],
+        "audit_notes": "Salesforce offers free Developer Edition orgs. Automated agent accurately identified conditionally_buildable and official MCP, but classified auth as unknown because the retrieved landing page lacked OAuth2 specifics."
+      }
+    },
+    {
+      "app_id": 2,
+      "app_name": "HubSpot",
+      "category": "crm",
+      "benchmarks": {
+        "app_id": 2,
+        "app_name": "HubSpot",
+        "category": "crm",
+        "buildability_verdict": "buildable",
+        "auth_methods": [
+          "oauth2",
+          "bearer_token",
+          "api_key"
+        ],
+        "developer_access_tier": "free_self_service",
+        "api_types": [
+          "rest"
+        ],
+        "mcp_availability": "community",
+        "has_composio_integration": true,
+        "composio_toolkit_slug": "hubspot",
+        "primary_blocker": "none",
+        "confidence_level": "high",
+        "evidence_urls": [
+          "https://developers.hubspot.com/docs/api/overview",
+          "https://developers.hubspot.com/docs/api/private-apps"
+        ],
+        "audit_notes": "HubSpot offers free developer test accounts and private app tokens. Automated verdict, access tier, and Composio integration were 100% matched; auth methods refined from unknown to OAuth2/Bearer."
+      }
+    },
+    {
+      "app_id": 11,
+      "app_name": "Zendesk",
+      "category": "customer_support",
+      "benchmarks": {
+        "app_id": 11,
+        "app_name": "Zendesk",
+        "category": "customer_support",
+        "buildability_verdict": "buildable",
+        "auth_methods": [
+          "api_key",
+          "basic_auth",
+          "oauth2"
+        ],
+        "developer_access_tier": "free_trial_self_service",
+        "api_types": [
+          "rest"
+        ],
+        "mcp_availability": "none",
+        "has_composio_integration": true,
+        "composio_toolkit_slug": "zendesk",
+        "primary_blocker": "none",
+        "confidence_level": "high",
+        "evidence_urls": [
+          "https://developer.zendesk.com/api-reference/ticketing/introduction/",
+          "https://support.zendesk.com/hc/en-us/articles/4408889114522-Generating-a-new-API-token"
+        ],
+        "audit_notes": "Zendesk APIs are standard REST with API token / Basic Auth. Automated agent correctly determined buildable and Composio toolkit presence; auth refined from unknown to API key/OAuth2."
+      }
+    },
+    {
+      "app_id": 20,
+      "app_name": "Gladly",
+      "category": "customer_support",
+      "benchmarks": {
+        "app_id": 20,
+        "app_name": "Gladly",
+        "category": "customer_support",
+        "buildability_verdict": "conditionally_buildable",
+        "auth_methods": [
+          "basic_auth",
+          "api_key"
+        ],
+        "developer_access_tier": "enterprise_only",
+        "api_types": [
+          "rest"
+        ],
+        "mcp_availability": "none",
+        "has_composio_integration": false,
+        "composio_toolkit_slug": null,
+        "primary_blocker": "contact_sales_required",
+        "confidence_level": "high",
+        "evidence_urls": [
+          "https://developer.gladly.com/rest/",
+          "https://www.gladly.com/pricing/"
+        ],
+        "audit_notes": "Gladly REST APIs require an active enterprise tenant; no public developer signup exists. Automated verdict (conditionally_buildable), blocker (contact_sales_required), and absence from Composio were perfectly matched."
+      }
+    },
+    {
+      "app_id": 21,
+      "app_name": "Slack",
+      "category": "communication",
+      "benchmarks": {
+        "app_id": 21,
+        "app_name": "Slack",
+        "category": "communication",
+        "buildability_verdict": "buildable",
+        "auth_methods": [
+          "oauth2",
+          "bearer_token"
+        ],
+        "developer_access_tier": "free_self_service",
+        "api_types": [
+          "rest",
+          "webhook_only"
+        ],
+        "mcp_availability": "official",
+        "has_composio_integration": true,
+        "composio_toolkit_slug": "slack",
+        "primary_blocker": "none",
+        "confidence_level": "high",
+        "evidence_urls": [
+          "https://api.slack.com/authentication",
+          "https://github.com/modelcontextprotocol/servers/tree/main/src/slack"
+        ],
+        "audit_notes": "Slack offers self-service bot tokens and an official Model Context Protocol server. Automated findings achieved 100% field match across all research dimensions."
+      }
+    },
+    {
+      "app_id": 28,
+      "app_name": "WhatsApp Business",
+      "category": "communication",
+      "benchmarks": {
+        "app_id": 28,
+        "app_name": "WhatsApp Business",
+        "category": "communication",
+        "buildability_verdict": "conditionally_buildable",
+        "auth_methods": [
+          "bearer_token",
+          "oauth2"
+        ],
+        "developer_access_tier": "paid_subscription",
+        "api_types": [
+          "rest",
+          "webhook_only"
+        ],
+        "mcp_availability": "none",
+        "has_composio_integration": false,
+        "composio_toolkit_slug": null,
+        "primary_blocker": "admin_approval_gate",
+        "confidence_level": "medium",
+        "evidence_urls": [
+          "https://developers.facebook.com/docs/whatsapp/cloud-api",
+          "https://developers.facebook.com/docs/whatsapp/overview/business-verification"
+        ],
+        "audit_notes": "WhatsApp Business Cloud API exists via Meta Graph API, but requires Business Verification and message template approvals. Automated agent reported blocked/no_public_api; verified refined to conditionally_buildable with admin_approval_gate."
+      }
+    },
+    {
+      "app_id": 31,
+      "app_name": "Google Ads",
+      "category": "marketing",
+      "benchmarks": {
+        "app_id": 31,
+        "app_name": "Google Ads",
+        "category": "marketing",
+        "buildability_verdict": "conditionally_buildable",
+        "auth_methods": [
+          "oauth2"
+        ],
+        "developer_access_tier": "free_self_service",
+        "api_types": [
+          "rest",
+          "grpc"
+        ],
+        "mcp_availability": "community",
+        "has_composio_integration": false,
+        "composio_toolkit_slug": null,
+        "primary_blocker": "admin_approval_gate",
+        "confidence_level": "high",
+        "evidence_urls": [
+          "https://developers.google.com/google-ads/api/docs/first-call/overview",
+          "https://developers.google.com/google-ads/api/docs/access-levels"
+        ],
+        "audit_notes": "Google Ads API requires a developer token application with manual compliance review for production. Automated agent correctly determined conditionally_buildable, OAuth2, gRPC/REST APIs, and admin_approval_gate."
+      }
+    },
+    {
+      "app_id": 32,
+      "app_name": "Meta Ads",
+      "category": "marketing",
+      "benchmarks": {
+        "app_id": 32,
+        "app_name": "Meta Ads",
+        "category": "marketing",
+        "buildability_verdict": "conditionally_buildable",
+        "auth_methods": [
+          "oauth2",
+          "bearer_token"
+        ],
+        "developer_access_tier": "free_self_service",
+        "api_types": [
+          "rest"
+        ],
+        "mcp_availability": "none",
+        "has_composio_integration": false,
+        "composio_toolkit_slug": null,
+        "primary_blocker": "admin_approval_gate",
+        "confidence_level": "medium",
+        "evidence_urls": [
+          "https://developers.facebook.com/docs/marketing-apis",
+          "https://developers.facebook.com/docs/development/create-an-app"
+        ],
+        "audit_notes": "Meta Marketing API offers developer sandbox mode, but production requires App Review and Business Verification. Automated agent marked blocked/documentation_incomplete; verified refined to conditionally_buildable."
+      }
+    },
+    {
+      "app_id": 40,
+      "app_name": "SendGrid",
+      "category": "marketing",
+      "benchmarks": {
+        "app_id": 40,
+        "app_name": "SendGrid",
+        "category": "marketing",
+        "buildability_verdict": "buildable",
+        "auth_methods": [
+          "api_key",
+          "bearer_token"
+        ],
+        "developer_access_tier": "free_self_service",
+        "api_types": [
+          "rest"
+        ],
+        "mcp_availability": "composio",
+        "has_composio_integration": true,
+        "composio_toolkit_slug": "sendgrid",
+        "primary_blocker": "none",
+        "confidence_level": "high",
+        "evidence_urls": [
+          "https://docs.sendgrid.com/api-reference",
+          "https://docs.sendgrid.com/for-developers/sending-email/api-getting-started"
+        ],
+        "audit_notes": "SendGrid provides a free tier (100 emails/day) with instant API key creation. Automated agent marked conditionally_buildable due to doc truncation; verified refined to buildable with API key."
+      }
+    },
+    {
+      "app_id": 41,
+      "app_name": "Shopify",
+      "category": "ecommerce",
+      "benchmarks": {
+        "app_id": 41,
+        "app_name": "Shopify",
+        "category": "ecommerce",
+        "buildability_verdict": "buildable",
+        "auth_methods": [
+          "oauth2",
+          "custom_header"
+        ],
+        "developer_access_tier": "free_self_service",
+        "api_types": [
+          "rest",
+          "graphql"
+        ],
+        "mcp_availability": "none",
+        "has_composio_integration": true,
+        "composio_toolkit_slug": "shopify",
+        "primary_blocker": "none",
+        "confidence_level": "high",
+        "evidence_urls": [
+          "https://shopify.dev/docs/apps/getting-started",
+          "https://shopify.dev/docs/api/admin-graphql"
+        ],
+        "audit_notes": "Shopify Partner accounts offer unlimited free development stores with Admin GraphQL and REST APIs. Automated findings achieved 100% field match across all research dimensions."
+      }
+    },
+    {
+      "app_id": 44,
+      "app_name": "Salesforce Commerce Cloud",
+      "category": "ecommerce",
+      "benchmarks": {
+        "app_id": 44,
+        "app_name": "Salesforce Commerce Cloud",
+        "category": "ecommerce",
+        "buildability_verdict": "blocked",
+        "auth_methods": [
+          "oauth2"
+        ],
+        "developer_access_tier": "enterprise_only",
+        "api_types": [
+          "rest"
+        ],
+        "mcp_availability": "none",
+        "has_composio_integration": false,
+        "composio_toolkit_slug": null,
+        "primary_blocker": "contact_sales_required",
+        "confidence_level": "medium",
+        "evidence_urls": [
+          "https://developer.salesforce.com/docs/commerce/commerce-api",
+          "https://www.salesforce.com/products/commerce-cloud/pricing/"
+        ],
+        "audit_notes": "B2C Commerce on-demand sandboxes are enterprise pay-per-use, restricted to contracted partners. Automated agent correctly determined blocked and Composio absence; blocker refined from no_public_api to enterprise gating."
+      }
+    },
+    {
+      "app_id": 51,
+      "app_name": "DataForSEO",
+      "category": "analytics",
+      "benchmarks": {
+        "app_id": 51,
+        "app_name": "DataForSEO",
+        "category": "analytics",
+        "buildability_verdict": "buildable",
+        "auth_methods": [
+          "basic_auth"
+        ],
+        "developer_access_tier": "free_trial_self_service",
+        "api_types": [
+          "rest"
+        ],
+        "mcp_availability": "none",
+        "has_composio_integration": true,
+        "composio_toolkit_slug": "dataforseo",
+        "primary_blocker": "none",
+        "confidence_level": "high",
+        "evidence_urls": [
+          "https://dataforseo.com/apis",
+          "https://docs.dataforseo.com/v3/"
+        ],
+        "audit_notes": "DataForSEO provides simple REST APIs with HTTP Basic Auth and a $1 free trial balance. Automated agent conservatively returned conditionally_buildable due to doc truncation; verified refined to buildable."
+      }
+    },
+    {
+      "app_id": 61,
+      "app_name": "GitHub",
+      "category": "developer_tools",
+      "benchmarks": {
+        "app_id": 61,
+        "app_name": "GitHub",
+        "category": "developer_tools",
+        "buildability_verdict": "buildable",
+        "auth_methods": [
+          "oauth2",
+          "bearer_token"
+        ],
+        "developer_access_tier": "free_self_service",
+        "api_types": [
+          "rest",
+          "graphql"
+        ],
+        "mcp_availability": "community",
+        "has_composio_integration": true,
+        "composio_toolkit_slug": "github",
+        "primary_blocker": "none",
+        "confidence_level": "high",
+        "evidence_urls": [
+          "https://docs.github.com/en/rest",
+          "https://github.com/modelcontextprotocol/servers/tree/main/src/github"
+        ],
+        "audit_notes": "GitHub provides free personal access tokens, GitHub App OAuth2, REST and GraphQL APIs, and official MCP server. Automated findings achieved 100% field match across all research dimensions."
+      }
+    },
+    {
+      "app_id": 71,
+      "app_name": "Notion",
+      "category": "project_management",
+      "benchmarks": {
+        "app_id": 71,
+        "app_name": "Notion",
+        "category": "project_management",
+        "buildability_verdict": "buildable",
+        "auth_methods": [
+          "bearer_token",
+          "oauth2"
+        ],
+        "developer_access_tier": "free_self_service",
+        "api_types": [
+          "rest"
+        ],
+        "mcp_availability": "official",
+        "has_composio_integration": true,
+        "composio_toolkit_slug": "notion",
+        "primary_blocker": "none",
+        "confidence_level": "high",
+        "evidence_urls": [
+          "https://developers.notion.com/reference/intro",
+          "https://developers.notion.com/docs/create-a-notion-integration"
+        ],
+        "audit_notes": "Notion provides free internal integration tokens, REST API, and hosted MCP server. Automated verdict, access tier, and MCP availability matched perfectly; auth refined from unknown to bearer token/OAuth2."
+      }
+    },
+    {
+      "app_id": 91,
+      "app_name": "NotebookLM",
+      "category": "other",
+      "benchmarks": {
+        "app_id": 91,
+        "app_name": "NotebookLM",
+        "category": "other",
+        "buildability_verdict": "blocked",
+        "auth_methods": [
+          "none"
+        ],
+        "developer_access_tier": "none",
+        "api_types": [
+          "unknown"
+        ],
+        "mcp_availability": "none",
+        "has_composio_integration": false,
+        "composio_toolkit_slug": null,
+        "primary_blocker": "no_public_api",
+        "confidence_level": "high",
+        "evidence_urls": [
+          "https://notebooklm.google.com/"
+        ],
+        "audit_notes": "NotebookLM is a consumer web-only Gemini application with no developer API or MCP interface. Automated findings achieved 100% match across verdict, blocker, and Composio absence."
+      }
+    }
+  ]
+}

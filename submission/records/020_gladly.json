@@ -1,0 +1,85 @@
+{
+  "app_name": "Gladly",
+  "category": "customer_support",
+  "description": "Customer service platform offering chat, email, phone, and AI‑powered commerce tools.",
+  "auth_methods": [
+    "unknown"
+  ],
+  "self_service_access": "contact_sales",
+  "developer_access_tier": null,
+  "production_access_tier": null,
+  "access_requirements": "Contact sales for API access",
+  "api_types": [
+    "rest"
+  ],
+  "api_breadth": "moderate",
+  "mcp_availability": "none",
+  "has_composio_integration": false,
+  "composio_toolkit_slug": null,
+  "buildability_verdict": "conditionally_buildable",
+  "primary_blocker": "contact_sales_required",
+  "blocker_details": "API access requires contacting sales; no self‑service sign‑up or public authentication details are documented.",
+  "evidence_urls": [
+    "https://developer.gladly.com",
+    "https://www.gladly.ai/"
+  ],
+  "evidence_excerpts": [
+    "\"REST API\" (from https://developer.gladly.com)",
+    "\"Integrate seamlessly with Gladly by enabling a connector, calling Gladly's REST APIs, or implementing the Lookup API\" (from https://developer.gladly.com)"
+  ],
+  "evidence_items": [
+    {
+      "url": "https://developer.gladly.com",
+      "title": null,
+      "excerpt": "\"REST API\" (from https://developer.gladly.com)",
+      "retrieved_at": "2026-11-23T13:30:58.527803Z"
+    },
+    {
+      "url": "https://developer.gladly.com",
+      "title": null,
+      "excerpt": "\"Integrate seamlessly with Gladly by enabling a connector, calling Gladly's REST APIs, or implementing the Lookup API\" (from https://developer.gladly.com)",
+      "retrieved_at": "2026-11-23T13:30:58.527811Z"
+    }
+  ],
+  "research_status": "completed",
+  "confidence_level": "medium",
+  "uncertainty_notes": "Documentation does not specify authentication methods or how to obtain API keys; access appears gated behind sales contact.",
+  "llm_execution_source": "real_network",
+  "provenance": {
+    "execution_mode": "live",
+    "doc_execution_source": "real_network",
+    "llm_execution_source": "real_network",
+    "composio_execution_source": "real_network",
+    "documentation_live_fetched": true,
+    "documentation_urls_attempted": [
+      "https://developer.gladly.com",
+      "https://www.gladly.com"
+    ],
+    "documentation_urls_succeeded": [
+      "https://developer.gladly.com",
+      "https://www.gladly.ai/"
+    ],
+    "documentation_truncated": false,
+    "documentation_truncation_notes": null,
+    "llm_inference_attempted": true,
+    "llm_inference_executed": true,
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_error": null,
+    "composio_adapter_configured": true,
+    "composio_discovery_attempted": true,
+    "composio_discovery_succeeded": true,
+    "composio_toolkit_found": false,
+    "composio_discovery_error": null,
+    "composio_mcp_session_attempted": false,
+    "composio_mcp_session_created": false,
+    "composio_mcp_endpoint_returned": false,
+    "composio_mcp_endpoint": null,
+    "composio_mcp_session_error": null,
+    "live_verified": true,
+    "notes": "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+  },
+  "verification_status": "unverified",
+  "verification_notes": null,
+  "created_at": "2026-11-23T13:30:58.527839Z",
+  "updated_at": "2026-11-23T13:30:58.527840Z"
+}

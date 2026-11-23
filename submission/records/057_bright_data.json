@@ -1,0 +1,98 @@
+{
+  "app_name": "Bright Data",
+  "category": "developer_tools",
+  "description": "Web data infrastructure offering proxy services and APIs for large-scale web scraping",
+  "auth_methods": [
+    "api_key"
+  ],
+  "self_service_access": "paid_subscription",
+  "developer_access_tier": null,
+  "production_access_tier": "paid_subscription",
+  "access_requirements": "Paid subscription required",
+  "api_types": [
+    "rest",
+    "webhook_only"
+  ],
+  "api_breadth": "comprehensive",
+  "mcp_availability": "official",
+  "has_composio_integration": false,
+  "composio_toolkit_slug": "bright_data",
+  "buildability_verdict": "buildable",
+  "primary_blocker": "none",
+  "blocker_details": null,
+  "evidence_urls": [
+    "https://brightdata.com"
+  ],
+  "evidence_excerpts": [
+    "Never ask the user to paste an API key into chat, and never print, hardcode, or commit one. In projects, read it from BRIGHTDATA_API_KEY.",
+    "Seamless API and webhook integration",
+    "Full control, visibility and enterprise‑grade security",
+    "MCP Server"
+  ],
+  "evidence_items": [
+    {
+      "url": "https://brightdata.com",
+      "title": null,
+      "excerpt": "Never ask the user to paste an API key into chat, and never print, hardcode, or commit one. In projects, read it from BRIGHTDATA_API_KEY.",
+      "retrieved_at": "2026-11-23T13:45:52.930291Z"
+    },
+    {
+      "url": "https://brightdata.com",
+      "title": null,
+      "excerpt": "Seamless API and webhook integration",
+      "retrieved_at": "2026-11-23T13:45:52.930299Z"
+    },
+    {
+      "url": "https://brightdata.com",
+      "title": null,
+      "excerpt": "Full control, visibility and enterprise‑grade security",
+      "retrieved_at": "2026-11-23T13:45:52.930300Z"
+    },
+    {
+      "url": "https://brightdata.com",
+      "title": null,
+      "excerpt": "MCP Server",
+      "retrieved_at": "2026-11-23T13:45:52.930302Z"
+    }
+  ],
+  "research_status": "completed",
+  "confidence_level": "high",
+  "uncertainty_notes": "Documentation does not specify free developer sandbox or exact pricing tiers; assumption based on paid subscription model.",
+  "llm_execution_source": "real_network",
+  "provenance": {
+    "execution_mode": "live",
+    "doc_execution_source": "real_network",
+    "llm_execution_source": "real_network",
+    "composio_execution_source": "real_network",
+    "documentation_live_fetched": true,
+    "documentation_urls_attempted": [
+      "https://brightdata.com/cp/scraping_api",
+      "https://brightdata.com"
+    ],
+    "documentation_urls_succeeded": [
+      "https://brightdata.com"
+    ],
+    "documentation_truncated": true,
+    "documentation_truncation_notes": "Original documentation length was 9444 chars. Truncated to 2351 chars prioritizing authentication, endpoints, access tiers, and MCP.",
+    "llm_inference_attempted": true,
+    "llm_inference_executed": true,
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_error": null,
+    "composio_adapter_configured": true,
+    "composio_discovery_attempted": true,
+    "composio_discovery_succeeded": true,
+    "composio_toolkit_found": false,
+    "composio_discovery_error": null,
+    "composio_mcp_session_attempted": false,
+    "composio_mcp_session_created": false,
+    "composio_mcp_endpoint_returned": false,
+    "composio_mcp_endpoint": null,
+    "composio_mcp_session_error": null,
+    "live_verified": true,
+    "notes": "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+  },
+  "verification_status": "unverified",
+  "verification_notes": null,
+  "created_at": "2026-11-23T13:45:52.930329Z",
+  "updated_at": "2026-11-23T13:45:52.930330Z"
+}

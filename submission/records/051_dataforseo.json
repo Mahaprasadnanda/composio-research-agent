@@ -1,0 +1,85 @@
+{
+  "app_name": "DataForSEO",
+  "category": "developer_tools",
+  "description": "Provides REST APIs for SEO data, SERP results, keyword research, and app store analytics.",
+  "auth_methods": [
+    "unknown"
+  ],
+  "self_service_access": "unknown",
+  "developer_access_tier": null,
+  "production_access_tier": null,
+  "access_requirements": "unknown",
+  "api_types": [
+    "rest"
+  ],
+  "api_breadth": "comprehensive",
+  "mcp_availability": "none",
+  "has_composio_integration": true,
+  "composio_toolkit_slug": "dataforseo",
+  "buildability_verdict": "conditionally_buildable",
+  "primary_blocker": "documentation_incomplete",
+  "blocker_details": "Authentication method and access tier details are not present in the provided documentation, preventing full automation without further clarification.",
+  "evidence_urls": [
+    "https://docs.dataforseo.com/v3/",
+    "https://docs.dataforseo.com/v3/"
+  ],
+  "evidence_excerpts": [
+    "\"DataForSEO is a platform that offers structured APIs for accessing SEO and digital marketing data — including SERP data, keyword research, competitor analysis, and more.\"",
+    "\"All the responses are returned in the JSON format by default...\""
+  ],
+  "evidence_items": [
+    {
+      "url": "https://docs.dataforseo.com/v3/",
+      "title": null,
+      "excerpt": "\"DataForSEO is a platform that offers structured APIs for accessing SEO and digital marketing data — including SERP data, keyword research, competitor analysis, and more.\"",
+      "retrieved_at": "2026-11-23T13:38:51.654955Z"
+    },
+    {
+      "url": "https://docs.dataforseo.com/v3/",
+      "title": null,
+      "excerpt": "\"All the responses are returned in the JSON format by default...\"",
+      "retrieved_at": "2026-11-23T13:38:51.654966Z"
+    }
+  ],
+  "research_status": "completed",
+  "confidence_level": "medium",
+  "uncertainty_notes": "Auth scheme (e.g., API key, basic auth) and whether a free sandbox or trial exists are not described in the excerpts, leading to uncertainty about self‑service access and credential handling.",
+  "llm_execution_source": "real_network",
+  "provenance": {
+    "execution_mode": "live",
+    "doc_execution_source": "real_network",
+    "llm_execution_source": "real_network",
+    "composio_execution_source": "real_network",
+    "documentation_live_fetched": true,
+    "documentation_urls_attempted": [
+      "https://docs.dataforseo.com/v3/",
+      "https://docs.dataforseo.com"
+    ],
+    "documentation_urls_succeeded": [
+      "https://docs.dataforseo.com/v3/",
+      "https://docs.dataforseo.com/v3/"
+    ],
+    "documentation_truncated": true,
+    "documentation_truncation_notes": "Original documentation length was 7539 chars. Truncated to 2326 chars prioritizing authentication, endpoints, access tiers, and MCP.; Original documentation length was 7539 chars. Truncated to 2326 chars prioritizing authentication, endpoints, access tiers, and MCP.",
+    "llm_inference_attempted": true,
+    "llm_inference_executed": true,
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_error": null,
+    "composio_adapter_configured": true,
+    "composio_discovery_attempted": true,
+    "composio_discovery_succeeded": true,
+    "composio_toolkit_found": true,
+    "composio_discovery_error": null,
+    "composio_mcp_session_attempted": true,
+    "composio_mcp_session_created": true,
+    "composio_mcp_endpoint_returned": true,
+    "composio_mcp_endpoint": "https://backend.composio.dev/tool_router/trs_9IPu3zPiGj-0/mcp",
+    "composio_mcp_session_error": null,
+    "live_verified": true,
+    "notes": "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+  },
+  "verification_status": "unverified",
+  "verification_notes": null,
+  "created_at": "2026-11-23T13:38:51.654995Z",
+  "updated_at": "2026-11-23T13:38:51.654996Z"
+}

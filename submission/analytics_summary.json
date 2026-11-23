@@ -1,0 +1,400 @@
+{
+  "consolidated_dataset": {
+    "scope": "consolidated_dataset",
+    "total_target_applications": 100,
+    "total_researched_applications": 63,
+    "researched_count": 63,
+    "research_coverage_percentage": 63.0,
+    "coverage_percentage": 63.0,
+    "missing_or_failed_applications": 37,
+    "provenance_and_verification": {
+      "live_verified_count": 59,
+      "live_verified_percentage": 93.7,
+      "partial_live_count": 4,
+      "partial_live_percentage": 6.3,
+      "unverified_or_mocked_count": 0,
+      "offline_fallback_count": 0,
+      "execution_mode_distribution": {
+        "live": 59,
+        "partial_live": 4
+      }
+    },
+    "buildability_summary": {
+      "distribution": {
+        "conditionally_buildable": 14,
+        "buildable": 33,
+        "unknown": 4,
+        "blocked": 12
+      },
+      "percentages": {
+        "conditionally_buildable": 22.2,
+        "buildable": 52.4,
+        "unknown": 6.3,
+        "blocked": 19.0
+      },
+      "buildable_count": 33,
+      "conditionally_buildable_count": 14,
+      "blocked_count": 12,
+      "unknown_count": 4
+    },
+    "composio_ecosystem": {
+      "discovery_attempted": 63,
+      "discovery_succeeded": 63,
+      "toolkits_found_count": 40,
+      "toolkits_not_found_count": 23,
+      "toolkit_discovery_rate": 63.5,
+      "mcp_sessions_attempted": 40,
+      "mcp_sessions_created": 33,
+      "mcp_sessions_failed": 7,
+      "mcp_session_success_rate_of_discovered": 82.5,
+      "mcp_endpoints_returned": 33,
+      "mcp_session_failure_classification": {
+        "required_auth_configuration_missing": 7
+      },
+      "mcp_session_failure_details": [
+        {
+          "app_name": "Podio",
+          "toolkit_slug": "podio",
+          "error_classification": "required_auth_configuration_missing",
+          "error_code": 400,
+          "error_message": "400 The following toolkits require auth configs but none exist and cannot be auto-created: podio. Please specify them in auth_configs."
+        },
+        {
+          "app_name": "Help Scout",
+          "toolkit_slug": "help_scout",
+          "error_classification": "required_auth_configuration_missing",
+          "error_code": 400,
+          "error_message": "400 The following toolkits require auth configs but none exist and cannot be auto-created: help_scout. Please specify them in auth_configs."
+        },
+        {
+          "app_name": "Zoho Cliq",
+          "toolkit_slug": "zoho_cliq",
+          "error_classification": "required_auth_configuration_missing",
+          "error_code": 400,
+          "error_message": "400 The following toolkits require auth configs but none exist and cannot be auto-created: zoho_cliq. Please specify them in auth_configs."
+        },
+        {
+          "app_name": "Lark (Larksuite)",
+          "toolkit_slug": "lark",
+          "error_classification": "required_auth_configuration_missing",
+          "error_code": 400,
+          "error_message": "400 The following toolkits require auth configs but none exist and cannot be auto-created: lark. Please specify them in auth_configs."
+        },
+        {
+          "app_name": "LinkedIn Ads",
+          "toolkit_slug": "linkedin_ads",
+          "error_classification": "required_auth_configuration_missing",
+          "error_code": 400,
+          "error_message": "400 The following toolkits require auth configs but none exist and cannot be auto-created: linkedin_ads. Please specify them in auth_configs."
+        },
+        {
+          "app_name": "Threads (Meta)",
+          "toolkit_slug": "threads",
+          "error_classification": "required_auth_configuration_missing",
+          "error_code": 400,
+          "error_message": "400 The following toolkits require auth configs but none exist and cannot be auto-created: threads. Please specify them in auth_configs."
+        },
+        {
+          "app_name": "Shopify",
+          "toolkit_slug": "shopify",
+          "error_classification": "required_auth_configuration_missing",
+          "error_code": 400,
+          "error_message": "400 The following toolkits require auth configs but none exist and cannot be auto-created: shopify. Please specify them in auth_configs."
+        }
+      ],
+      "record_level_has_composio_count": 40
+    },
+    "documentation_retrieval": {
+      "live_fetched_count": 59,
+      "live_fetched_percentage": 93.7,
+      "truncated_count": 34,
+      "truncated_percentage": 54.0
+    },
+    "technical_dimensions": {
+      "auth_methods_distribution": {
+        "unknown": 35,
+        "oauth2": 18,
+        "api_key": 13,
+        "basic_auth": 3,
+        "bearer_token": 9,
+        "custom_header": 2
+      },
+      "api_types_distribution": {
+        "unknown": 24,
+        "rest": 39,
+        "webhook_only": 4,
+        "grpc": 1,
+        "graphql": 3,
+        "soap": 1
+      },
+      "api_breadth_distribution": {
+        "unknown": 23,
+        "comprehensive": 38,
+        "moderate": 2
+      },
+      "mcp_availability_distribution": {
+        "official": 25,
+        "unknown": 5,
+        "none": 31,
+        "composio": 2
+      },
+      "self_service_access_distribution": {
+        "free_trial_self_service": 10,
+        "free_self_service": 23,
+        "unknown": 21,
+        "paid_subscription": 3,
+        "contact_sales": 2,
+        "admin_approval": 4
+      },
+      "primary_blocker_distribution": {
+        "documentation_incomplete": 16,
+        "none": 33,
+        "no_public_api": 10,
+        "contact_sales_required": 1,
+        "admin_approval_gate": 2,
+        "paywall_restricted": 1
+      },
+      "confidence_level_distribution": {
+        "medium": 16,
+        "high": 32,
+        "low": 15
+      }
+    }
+  },
+  "all_available_outputs": {
+    "scope": "all_available_files",
+    "total_target_applications": 100,
+    "total_researched_applications": 63,
+    "researched_count": 63,
+    "research_coverage_percentage": 63.0,
+    "coverage_percentage": 63.0,
+    "missing_or_failed_applications": 37,
+    "provenance_and_verification": {
+      "live_verified_count": 59,
+      "live_verified_percentage": 93.7,
+      "partial_live_count": 4,
+      "partial_live_percentage": 6.3,
+      "unverified_or_mocked_count": 0,
+      "offline_fallback_count": 0,
+      "execution_mode_distribution": {
+        "live": 59,
+        "partial_live": 4
+      }
+    },
+    "buildability_summary": {
+      "distribution": {
+        "conditionally_buildable": 14,
+        "buildable": 33,
+        "unknown": 4,
+        "blocked": 12
+      },
+      "percentages": {
+        "conditionally_buildable": 22.2,
+        "buildable": 52.4,
+        "unknown": 6.3,
+        "blocked": 19.0
+      },
+      "buildable_count": 33,
+      "conditionally_buildable_count": 14,
+      "blocked_count": 12,
+      "unknown_count": 4
+    },
+    "composio_ecosystem": {
+      "discovery_attempted": 63,
+      "discovery_succeeded": 63,
+      "toolkits_found_count": 40,
+      "toolkits_not_found_count": 23,
+      "toolkit_discovery_rate": 63.5,
+      "mcp_sessions_attempted": 40,
+      "mcp_sessions_created": 33,
+      "mcp_sessions_failed": 7,
+      "mcp_session_success_rate_of_discovered": 82.5,
+      "mcp_endpoints_returned": 33,
+      "mcp_session_failure_classification": {
+        "required_auth_configuration_missing": 7
+      },
+      "mcp_session_failure_details": [
+        {
+          "app_name": "Podio",
+          "toolkit_slug": "podio",
+          "error_classification": "required_auth_configuration_missing",
+          "error_code": 400,
+          "error_message": "400 The following toolkits require auth configs but none exist and cannot be auto-created: podio. Please specify them in auth_configs."
+        },
+        {
+          "app_name": "Help Scout",
+          "toolkit_slug": "help_scout",
+          "error_classification": "required_auth_configuration_missing",
+          "error_code": 400,
+          "error_message": "400 The following toolkits require auth configs but none exist and cannot be auto-created: help_scout. Please specify them in auth_configs."
+        },
+        {
+          "app_name": "Zoho Cliq",
+          "toolkit_slug": "zoho_cliq",
+          "error_classification": "required_auth_configuration_missing",
+          "error_code": 400,
+          "error_message": "400 The following toolkits require auth configs but none exist and cannot be auto-created: zoho_cliq. Please specify them in auth_configs."
+        },
+        {
+          "app_name": "Lark (Larksuite)",
+          "toolkit_slug": "lark",
+          "error_classification": "required_auth_configuration_missing",
+          "error_code": 400,
+          "error_message": "400 The following toolkits require auth configs but none exist and cannot be auto-created: lark. Please specify them in auth_configs."
+        },
+        {
+          "app_name": "LinkedIn Ads",
+          "toolkit_slug": "linkedin_ads",
+          "error_classification": "required_auth_configuration_missing",
+          "error_code": 400,
+          "error_message": "400 The following toolkits require auth configs but none exist and cannot be auto-created: linkedin_ads. Please specify them in auth_configs."
+        },
+        {
+          "app_name": "Threads (Meta)",
+          "toolkit_slug": "threads",
+          "error_classification": "required_auth_configuration_missing",
+          "error_code": 400,
+          "error_message": "400 The following toolkits require auth configs but none exist and cannot be auto-created: threads. Please specify them in auth_configs."
+        },
+        {
+          "app_name": "Shopify",
+          "toolkit_slug": "shopify",
+          "error_classification": "required_auth_configuration_missing",
+          "error_code": 400,
+          "error_message": "400 The following toolkits require auth configs but none exist and cannot be auto-created: shopify. Please specify them in auth_configs."
+        }
+      ],
+      "record_level_has_composio_count": 40
+    },
+    "documentation_retrieval": {
+      "live_fetched_count": 59,
+      "live_fetched_percentage": 93.7,
+      "truncated_count": 34,
+      "truncated_percentage": 54.0
+    },
+    "technical_dimensions": {
+      "auth_methods_distribution": {
+        "unknown": 35,
+        "oauth2": 18,
+        "api_key": 13,
+        "basic_auth": 3,
+        "bearer_token": 9,
+        "custom_header": 2
+      },
+      "api_types_distribution": {
+        "unknown": 24,
+        "rest": 39,
+        "webhook_only": 4,
+        "grpc": 1,
+        "graphql": 3,
+        "soap": 1
+      },
+      "api_breadth_distribution": {
+        "unknown": 23,
+        "comprehensive": 38,
+        "moderate": 2
+      },
+      "mcp_availability_distribution": {
+        "official": 25,
+        "unknown": 5,
+        "none": 31,
+        "composio": 2
+      },
+      "self_service_access_distribution": {
+        "free_trial_self_service": 10,
+        "free_self_service": 23,
+        "unknown": 21,
+        "paid_subscription": 3,
+        "contact_sales": 2,
+        "admin_approval": 4
+      },
+      "primary_blocker_distribution": {
+        "documentation_incomplete": 16,
+        "none": 33,
+        "no_public_api": 10,
+        "contact_sales_required": 1,
+        "admin_approval_gate": 2,
+        "paywall_restricted": 1
+      },
+      "confidence_level_distribution": {
+        "medium": 16,
+        "high": 32,
+        "low": 15
+      }
+    }
+  },
+  "verification_audit": {
+    "sample_size": 15,
+    "total_evaluated_fields": 105,
+    "exact_matches": 66,
+    "refined_matches": 31,
+    "discrepancies": 8,
+    "overall_field_exact_match_rate": 62.9,
+    "overall_post_correction_accuracy": 92.4,
+    "verdict_agreement_rate": 73.3,
+    "composio_discovery_agreement_rate": 100.0,
+    "mcp_availability_agreement_rate": 80.0,
+    "access_tier_agreement_rate": 46.7,
+    "auth_methods_exact_match_rate": 26.7,
+    "api_types_exact_match_rate": 53.3,
+    "primary_blocker_agreement_rate": 60.0,
+    "category_level_summary": {
+      "crm": {
+        "total_fields": 14,
+        "accuracy_rate": 100.0
+      },
+      "customer_support": {
+        "total_fields": 14,
+        "accuracy_rate": 92.9
+      },
+      "communication": {
+        "total_fields": 14,
+        "accuracy_rate": 85.7
+      },
+      "marketing": {
+        "total_fields": 21,
+        "accuracy_rate": 90.5
+      },
+      "ecommerce": {
+        "total_fields": 14,
+        "accuracy_rate": 92.9
+      },
+      "analytics": {
+        "total_fields": 7,
+        "accuracy_rate": 85.7
+      },
+      "developer_tools": {
+        "total_fields": 7,
+        "accuracy_rate": 85.7
+      },
+      "project_management": {
+        "total_fields": 7,
+        "accuracy_rate": 100.0
+      },
+      "other": {
+        "total_fields": 7,
+        "accuracy_rate": 100.0
+      }
+    },
+    "error_patterns": [
+      {
+        "pattern": "Conservative Auth Classification as Unknown",
+        "count": 10,
+        "description": "When documentation landing pages or top-level portals are scraped without following nested API reference links, the LLM safely emits 'unknown' auth rather than hallucinating OAuth2/API key parameters.",
+        "impact": "High safety, zero hallucination, but necessitates human or crawler refinement for complete auth profiles."
+      },
+      {
+        "pattern": "Documentation Truncation Causing Conditional Verdicts",
+        "count": 3,
+        "description": "Apps with large documentation corpora (e.g. DataForSEO, SendGrid) truncated at token budgets were labeled conditionally_buildable due to missing sections, even when APIs are standard REST.",
+        "impact": "Slightly depresses raw buildable rate while preventing false-positive integration claims."
+      },
+      {
+        "pattern": "Landing Page Masking Behind Enterprise Portals",
+        "count": 2,
+        "description": "Complex multi-tenant enterprise platforms (Salesforce Commerce Cloud, WhatsApp Business) present marketing gateways to unauthenticated crawlers, leading to 'no_public_api' initial blocker claims.",
+        "impact": "Correctly flags enterprise gating, but misattributes the technical barrier as lack of APIs rather than contractual gating."
+      }
+    ]
+  }
+}

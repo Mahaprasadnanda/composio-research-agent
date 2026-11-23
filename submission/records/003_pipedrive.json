@@ -1,0 +1,107 @@
+{
+  "app_name": "Pipedrive",
+  "category": "crm",
+  "description": "Sales CRM platform for managing deals, contacts, pipelines, and activities.",
+  "auth_methods": [
+    "oauth2",
+    "api_key"
+  ],
+  "self_service_access": "free_self_service",
+  "developer_access_tier": "free_self_service",
+  "production_access_tier": "paid_subscription",
+  "access_requirements": "Free trial or sandbox self‑serve; production requires paid subscription",
+  "api_types": [
+    "rest"
+  ],
+  "api_breadth": "comprehensive",
+  "mcp_availability": "official",
+  "has_composio_integration": true,
+  "composio_toolkit_slug": "pipedrive",
+  "buildability_verdict": "buildable",
+  "primary_blocker": "none",
+  "blocker_details": null,
+  "evidence_urls": [
+    "https://developers.pipedrive.com/docs/api/v1",
+    "https://www.pipedrive.com"
+  ],
+  "evidence_excerpts": [
+    "The API token can be obtained manually from the Pipedrive app.",
+    "OAuth 2.0",
+    "This reference helps you implement the RESTful Pipedrive API.",
+    "To test your applications, we recommend creating a new, separate Pipedrive account for sandboxing purposes.",
+    "14-day free trial, no credit card required"
+  ],
+  "evidence_items": [
+    {
+      "url": "https://developers.pipedrive.com/docs/api/v1",
+      "title": null,
+      "excerpt": "The API token can be obtained manually from the Pipedrive app.",
+      "retrieved_at": "2026-11-23T13:26:26.183401Z"
+    },
+    {
+      "url": "https://developers.pipedrive.com/docs/api/v1",
+      "title": null,
+      "excerpt": "OAuth 2.0",
+      "retrieved_at": "2026-11-23T13:26:26.183417Z"
+    },
+    {
+      "url": "https://developers.pipedrive.com/docs/api/v1",
+      "title": null,
+      "excerpt": "This reference helps you implement the RESTful Pipedrive API.",
+      "retrieved_at": "2026-11-23T13:26:26.183422Z"
+    },
+    {
+      "url": "https://developers.pipedrive.com/docs/api/v1",
+      "title": null,
+      "excerpt": "To test your applications, we recommend creating a new, separate Pipedrive account for sandboxing purposes.",
+      "retrieved_at": "2026-11-23T13:26:26.183425Z"
+    },
+    {
+      "url": "https://developers.pipedrive.com/docs/api/v1",
+      "title": null,
+      "excerpt": "14-day free trial, no credit card required",
+      "retrieved_at": "2026-11-23T13:26:26.183429Z"
+    }
+  ],
+  "research_status": "completed",
+  "confidence_level": "high",
+  "uncertainty_notes": null,
+  "llm_execution_source": "real_network",
+  "provenance": {
+    "execution_mode": "live",
+    "doc_execution_source": "real_network",
+    "llm_execution_source": "real_network",
+    "composio_execution_source": "real_network",
+    "documentation_live_fetched": true,
+    "documentation_urls_attempted": [
+      "https://developers.pipedrive.com/docs/api/v1",
+      "https://www.pipedrive.com"
+    ],
+    "documentation_urls_succeeded": [
+      "https://developers.pipedrive.com/docs/api/v1",
+      "https://www.pipedrive.com"
+    ],
+    "documentation_truncated": true,
+    "documentation_truncation_notes": "Original documentation length was 13399 chars. Truncated to 542 chars prioritizing authentication, endpoints, access tiers, and MCP.",
+    "llm_inference_attempted": true,
+    "llm_inference_executed": true,
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_error": null,
+    "composio_adapter_configured": true,
+    "composio_discovery_attempted": true,
+    "composio_discovery_succeeded": true,
+    "composio_toolkit_found": true,
+    "composio_discovery_error": null,
+    "composio_mcp_session_attempted": true,
+    "composio_mcp_session_created": true,
+    "composio_mcp_endpoint_returned": true,
+    "composio_mcp_endpoint": "https://backend.composio.dev/tool_router/trs_wVDAjkSberb-/mcp",
+    "composio_mcp_session_error": null,
+    "live_verified": true,
+    "notes": "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+  },
+  "verification_status": "unverified",
+  "verification_notes": null,
+  "created_at": "2026-11-23T13:26:26.183489Z",
+  "updated_at": "2026-11-23T13:26:26.183490Z"
+}

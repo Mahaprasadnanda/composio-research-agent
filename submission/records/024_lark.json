@@ -1,0 +1,85 @@
+{
+  "app_name": "Lark (Larksuite)",
+  "category": "communication",
+  "description": "Unified communication and collaboration platform for messaging, video calls, and productivity tools.",
+  "auth_methods": [
+    "unknown"
+  ],
+  "self_service_access": "unknown",
+  "developer_access_tier": null,
+  "production_access_tier": null,
+  "access_requirements": "unknown",
+  "api_types": [
+    "unknown"
+  ],
+  "api_breadth": "unknown",
+  "mcp_availability": "none",
+  "has_composio_integration": true,
+  "composio_toolkit_slug": "lark",
+  "buildability_verdict": "unknown",
+  "primary_blocker": "documentation_incomplete",
+  "blocker_details": "Documentation provides only generic landing pages without details on authentication, API endpoints, or access tiers.",
+  "evidence_urls": [
+    "https://open.larksuite.com/document",
+    "https://open.larksuite.com"
+  ],
+  "evidence_excerpts": [
+    "Title: Documentation -  Lark Developer",
+    "Title: Lark Developer"
+  ],
+  "evidence_items": [
+    {
+      "url": "https://open.larksuite.com/document",
+      "title": null,
+      "excerpt": "Title: Documentation -  Lark Developer",
+      "retrieved_at": "2026-11-23T13:31:48.456203Z"
+    },
+    {
+      "url": "https://open.larksuite.com/document",
+      "title": null,
+      "excerpt": "Title: Lark Developer",
+      "retrieved_at": "2026-11-23T13:31:48.456219Z"
+    }
+  ],
+  "research_status": "completed",
+  "confidence_level": "low",
+  "uncertainty_notes": "No specific information on auth methods, API types, access tiers, or rate limits is present in the provided sources.",
+  "llm_execution_source": "real_network",
+  "provenance": {
+    "execution_mode": "live",
+    "doc_execution_source": "real_network",
+    "llm_execution_source": "real_network",
+    "composio_execution_source": "real_network",
+    "documentation_live_fetched": true,
+    "documentation_urls_attempted": [
+      "https://open.larksuite.com/document",
+      "https://open.larksuite.com"
+    ],
+    "documentation_urls_succeeded": [
+      "https://open.larksuite.com/document",
+      "https://open.larksuite.com"
+    ],
+    "documentation_truncated": false,
+    "documentation_truncation_notes": null,
+    "llm_inference_attempted": true,
+    "llm_inference_executed": true,
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_error": null,
+    "composio_adapter_configured": true,
+    "composio_discovery_attempted": true,
+    "composio_discovery_succeeded": true,
+    "composio_toolkit_found": true,
+    "composio_discovery_error": null,
+    "composio_mcp_session_attempted": true,
+    "composio_mcp_session_created": false,
+    "composio_mcp_endpoint_returned": false,
+    "composio_mcp_endpoint": null,
+    "composio_mcp_session_error": "400 The following toolkits require auth configs but none exist and cannot be auto-created: lark. Please specify them in auth_configs.",
+    "live_verified": true,
+    "notes": "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+  },
+  "verification_status": "unverified",
+  "verification_notes": null,
+  "created_at": "2026-11-23T13:31:48.456465Z",
+  "updated_at": "2026-11-23T13:31:48.456471Z"
+}

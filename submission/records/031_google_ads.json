@@ -1,0 +1,98 @@
+{
+  "app_name": "Google Ads",
+  "category": "marketing",
+  "description": "Programmatic interface for managing Google Ads accounts, campaigns, reporting, and bidding via REST/gRPC.",
+  "auth_methods": [
+    "oauth2"
+  ],
+  "self_service_access": "admin_approval",
+  "developer_access_tier": "free_self_service",
+  "production_access_tier": "admin_approval",
+  "access_requirements": "Requires approved Google Ads API developer token (application and review)",
+  "api_types": [
+    "rest",
+    "grpc"
+  ],
+  "api_breadth": "comprehensive",
+  "mcp_availability": "official",
+  "has_composio_integration": false,
+  "composio_toolkit_slug": null,
+  "buildability_verdict": "conditionally_buildable",
+  "primary_blocker": "admin_approval_gate",
+  "blocker_details": "Requires obtaining an approved Google Ads API developer token, which involves application review and may limit production access.",
+  "evidence_urls": [
+    "https://developers.google.com/google-ads/api/docs/get-started/introduction",
+    "https://developers.google.com/google-ads"
+  ],
+  "evidence_excerpts": [
+    "\"Configure OAuth 2.0 and credentials\"",
+    "\"Access model overview , Service account workflow , User authentication workflow , Brand verification , Developer token sunset\"",
+    "\"Create and update Performance Max , Search , Demand Gen , Shopping , Video , and App campaigns, budgets , and assets\"",
+    "\"Test accounts\""
+  ],
+  "evidence_items": [
+    {
+      "url": "https://developers.google.com/google-ads/api/docs/get-started/introduction",
+      "title": null,
+      "excerpt": "\"Configure OAuth 2.0 and credentials\"",
+      "retrieved_at": "2026-11-23T12:43:25.524399Z"
+    },
+    {
+      "url": "https://developers.google.com/google-ads/api/docs/get-started/introduction",
+      "title": null,
+      "excerpt": "\"Access model overview , Service account workflow , User authentication workflow , Brand verification , Developer token sunset\"",
+      "retrieved_at": "2026-11-23T12:43:25.524437Z"
+    },
+    {
+      "url": "https://developers.google.com/google-ads/api/docs/get-started/introduction",
+      "title": null,
+      "excerpt": "\"Create and update Performance Max , Search , Demand Gen , Shopping , Video , and App campaigns, budgets , and assets\"",
+      "retrieved_at": "2026-11-23T12:43:25.524442Z"
+    },
+    {
+      "url": "https://developers.google.com/google-ads/api/docs/get-started/introduction",
+      "title": null,
+      "excerpt": "\"Test accounts\"",
+      "retrieved_at": "2026-11-23T12:43:25.524454Z"
+    }
+  ],
+  "research_status": "completed",
+  "confidence_level": "high",
+  "uncertainty_notes": "Production access tier not explicitly labeled; inferred from developer token approval process.",
+  "llm_execution_source": "real_network",
+  "provenance": {
+    "execution_mode": "live",
+    "doc_execution_source": "real_network",
+    "llm_execution_source": "real_network",
+    "composio_execution_source": "real_network",
+    "documentation_live_fetched": true,
+    "documentation_urls_attempted": [
+      "https://developers.google.com/google-ads/api/docs/start",
+      "https://developers.google.com/google-ads"
+    ],
+    "documentation_urls_succeeded": [
+      "https://developers.google.com/google-ads/api/docs/get-started/introduction",
+      "https://developers.google.com/google-ads"
+    ],
+    "llm_inference_attempted": true,
+    "llm_inference_executed": true,
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_error": null,
+    "composio_adapter_configured": true,
+    "composio_discovery_attempted": true,
+    "composio_discovery_succeeded": true,
+    "composio_toolkit_found": false,
+    "composio_discovery_error": null,
+    "composio_mcp_session_attempted": false,
+    "composio_mcp_session_created": false,
+    "composio_mcp_endpoint_returned": false,
+    "composio_mcp_endpoint": null,
+    "composio_mcp_session_error": null,
+    "live_verified": true,
+    "notes": "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+  },
+  "verification_status": "unverified",
+  "verification_notes": null,
+  "created_at": "2026-11-23T12:43:25.524519Z",
+  "updated_at": "2026-11-23T12:43:25.524521Z"
+}

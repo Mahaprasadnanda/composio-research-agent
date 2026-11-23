@@ -1,0 +1,85 @@
+{
+  "app_name": "Apify",
+  "category": "developer_tools",
+  "description": "Apify offers a marketplace of automation Actors to retrieve web data, run tasks, and manage datasets via a REST API.",
+  "auth_methods": [
+    "unknown"
+  ],
+  "self_service_access": "unknown",
+  "developer_access_tier": null,
+  "production_access_tier": null,
+  "access_requirements": "unknown",
+  "api_types": [
+    "rest"
+  ],
+  "api_breadth": "comprehensive",
+  "mcp_availability": "official",
+  "has_composio_integration": true,
+  "composio_toolkit_slug": "apify",
+  "buildability_verdict": "buildable",
+  "primary_blocker": "none",
+  "blocker_details": null,
+  "evidence_urls": [
+    "https://docs.apify.com/api/v2",
+    "https://docs.apify.com"
+  ],
+  "evidence_excerpts": [
+    "--- SOURCE 1 (https://docs.apify.com/api/v2) ---\\nContent:\\n...\\n- Actors\\n- Actor versions\\n- Actor builds\\n- Actor runs\\n- Actor tasks\\n- Datasets\\n- Key-value stores\\n- Request queues\\n- Webhooks\\n- Schedules\\n- Users\\n...",
+    "--- SOURCE 2 (https://docs.apify.com) ---\\nContent:\\n# Apify Documentation\\n> Apify is the largest marketplace of tools for AI...\\n## Apify API\\n- [Apify API documentation](https://docs.apify.com/api/llms.txt): Endpoints to manage Actors, runs, builds, tasks, datasets, key-value stores, request queues, schedules, webhooks, and your account."
+  ],
+  "evidence_items": [
+    {
+      "url": "https://docs.apify.com/api/v2",
+      "title": null,
+      "excerpt": "--- SOURCE 1 (https://docs.apify.com/api/v2) ---\\nContent:\\n...\\n- Actors\\n- Actor versions\\n- Actor builds\\n- Actor runs\\n- Actor tasks\\n- Datasets\\n- Key-value stores\\n- Request queues\\n- Webhooks\\n- Schedules\\n- Users\\n...",
+      "retrieved_at": "2026-11-23T13:40:08.369081Z"
+    },
+    {
+      "url": "https://docs.apify.com/api/v2",
+      "title": null,
+      "excerpt": "--- SOURCE 2 (https://docs.apify.com) ---\\nContent:\\n# Apify Documentation\\n> Apify is the largest marketplace of tools for AI...\\n## Apify API\\n- [Apify API documentation](https://docs.apify.com/api/llms.txt): Endpoints to manage Actors, runs, builds, tasks, datasets, key-value stores, request queues, schedules, webhooks, and your account.",
+      "retrieved_at": "2026-11-23T13:40:08.369093Z"
+    }
+  ],
+  "research_status": "completed",
+  "confidence_level": "medium",
+  "uncertainty_notes": "Documentation excerpts do not explicitly state the authentication method (e.g., bearer token) or the exact self‑service access tier; these were inferred from typical API patterns.",
+  "llm_execution_source": "real_network",
+  "provenance": {
+    "execution_mode": "live",
+    "doc_execution_source": "real_network",
+    "llm_execution_source": "real_network",
+    "composio_execution_source": "real_network",
+    "documentation_live_fetched": true,
+    "documentation_urls_attempted": [
+      "https://docs.apify.com/api/v2",
+      "https://docs.apify.com"
+    ],
+    "documentation_urls_succeeded": [
+      "https://docs.apify.com/api/v2",
+      "https://docs.apify.com"
+    ],
+    "documentation_truncated": true,
+    "documentation_truncation_notes": "Plain document truncated from 30384 to 5026 chars.; Plain document truncated from 26937 to 5026 chars.",
+    "llm_inference_attempted": true,
+    "llm_inference_executed": true,
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_error": null,
+    "composio_adapter_configured": true,
+    "composio_discovery_attempted": true,
+    "composio_discovery_succeeded": true,
+    "composio_toolkit_found": true,
+    "composio_discovery_error": null,
+    "composio_mcp_session_attempted": true,
+    "composio_mcp_session_created": true,
+    "composio_mcp_endpoint_returned": true,
+    "composio_mcp_endpoint": "https://backend.composio.dev/tool_router/trs_kGMHu1TQ7pV9/mcp",
+    "composio_mcp_session_error": null,
+    "live_verified": true,
+    "notes": "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+  },
+  "verification_status": "unverified",
+  "verification_notes": null,
+  "created_at": "2026-11-23T13:40:08.369135Z",
+  "updated_at": "2026-11-23T13:40:08.369142Z"
+}

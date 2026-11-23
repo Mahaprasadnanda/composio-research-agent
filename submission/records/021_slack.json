@@ -1,0 +1,108 @@
+{
+  "app_name": "Slack",
+  "category": "communication",
+  "description": "Slack is a collaborative messaging platform that enables team communication, file sharing, and integration with apps and AI agents.",
+  "auth_methods": [
+    "oauth2",
+    "bearer_token"
+  ],
+  "self_service_access": "free_self_service",
+  "developer_access_tier": "free_self_service",
+  "production_access_tier": "paid_subscription",
+  "access_requirements": "Free tier self-serve (Developer Program sandbox) or paid subscription for advanced features",
+  "api_types": [
+    "rest",
+    "webhook_only"
+  ],
+  "api_breadth": "comprehensive",
+  "mcp_availability": "official",
+  "has_composio_integration": true,
+  "composio_toolkit_slug": "slack",
+  "buildability_verdict": "buildable",
+  "primary_blocker": "none",
+  "blocker_details": null,
+  "evidence_urls": [
+    "https://docs.slack.dev/",
+    "https://slack.com/intl/en-in/"
+  ],
+  "evidence_excerpts": [
+    "Add Slack as a remote MCP server in your tool, set its authentication to OAuth 2.0, and enter your Slack app's client ID.",
+    "Copy the bot token ( xoxb- ) from OAuth & Permissions .",
+    "Some AI features need a paid plan; a free Developer Program sandbox has them.",
+    "Get started Find your subscription",
+    "SLACK_ADD_EMOJI', 'description': 'Adds a custom emoji to a Slack workspace"
+  ],
+  "evidence_items": [
+    {
+      "url": "https://docs.slack.dev/",
+      "title": null,
+      "excerpt": "Add Slack as a remote MCP server in your tool, set its authentication to OAuth 2.0, and enter your Slack app's client ID.",
+      "retrieved_at": "2026-11-23T13:04:32.369740Z"
+    },
+    {
+      "url": "https://docs.slack.dev/",
+      "title": null,
+      "excerpt": "Copy the bot token ( xoxb- ) from OAuth & Permissions .",
+      "retrieved_at": "2026-11-23T13:04:32.369751Z"
+    },
+    {
+      "url": "https://docs.slack.dev/",
+      "title": null,
+      "excerpt": "Some AI features need a paid plan; a free Developer Program sandbox has them.",
+      "retrieved_at": "2026-11-23T13:04:32.369754Z"
+    },
+    {
+      "url": "https://docs.slack.dev/",
+      "title": null,
+      "excerpt": "Get started Find your subscription",
+      "retrieved_at": "2026-11-23T13:04:32.369757Z"
+    },
+    {
+      "url": "https://docs.slack.dev/",
+      "title": null,
+      "excerpt": "SLACK_ADD_EMOJI', 'description': 'Adds a custom emoji to a Slack workspace",
+      "retrieved_at": "2026-11-23T13:04:32.369760Z"
+    }
+  ],
+  "research_status": "completed",
+  "confidence_level": "high",
+  "uncertainty_notes": null,
+  "llm_execution_source": "real_network",
+  "provenance": {
+    "execution_mode": "live",
+    "doc_execution_source": "real_network",
+    "llm_execution_source": "real_network",
+    "composio_execution_source": "real_network",
+    "documentation_live_fetched": true,
+    "documentation_urls_attempted": [
+      "https://api.slack.com",
+      "https://slack.com"
+    ],
+    "documentation_urls_succeeded": [
+      "https://docs.slack.dev/",
+      "https://slack.com/intl/en-in/"
+    ],
+    "documentation_truncated": true,
+    "documentation_truncation_notes": "Original documentation length was 36889 chars. Truncated to 6485 chars prioritizing authentication, endpoints, access tiers, and MCP.",
+    "llm_inference_attempted": true,
+    "llm_inference_executed": true,
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_error": null,
+    "composio_adapter_configured": true,
+    "composio_discovery_attempted": true,
+    "composio_discovery_succeeded": true,
+    "composio_toolkit_found": true,
+    "composio_discovery_error": null,
+    "composio_mcp_session_attempted": true,
+    "composio_mcp_session_created": true,
+    "composio_mcp_endpoint_returned": true,
+    "composio_mcp_endpoint": "https://backend.composio.dev/tool_router/trs_zgj2Iq3_h5an/mcp",
+    "composio_mcp_session_error": null,
+    "live_verified": true,
+    "notes": "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+  },
+  "verification_status": "unverified",
+  "verification_notes": null,
+  "created_at": "2026-11-23T13:04:32.369795Z",
+  "updated_at": "2026-11-23T13:04:32.369796Z"
+}

@@ -1,0 +1,95 @@
+{
+  "app_name": "Magento (Adobe Commerce)",
+  "category": "ecommerce",
+  "description": "A flexible e‑commerce platform offering REST, GraphQL, and SOAP APIs for storefront and admin integration.",
+  "auth_methods": [
+    "bearer_token",
+    "unknown"
+  ],
+  "self_service_access": "admin_approval",
+  "developer_access_tier": "free_self_service",
+  "production_access_tier": "paid_subscription",
+  "access_requirements": "Requires Magento admin credentials and a licensed Adobe Commerce instance",
+  "api_types": [
+    "rest",
+    "graphql",
+    "soap"
+  ],
+  "api_breadth": "comprehensive",
+  "mcp_availability": "none",
+  "has_composio_integration": false,
+  "composio_toolkit_slug": null,
+  "buildability_verdict": "buildable",
+  "primary_blocker": "none",
+  "blocker_details": null,
+  "evidence_urls": [
+    "https://developer.adobe.com/commerce/webapi/get-started/",
+    "https://developer.adobe.com/commerce/"
+  ],
+  "evidence_excerpts": [
+    "Three types of authentication :\\n\\nThird-party applications authenticate with OAuth 1.0a .\\nMobile applications authenticate using tokens .\\nAdministrators and customers are authenticated with login credentials .",
+    "Support for GraphQL , REST (Representational State Transfer) and SOAP (Simple Object Access Protocol).",
+    "You must register a web service on Admin. Use the following general steps to set up Magento to enable web services.\\nIf you are using token-based authentication, create a web services user on Admin..."
+  ],
+  "evidence_items": [
+    {
+      "url": "https://developer.adobe.com/commerce/webapi/get-started/",
+      "title": null,
+      "excerpt": "Three types of authentication :\\n\\nThird-party applications authenticate with OAuth 1.0a .\\nMobile applications authenticate using tokens .\\nAdministrators and customers are authenticated with login credentials .",
+      "retrieved_at": "2026-11-23T13:37:24.196459Z"
+    },
+    {
+      "url": "https://developer.adobe.com/commerce/webapi/get-started/",
+      "title": null,
+      "excerpt": "Support for GraphQL , REST (Representational State Transfer) and SOAP (Simple Object Access Protocol).",
+      "retrieved_at": "2026-11-23T13:37:24.196465Z"
+    },
+    {
+      "url": "https://developer.adobe.com/commerce/webapi/get-started/",
+      "title": null,
+      "excerpt": "You must register a web service on Admin. Use the following general steps to set up Magento to enable web services.\\nIf you are using token-based authentication, create a web services user on Admin...",
+      "retrieved_at": "2026-11-23T13:37:24.196466Z"
+    }
+  ],
+  "research_status": "completed",
+  "confidence_level": "high",
+  "uncertainty_notes": "OAuth 1.0a does not map to the allowed \"oauth2\" enum; token authentication type is not explicitly defined as bearer token, so auth_methods include \"unknown\" to reflect ambiguity.",
+  "llm_execution_source": "real_network",
+  "provenance": {
+    "execution_mode": "live",
+    "doc_execution_source": "real_network",
+    "llm_execution_source": "real_network",
+    "composio_execution_source": "real_network",
+    "documentation_live_fetched": true,
+    "documentation_urls_attempted": [
+      "https://developer.adobe.com/commerce/webapi/get-started/",
+      "https://developer.adobe.com/commerce"
+    ],
+    "documentation_urls_succeeded": [
+      "https://developer.adobe.com/commerce/webapi/get-started/",
+      "https://developer.adobe.com/commerce/"
+    ],
+    "documentation_truncated": false,
+    "documentation_truncation_notes": null,
+    "llm_inference_attempted": true,
+    "llm_inference_executed": true,
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_error": null,
+    "composio_adapter_configured": true,
+    "composio_discovery_attempted": true,
+    "composio_discovery_succeeded": true,
+    "composio_toolkit_found": false,
+    "composio_discovery_error": null,
+    "composio_mcp_session_attempted": false,
+    "composio_mcp_session_created": false,
+    "composio_mcp_endpoint_returned": false,
+    "composio_mcp_endpoint": null,
+    "composio_mcp_session_error": null,
+    "live_verified": true,
+    "notes": "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+  },
+  "verification_status": "unverified",
+  "verification_notes": null,
+  "created_at": "2026-11-23T13:37:24.196487Z",
+  "updated_at": "2026-11-23T13:37:24.196488Z"
+}

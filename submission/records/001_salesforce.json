@@ -1,0 +1,90 @@
+{
+  "app_name": "Salesforce",
+  "category": "crm",
+  "description": "AI‑powered CRM platform that lets agents access Salesforce data, rules, and permissions via APIs and MCPs",
+  "auth_methods": [
+    "unknown"
+  ],
+  "self_service_access": "free_trial_self_service",
+  "developer_access_tier": null,
+  "production_access_tier": "paid_subscription",
+  "access_requirements": "Free trial self‑serve; paid subscription for production",
+  "api_types": [
+    "unknown"
+  ],
+  "api_breadth": "unknown",
+  "mcp_availability": "official",
+  "has_composio_integration": true,
+  "composio_toolkit_slug": "salesforce",
+  "buildability_verdict": "conditionally_buildable",
+  "primary_blocker": "documentation_incomplete",
+  "blocker_details": "Documentation does not specify authentication methods or API types; need to confirm OAuth2 or other auth mechanisms before building a full autonomous agent toolkit",
+  "evidence_urls": [
+    "https://www.salesforce.com/in/?ir=1&bc=DB"
+  ],
+  "evidence_excerpts": [
+    "\"Start a free trial\"",
+    "\"prebuilt Salesforce MCP server\"",
+    "\"Use Salesforce MCPs, APIs, plug-ins, skills, and developer tools\""
+  ],
+  "evidence_items": [
+    {
+      "url": "https://www.salesforce.com/in/?ir=1&bc=DB",
+      "title": null,
+      "excerpt": "\"Start a free trial\"",
+      "retrieved_at": "2026-11-23T13:17:07.509693Z"
+    },
+    {
+      "url": "https://www.salesforce.com/in/?ir=1&bc=DB",
+      "title": null,
+      "excerpt": "\"prebuilt Salesforce MCP server\"",
+      "retrieved_at": "2026-11-23T13:17:07.509702Z"
+    },
+    {
+      "url": "https://www.salesforce.com/in/?ir=1&bc=DB",
+      "title": null,
+      "excerpt": "\"Use Salesforce MCPs, APIs, plug-ins, skills, and developer tools\"",
+      "retrieved_at": "2026-11-23T13:17:07.509704Z"
+    }
+  ],
+  "research_status": "completed",
+  "confidence_level": "medium",
+  "uncertainty_notes": "Auth methods and API specifics are not detailed in the provided excerpt; assumptions are based on typical Salesforce offerings",
+  "llm_execution_source": "real_network",
+  "provenance": {
+    "execution_mode": "live",
+    "doc_execution_source": "real_network",
+    "llm_execution_source": "real_network",
+    "composio_execution_source": "real_network",
+    "documentation_live_fetched": true,
+    "documentation_urls_attempted": [
+      "https://developer.salesforce.com/docs",
+      "https://www.salesforce.com"
+    ],
+    "documentation_urls_succeeded": [
+      "https://www.salesforce.com/in/?ir=1&bc=DB"
+    ],
+    "documentation_truncated": true,
+    "documentation_truncation_notes": "Original documentation length was 18289 chars. Truncated to 3167 chars prioritizing authentication, endpoints, access tiers, and MCP.",
+    "llm_inference_attempted": true,
+    "llm_inference_executed": true,
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_error": null,
+    "composio_adapter_configured": true,
+    "composio_discovery_attempted": true,
+    "composio_discovery_succeeded": true,
+    "composio_toolkit_found": true,
+    "composio_discovery_error": null,
+    "composio_mcp_session_attempted": true,
+    "composio_mcp_session_created": true,
+    "composio_mcp_endpoint_returned": true,
+    "composio_mcp_endpoint": "https://backend.composio.dev/tool_router/trs_-ONGo4MNczdI/mcp",
+    "composio_mcp_session_error": null,
+    "live_verified": true,
+    "notes": "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+  },
+  "verification_status": "unverified",
+  "verification_notes": null,
+  "created_at": "2026-11-23T13:17:07.509728Z",
+  "updated_at": "2026-11-23T13:17:07.509729Z"
+}

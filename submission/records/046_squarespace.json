@@ -1,0 +1,92 @@
+{
+  "app_name": "Squarespace",
+  "category": "ecommerce",
+  "description": "Provides REST APIs to manage Squarespace commerce data such as orders, products, inventory, and transactions.",
+  "auth_methods": [
+    "unknown"
+  ],
+  "self_service_access": "unknown",
+  "developer_access_tier": null,
+  "production_access_tier": null,
+  "access_requirements": "Unknown",
+  "api_types": [
+    "rest"
+  ],
+  "api_breadth": "comprehensive",
+  "mcp_availability": "none",
+  "has_composio_integration": false,
+  "composio_toolkit_slug": "squarespace",
+  "buildability_verdict": "conditionally_buildable",
+  "primary_blocker": "documentation_incomplete",
+  "blocker_details": "Documentation does not specify the exact authentication mechanism (e.g., OAuth2, API key) or the access tier required to obtain API credentials, making integration uncertain.",
+  "evidence_urls": [
+    "https://developers.squarespace.com/commerce-apis/overview",
+    "https://developers.squarespace.com"
+  ],
+  "evidence_excerpts": [
+    "All Commerce APIs are built on HTTPS and designed with REST principles in mind.",
+    "Authentication for Commerce APIs also provides permissions to keep Squarespace merchant site data private and secure.",
+    "Read and write orders, products, inventory, and transactions. REST endpoints, webhooks for order events, and signed payloads for safe server-to-server delivery."
+  ],
+  "evidence_items": [
+    {
+      "url": "https://developers.squarespace.com/commerce-apis/overview",
+      "title": null,
+      "excerpt": "All Commerce APIs are built on HTTPS and designed with REST principles in mind.",
+      "retrieved_at": "2026-11-23T13:37:41.801021Z"
+    },
+    {
+      "url": "https://developers.squarespace.com/commerce-apis/overview",
+      "title": null,
+      "excerpt": "Authentication for Commerce APIs also provides permissions to keep Squarespace merchant site data private and secure.",
+      "retrieved_at": "2026-11-23T13:37:41.801029Z"
+    },
+    {
+      "url": "https://developers.squarespace.com/commerce-apis/overview",
+      "title": null,
+      "excerpt": "Read and write orders, products, inventory, and transactions. REST endpoints, webhooks for order events, and signed payloads for safe server-to-server delivery.",
+      "retrieved_at": "2026-11-23T13:37:41.801033Z"
+    }
+  ],
+  "research_status": "completed",
+  "confidence_level": "medium",
+  "uncertainty_notes": "Auth method and self‑service access details are not explicitly described in the provided docs; it is unclear whether a free developer tier exists or if a paid plan is required.",
+  "llm_execution_source": "real_network",
+  "provenance": {
+    "execution_mode": "live",
+    "doc_execution_source": "real_network",
+    "llm_execution_source": "real_network",
+    "composio_execution_source": "real_network",
+    "documentation_live_fetched": true,
+    "documentation_urls_attempted": [
+      "https://developers.squarespace.com/commerce-apis/overview",
+      "https://developers.squarespace.com"
+    ],
+    "documentation_urls_succeeded": [
+      "https://developers.squarespace.com/commerce-apis/overview",
+      "https://developers.squarespace.com"
+    ],
+    "documentation_truncated": false,
+    "documentation_truncation_notes": null,
+    "llm_inference_attempted": true,
+    "llm_inference_executed": true,
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_error": null,
+    "composio_adapter_configured": true,
+    "composio_discovery_attempted": true,
+    "composio_discovery_succeeded": true,
+    "composio_toolkit_found": false,
+    "composio_discovery_error": null,
+    "composio_mcp_session_attempted": false,
+    "composio_mcp_session_created": false,
+    "composio_mcp_endpoint_returned": false,
+    "composio_mcp_endpoint": null,
+    "composio_mcp_session_error": null,
+    "live_verified": true,
+    "notes": "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+  },
+  "verification_status": "unverified",
+  "verification_notes": null,
+  "created_at": "2026-11-23T13:37:41.801063Z",
+  "updated_at": "2026-11-23T13:37:41.801064Z"
+}

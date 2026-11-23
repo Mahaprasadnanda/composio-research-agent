@@ -1,0 +1,106 @@
+app_id,app_name,category,field_name,automated_value,verified_value,agreement_status,audit_notes,evidence_url
+1,Salesforce,crm,buildability_verdict,conditionally_buildable,conditionally_buildable,MATCH,Exact match,https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_rest.htm
+1,Salesforce,crm,developer_access_tier,None,free_self_service,REFINED,Verified tier is free_self_service,https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_rest.htm
+1,Salesforce,crm,auth_methods,['unknown'],"['oauth2', 'bearer_token']",REFINED,"Verified auth mechanisms: ['oauth2', 'bearer_token']",https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_rest.htm
+1,Salesforce,crm,api_types,['unknown'],"['rest', 'graphql']",REFINED,"Verified API architectures: ['rest', 'graphql']",https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_rest.htm
+1,Salesforce,crm,mcp_availability,official,official,MATCH,Verified MCP status: official,https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_rest.htm
+1,Salesforce,crm,has_composio_integration,True,True,MATCH,Composio toolkit: salesforce,https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_rest.htm
+1,Salesforce,crm,primary_blocker,documentation_incomplete,admin_approval_gate,REFINED,Verified blocker: admin_approval_gate,https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_rest.htm
+2,HubSpot,crm,buildability_verdict,buildable,buildable,MATCH,Exact match,https://developers.hubspot.com/docs/api/overview
+2,HubSpot,crm,developer_access_tier,free_self_service,free_self_service,MATCH,Verified tier is free_self_service,https://developers.hubspot.com/docs/api/overview
+2,HubSpot,crm,auth_methods,['unknown'],"['oauth2', 'bearer_token', 'api_key']",REFINED,"Verified auth mechanisms: ['oauth2', 'bearer_token', 'api_key']",https://developers.hubspot.com/docs/api/overview
+2,HubSpot,crm,api_types,['rest'],['rest'],MATCH,Verified API architectures: ['rest'],https://developers.hubspot.com/docs/api/overview
+2,HubSpot,crm,mcp_availability,official,community,REFINED,Verified MCP status: community,https://developers.hubspot.com/docs/api/overview
+2,HubSpot,crm,has_composio_integration,True,True,MATCH,Composio toolkit: hubspot,https://developers.hubspot.com/docs/api/overview
+2,HubSpot,crm,primary_blocker,none,none,MATCH,Verified blocker: none,https://developers.hubspot.com/docs/api/overview
+11,Zendesk,customer_support,buildability_verdict,buildable,buildable,MATCH,Exact match,https://developer.zendesk.com/api-reference/ticketing/introduction/
+11,Zendesk,customer_support,developer_access_tier,free_self_service,free_trial_self_service,DISCREPANCY,Verified tier is free_trial_self_service,https://developer.zendesk.com/api-reference/ticketing/introduction/
+11,Zendesk,customer_support,auth_methods,['unknown'],"['api_key', 'basic_auth', 'oauth2']",REFINED,"Verified auth mechanisms: ['api_key', 'basic_auth', 'oauth2']",https://developer.zendesk.com/api-reference/ticketing/introduction/
+11,Zendesk,customer_support,api_types,['unknown'],['rest'],REFINED,Verified API architectures: ['rest'],https://developer.zendesk.com/api-reference/ticketing/introduction/
+11,Zendesk,customer_support,mcp_availability,none,none,MATCH,Verified MCP status: none,https://developer.zendesk.com/api-reference/ticketing/introduction/
+11,Zendesk,customer_support,has_composio_integration,True,True,MATCH,Composio toolkit: zendesk,https://developer.zendesk.com/api-reference/ticketing/introduction/
+11,Zendesk,customer_support,primary_blocker,none,none,MATCH,Verified blocker: none,https://developer.zendesk.com/api-reference/ticketing/introduction/
+20,Gladly,customer_support,buildability_verdict,conditionally_buildable,conditionally_buildable,MATCH,Exact match,https://developer.gladly.com/rest/
+20,Gladly,customer_support,developer_access_tier,None,enterprise_only,REFINED,Verified tier is enterprise_only,https://developer.gladly.com/rest/
+20,Gladly,customer_support,auth_methods,['unknown'],"['basic_auth', 'api_key']",REFINED,"Verified auth mechanisms: ['basic_auth', 'api_key']",https://developer.gladly.com/rest/
+20,Gladly,customer_support,api_types,['rest'],['rest'],MATCH,Verified API architectures: ['rest'],https://developer.gladly.com/rest/
+20,Gladly,customer_support,mcp_availability,none,none,MATCH,Verified MCP status: none,https://developer.gladly.com/rest/
+20,Gladly,customer_support,has_composio_integration,False,False,MATCH,Composio toolkit: None,https://developer.gladly.com/rest/
+20,Gladly,customer_support,primary_blocker,contact_sales_required,contact_sales_required,MATCH,Verified blocker: contact_sales_required,https://developer.gladly.com/rest/
+21,Slack,communication,buildability_verdict,buildable,buildable,MATCH,Exact match,https://api.slack.com/authentication
+21,Slack,communication,developer_access_tier,free_self_service,free_self_service,MATCH,Verified tier is free_self_service,https://api.slack.com/authentication
+21,Slack,communication,auth_methods,"['oauth2', 'bearer_token']","['oauth2', 'bearer_token']",MATCH,"Verified auth mechanisms: ['oauth2', 'bearer_token']",https://api.slack.com/authentication
+21,Slack,communication,api_types,"['rest', 'webhook_only']","['rest', 'webhook_only']",MATCH,"Verified API architectures: ['rest', 'webhook_only']",https://api.slack.com/authentication
+21,Slack,communication,mcp_availability,official,official,MATCH,Verified MCP status: official,https://api.slack.com/authentication
+21,Slack,communication,has_composio_integration,True,True,MATCH,Composio toolkit: slack,https://api.slack.com/authentication
+21,Slack,communication,primary_blocker,none,none,MATCH,Verified blocker: none,https://api.slack.com/authentication
+28,WhatsApp Business,communication,buildability_verdict,blocked,conditionally_buildable,DISCREPANCY,Automated was blocked; verified is conditionally_buildable,https://developers.facebook.com/docs/whatsapp/cloud-api
+28,WhatsApp Business,communication,developer_access_tier,None,paid_subscription,REFINED,Verified tier is paid_subscription,https://developers.facebook.com/docs/whatsapp/cloud-api
+28,WhatsApp Business,communication,auth_methods,['unknown'],"['bearer_token', 'oauth2']",REFINED,"Verified auth mechanisms: ['bearer_token', 'oauth2']",https://developers.facebook.com/docs/whatsapp/cloud-api
+28,WhatsApp Business,communication,api_types,['unknown'],"['rest', 'webhook_only']",REFINED,"Verified API architectures: ['rest', 'webhook_only']",https://developers.facebook.com/docs/whatsapp/cloud-api
+28,WhatsApp Business,communication,mcp_availability,none,none,MATCH,Verified MCP status: none,https://developers.facebook.com/docs/whatsapp/cloud-api
+28,WhatsApp Business,communication,has_composio_integration,False,False,MATCH,Composio toolkit: None,https://developers.facebook.com/docs/whatsapp/cloud-api
+28,WhatsApp Business,communication,primary_blocker,no_public_api,admin_approval_gate,DISCREPANCY,Verified blocker: admin_approval_gate,https://developers.facebook.com/docs/whatsapp/cloud-api
+31,Google Ads,marketing,buildability_verdict,conditionally_buildable,conditionally_buildable,MATCH,Exact match,https://developers.google.com/google-ads/api/docs/first-call/overview
+31,Google Ads,marketing,developer_access_tier,free_self_service,free_self_service,MATCH,Verified tier is free_self_service,https://developers.google.com/google-ads/api/docs/first-call/overview
+31,Google Ads,marketing,auth_methods,['oauth2'],['oauth2'],MATCH,Verified auth mechanisms: ['oauth2'],https://developers.google.com/google-ads/api/docs/first-call/overview
+31,Google Ads,marketing,api_types,"['rest', 'grpc']","['rest', 'grpc']",MATCH,"Verified API architectures: ['rest', 'grpc']",https://developers.google.com/google-ads/api/docs/first-call/overview
+31,Google Ads,marketing,mcp_availability,official,community,REFINED,Verified MCP status: community,https://developers.google.com/google-ads/api/docs/first-call/overview
+31,Google Ads,marketing,has_composio_integration,False,False,MATCH,Composio toolkit: None,https://developers.google.com/google-ads/api/docs/first-call/overview
+31,Google Ads,marketing,primary_blocker,admin_approval_gate,admin_approval_gate,MATCH,Verified blocker: admin_approval_gate,https://developers.google.com/google-ads/api/docs/first-call/overview
+32,Meta Ads,marketing,buildability_verdict,blocked,conditionally_buildable,DISCREPANCY,Automated was blocked; verified is conditionally_buildable,https://developers.facebook.com/docs/marketing-apis
+32,Meta Ads,marketing,developer_access_tier,None,free_self_service,REFINED,Verified tier is free_self_service,https://developers.facebook.com/docs/marketing-apis
+32,Meta Ads,marketing,auth_methods,['unknown'],"['oauth2', 'bearer_token']",REFINED,"Verified auth mechanisms: ['oauth2', 'bearer_token']",https://developers.facebook.com/docs/marketing-apis
+32,Meta Ads,marketing,api_types,['unknown'],['rest'],REFINED,Verified API architectures: ['rest'],https://developers.facebook.com/docs/marketing-apis
+32,Meta Ads,marketing,mcp_availability,none,none,MATCH,Verified MCP status: none,https://developers.facebook.com/docs/marketing-apis
+32,Meta Ads,marketing,has_composio_integration,False,False,MATCH,Composio toolkit: None,https://developers.facebook.com/docs/marketing-apis
+32,Meta Ads,marketing,primary_blocker,documentation_incomplete,admin_approval_gate,REFINED,Verified blocker: admin_approval_gate,https://developers.facebook.com/docs/marketing-apis
+40,SendGrid,marketing,buildability_verdict,conditionally_buildable,buildable,DISCREPANCY,Automated was conditionally_buildable; verified is buildable,https://docs.sendgrid.com/api-reference
+40,SendGrid,marketing,developer_access_tier,free_self_service,free_self_service,MATCH,Verified tier is free_self_service,https://docs.sendgrid.com/api-reference
+40,SendGrid,marketing,auth_methods,['unknown'],"['api_key', 'bearer_token']",REFINED,"Verified auth mechanisms: ['api_key', 'bearer_token']",https://docs.sendgrid.com/api-reference
+40,SendGrid,marketing,api_types,['rest'],['rest'],MATCH,Verified API architectures: ['rest'],https://docs.sendgrid.com/api-reference
+40,SendGrid,marketing,mcp_availability,composio,composio,MATCH,Verified MCP status: composio,https://docs.sendgrid.com/api-reference
+40,SendGrid,marketing,has_composio_integration,True,True,MATCH,Composio toolkit: sendgrid,https://docs.sendgrid.com/api-reference
+40,SendGrid,marketing,primary_blocker,documentation_incomplete,none,REFINED,Verified blocker: none,https://docs.sendgrid.com/api-reference
+41,Shopify,ecommerce,buildability_verdict,buildable,buildable,MATCH,Exact match,https://shopify.dev/docs/apps/getting-started
+41,Shopify,ecommerce,developer_access_tier,free_self_service,free_self_service,MATCH,Verified tier is free_self_service,https://shopify.dev/docs/apps/getting-started
+41,Shopify,ecommerce,auth_methods,"['oauth2', 'custom_header']","['oauth2', 'custom_header']",MATCH,"Verified auth mechanisms: ['oauth2', 'custom_header']",https://shopify.dev/docs/apps/getting-started
+41,Shopify,ecommerce,api_types,"['rest', 'graphql']","['rest', 'graphql']",MATCH,"Verified API architectures: ['rest', 'graphql']",https://shopify.dev/docs/apps/getting-started
+41,Shopify,ecommerce,mcp_availability,none,none,MATCH,Verified MCP status: none,https://shopify.dev/docs/apps/getting-started
+41,Shopify,ecommerce,has_composio_integration,True,True,MATCH,Composio toolkit: shopify,https://shopify.dev/docs/apps/getting-started
+41,Shopify,ecommerce,primary_blocker,none,none,MATCH,Verified blocker: none,https://shopify.dev/docs/apps/getting-started
+44,Salesforce Commerce Cloud,ecommerce,buildability_verdict,blocked,blocked,MATCH,Exact match,https://developer.salesforce.com/docs/commerce/commerce-api
+44,Salesforce Commerce Cloud,ecommerce,developer_access_tier,None,enterprise_only,REFINED,Verified tier is enterprise_only,https://developer.salesforce.com/docs/commerce/commerce-api
+44,Salesforce Commerce Cloud,ecommerce,auth_methods,['unknown'],['oauth2'],REFINED,Verified auth mechanisms: ['oauth2'],https://developer.salesforce.com/docs/commerce/commerce-api
+44,Salesforce Commerce Cloud,ecommerce,api_types,['unknown'],['rest'],REFINED,Verified API architectures: ['rest'],https://developer.salesforce.com/docs/commerce/commerce-api
+44,Salesforce Commerce Cloud,ecommerce,mcp_availability,none,none,MATCH,Verified MCP status: none,https://developer.salesforce.com/docs/commerce/commerce-api
+44,Salesforce Commerce Cloud,ecommerce,has_composio_integration,False,False,MATCH,Composio toolkit: None,https://developer.salesforce.com/docs/commerce/commerce-api
+44,Salesforce Commerce Cloud,ecommerce,primary_blocker,no_public_api,contact_sales_required,DISCREPANCY,Verified blocker: contact_sales_required,https://developer.salesforce.com/docs/commerce/commerce-api
+51,DataForSEO,analytics,buildability_verdict,conditionally_buildable,buildable,DISCREPANCY,Automated was conditionally_buildable; verified is buildable,https://dataforseo.com/apis
+51,DataForSEO,analytics,developer_access_tier,None,free_trial_self_service,REFINED,Verified tier is free_trial_self_service,https://dataforseo.com/apis
+51,DataForSEO,analytics,auth_methods,['unknown'],['basic_auth'],REFINED,Verified auth mechanisms: ['basic_auth'],https://dataforseo.com/apis
+51,DataForSEO,analytics,api_types,['rest'],['rest'],MATCH,Verified API architectures: ['rest'],https://dataforseo.com/apis
+51,DataForSEO,analytics,mcp_availability,none,none,MATCH,Verified MCP status: none,https://dataforseo.com/apis
+51,DataForSEO,analytics,has_composio_integration,True,True,MATCH,Composio toolkit: dataforseo,https://dataforseo.com/apis
+51,DataForSEO,analytics,primary_blocker,documentation_incomplete,none,REFINED,Verified blocker: none,https://dataforseo.com/apis
+61,GitHub,developer_tools,buildability_verdict,buildable,buildable,MATCH,Exact match,https://docs.github.com/en/rest
+61,GitHub,developer_tools,developer_access_tier,free_self_service,free_self_service,MATCH,Verified tier is free_self_service,https://docs.github.com/en/rest
+61,GitHub,developer_tools,auth_methods,"['oauth2', 'bearer_token']","['oauth2', 'bearer_token']",MATCH,"Verified auth mechanisms: ['oauth2', 'bearer_token']",https://docs.github.com/en/rest
+61,GitHub,developer_tools,api_types,['rest'],"['rest', 'graphql']",REFINED,"Verified API architectures: ['rest', 'graphql']",https://docs.github.com/en/rest
+61,GitHub,developer_tools,mcp_availability,unknown,community,DISCREPANCY,Verified MCP status: community,https://docs.github.com/en/rest
+61,GitHub,developer_tools,has_composio_integration,True,True,MATCH,Composio toolkit: github,https://docs.github.com/en/rest
+61,GitHub,developer_tools,primary_blocker,none,none,MATCH,Verified blocker: none,https://docs.github.com/en/rest
+71,Notion,project_management,buildability_verdict,buildable,buildable,MATCH,Exact match,https://developers.notion.com/reference/intro
+71,Notion,project_management,developer_access_tier,free_self_service,free_self_service,MATCH,Verified tier is free_self_service,https://developers.notion.com/reference/intro
+71,Notion,project_management,auth_methods,['unknown'],"['bearer_token', 'oauth2']",REFINED,"Verified auth mechanisms: ['bearer_token', 'oauth2']",https://developers.notion.com/reference/intro
+71,Notion,project_management,api_types,['rest'],['rest'],MATCH,Verified API architectures: ['rest'],https://developers.notion.com/reference/intro
+71,Notion,project_management,mcp_availability,official,official,MATCH,Verified MCP status: official,https://developers.notion.com/reference/intro
+71,Notion,project_management,has_composio_integration,True,True,MATCH,Composio toolkit: notion,https://developers.notion.com/reference/intro
+71,Notion,project_management,primary_blocker,none,none,MATCH,Verified blocker: none,https://developers.notion.com/reference/intro
+91,NotebookLM,other,buildability_verdict,blocked,blocked,MATCH,Exact match,https://notebooklm.google.com/
+91,NotebookLM,other,developer_access_tier,None,none,REFINED,Verified tier is none,https://notebooklm.google.com/
+91,NotebookLM,other,auth_methods,['unknown'],['none'],REFINED,Verified auth mechanisms: ['none'],https://notebooklm.google.com/
+91,NotebookLM,other,api_types,['unknown'],['unknown'],REFINED,Verified API architectures: ['unknown'],https://notebooklm.google.com/
+91,NotebookLM,other,mcp_availability,none,none,MATCH,Verified MCP status: none,https://notebooklm.google.com/
+91,NotebookLM,other,has_composio_integration,False,False,MATCH,Composio toolkit: None,https://notebooklm.google.com/
+91,NotebookLM,other,primary_blocker,no_public_api,no_public_api,MATCH,Verified blocker: no_public_api,https://notebooklm.google.com/

@@ -1,0 +1,108 @@
+{
+  "app_name": "Shopify",
+  "category": "ecommerce",
+  "description": "Platform for building online stores, managing products, orders, and payments via REST and GraphQL APIs",
+  "auth_methods": [
+    "oauth2",
+    "custom_header"
+  ],
+  "self_service_access": "free_self_service",
+  "developer_access_tier": "free_self_service",
+  "production_access_tier": "paid_subscription",
+  "access_requirements": "Free dev store self‑serve; production requires a Shopify subscription",
+  "api_types": [
+    "rest",
+    "graphql"
+  ],
+  "api_breadth": "comprehensive",
+  "mcp_availability": "none",
+  "has_composio_integration": true,
+  "composio_toolkit_slug": "shopify",
+  "buildability_verdict": "buildable",
+  "primary_blocker": "none",
+  "blocker_details": null,
+  "evidence_urls": [
+    "https://shopify.dev/docs/api/admin-rest",
+    "https://shopify.dev/docs"
+  ],
+  "evidence_excerpts": [
+    "All REST Admin API queries require a valid Shopify access token.",
+    "Public and custom apps created in the Dev Dashboard generate tokens using OAuth, and custom apps made in the Shopify admin are authenticated in the Shopify admin.",
+    "Include your token as a `X-Shopify-Access-Token` header on all API queries.",
+    "The REST Admin API is a legacy API as of October 1, 2024. Starting April 1, 2025, all new public apps must be built exclusively with the GraphQL Admin API.",
+    "The Admin API lets you build apps and integrations that extend and enhance the Shopify admin."
+  ],
+  "evidence_items": [
+    {
+      "url": "https://shopify.dev/docs/api/admin-rest",
+      "title": null,
+      "excerpt": "All REST Admin API queries require a valid Shopify access token.",
+      "retrieved_at": "2026-11-23T13:05:10.798181Z"
+    },
+    {
+      "url": "https://shopify.dev/docs/api/admin-rest",
+      "title": null,
+      "excerpt": "Public and custom apps created in the Dev Dashboard generate tokens using OAuth, and custom apps made in the Shopify admin are authenticated in the Shopify admin.",
+      "retrieved_at": "2026-11-23T13:05:10.798192Z"
+    },
+    {
+      "url": "https://shopify.dev/docs/api/admin-rest",
+      "title": null,
+      "excerpt": "Include your token as a `X-Shopify-Access-Token` header on all API queries.",
+      "retrieved_at": "2026-11-23T13:05:10.798196Z"
+    },
+    {
+      "url": "https://shopify.dev/docs/api/admin-rest",
+      "title": null,
+      "excerpt": "The REST Admin API is a legacy API as of October 1, 2024. Starting April 1, 2025, all new public apps must be built exclusively with the GraphQL Admin API.",
+      "retrieved_at": "2026-11-23T13:05:10.798200Z"
+    },
+    {
+      "url": "https://shopify.dev/docs/api/admin-rest",
+      "title": null,
+      "excerpt": "The Admin API lets you build apps and integrations that extend and enhance the Shopify admin.",
+      "retrieved_at": "2026-11-23T13:05:10.798204Z"
+    }
+  ],
+  "research_status": "completed",
+  "confidence_level": "high",
+  "uncertainty_notes": null,
+  "llm_execution_source": "real_network",
+  "provenance": {
+    "execution_mode": "live",
+    "doc_execution_source": "real_network",
+    "llm_execution_source": "real_network",
+    "composio_execution_source": "real_network",
+    "documentation_live_fetched": true,
+    "documentation_urls_attempted": [
+      "https://shopify.dev/docs/api/admin-rest",
+      "https://shopify.dev"
+    ],
+    "documentation_urls_succeeded": [
+      "https://shopify.dev/docs/api/admin-rest",
+      "https://shopify.dev/docs"
+    ],
+    "documentation_truncated": true,
+    "documentation_truncation_notes": "Plain document truncated from 18811 to 6526 chars.; Plain document truncated from 6571 to 6526 chars.",
+    "llm_inference_attempted": true,
+    "llm_inference_executed": true,
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_error": null,
+    "composio_adapter_configured": true,
+    "composio_discovery_attempted": true,
+    "composio_discovery_succeeded": true,
+    "composio_toolkit_found": true,
+    "composio_discovery_error": null,
+    "composio_mcp_session_attempted": true,
+    "composio_mcp_session_created": false,
+    "composio_mcp_endpoint_returned": false,
+    "composio_mcp_endpoint": null,
+    "composio_mcp_session_error": "400 The following toolkits require auth configs but none exist and cannot be auto-created: shopify. Please specify them in auth_configs.",
+    "live_verified": true,
+    "notes": "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+  },
+  "verification_status": "unverified",
+  "verification_notes": null,
+  "created_at": "2026-11-23T13:05:10.798249Z",
+  "updated_at": "2026-11-23T13:05:10.798250Z"
+}

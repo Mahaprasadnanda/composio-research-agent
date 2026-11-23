@@ -1,0 +1,92 @@
+{
+  "app_name": "Front",
+  "category": "customer_support",
+  "description": "Customer service platform that centralizes communications across email, chat, and social channels.",
+  "auth_methods": [
+    "unknown"
+  ],
+  "self_service_access": "free_self_service",
+  "developer_access_tier": "free_self_service",
+  "production_access_tier": "paid_subscription",
+  "access_requirements": "Free developer account self‑serve",
+  "api_types": [
+    "rest"
+  ],
+  "api_breadth": "comprehensive",
+  "mcp_availability": "official",
+  "has_composio_integration": true,
+  "composio_toolkit_slug": "front",
+  "buildability_verdict": "buildable",
+  "primary_blocker": "none",
+  "blocker_details": null,
+  "evidence_urls": [
+    "https://dev.frontapp.com/docs/welcome",
+    "https://front.com/"
+  ],
+  "evidence_excerpts": [
+    "\"You can create a developer account by signing up here . You’ll get access to a free developer environment that will provide everything you need to begin building with our APIs.\"",
+    "\"Our primary backend API that allows you to read, create, update, and delete a wide range of data across Front’s various entities, from Contacts to Comments to Tags.\"",
+    "\"MCP Server\\nAccess Front data and actions through the MCP protocol, allowing AI agents like Claude and ChatGPT to read and reply to conversations and other Front resources.\""
+  ],
+  "evidence_items": [
+    {
+      "url": "https://dev.frontapp.com/docs/welcome",
+      "title": null,
+      "excerpt": "\"You can create a developer account by signing up here . You’ll get access to a free developer environment that will provide everything you need to begin building with our APIs.\"",
+      "retrieved_at": "2026-11-23T13:29:07.490626Z"
+    },
+    {
+      "url": "https://dev.frontapp.com/docs/welcome",
+      "title": null,
+      "excerpt": "\"Our primary backend API that allows you to read, create, update, and delete a wide range of data across Front’s various entities, from Contacts to Comments to Tags.\"",
+      "retrieved_at": "2026-11-23T13:29:07.490637Z"
+    },
+    {
+      "url": "https://dev.frontapp.com/docs/welcome",
+      "title": null,
+      "excerpt": "\"MCP Server\\nAccess Front data and actions through the MCP protocol, allowing AI agents like Claude and ChatGPT to read and reply to conversations and other Front resources.\"",
+      "retrieved_at": "2026-11-23T13:29:07.490639Z"
+    }
+  ],
+  "research_status": "completed",
+  "confidence_level": "high",
+  "uncertainty_notes": "Authentication method not explicitly documented in the provided excerpts; assumed unknown.",
+  "llm_execution_source": "real_network",
+  "provenance": {
+    "execution_mode": "live",
+    "doc_execution_source": "real_network",
+    "llm_execution_source": "real_network",
+    "composio_execution_source": "real_network",
+    "documentation_live_fetched": true,
+    "documentation_urls_attempted": [
+      "https://dev.frontapp.com",
+      "https://www.front.com"
+    ],
+    "documentation_urls_succeeded": [
+      "https://dev.frontapp.com/docs/welcome",
+      "https://front.com/"
+    ],
+    "documentation_truncated": true,
+    "documentation_truncation_notes": "Original documentation length was 8655 chars. Truncated to 2383 chars prioritizing authentication, endpoints, access tiers, and MCP.; Original documentation length was 7121 chars. Truncated to 371 chars prioritizing authentication, endpoints, access tiers, and MCP.",
+    "llm_inference_attempted": true,
+    "llm_inference_executed": true,
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_error": null,
+    "composio_adapter_configured": true,
+    "composio_discovery_attempted": true,
+    "composio_discovery_succeeded": true,
+    "composio_toolkit_found": true,
+    "composio_discovery_error": null,
+    "composio_mcp_session_attempted": true,
+    "composio_mcp_session_created": true,
+    "composio_mcp_endpoint_returned": true,
+    "composio_mcp_endpoint": "https://backend.composio.dev/tool_router/trs_qpnvAIa-3VQL/mcp",
+    "composio_mcp_session_error": null,
+    "live_verified": true,
+    "notes": "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+  },
+  "verification_status": "unverified",
+  "verification_notes": null,
+  "created_at": "2026-11-23T13:29:07.490675Z",
+  "updated_at": "2026-11-23T13:29:07.490676Z"
+}

@@ -1,0 +1,85 @@
+{
+  "app_name": "Pinterest",
+  "category": "marketing",
+  "description": "Pinterest API enables managing pins, boards, ads, product catalogs, and analytics.",
+  "auth_methods": [
+    "unknown"
+  ],
+  "self_service_access": "unknown",
+  "developer_access_tier": null,
+  "production_access_tier": null,
+  "access_requirements": "unknown",
+  "api_types": [
+    "unknown"
+  ],
+  "api_breadth": "unknown",
+  "mcp_availability": "unknown",
+  "has_composio_integration": true,
+  "composio_toolkit_slug": "pinterest",
+  "buildability_verdict": "conditionally_buildable",
+  "primary_blocker": "documentation_incomplete",
+  "blocker_details": "Documentation lacks details on authentication methods, access tiers, and API scope.",
+  "evidence_urls": [
+    "https://developers.pinterest.com/docs/api/v5/introduction/?",
+    "https://developers.pinterest.com"
+  ],
+  "evidence_excerpts": [
+    "One API to seamlessly integrate with Pinterest",
+    "Pinterest MCP is on the way"
+  ],
+  "evidence_items": [
+    {
+      "url": "https://developers.pinterest.com/docs/api/v5/introduction/?",
+      "title": null,
+      "excerpt": "One API to seamlessly integrate with Pinterest",
+      "retrieved_at": "2026-11-23T13:35:29.729625Z"
+    },
+    {
+      "url": "https://developers.pinterest.com/docs/api/v5/introduction/?",
+      "title": null,
+      "excerpt": "Pinterest MCP is on the way",
+      "retrieved_at": "2026-11-23T13:35:29.729633Z"
+    }
+  ],
+  "research_status": "completed",
+  "confidence_level": "low",
+  "uncertainty_notes": "Auth, access, and API breadth not specified in provided docs.",
+  "llm_execution_source": "real_network",
+  "provenance": {
+    "execution_mode": "live",
+    "doc_execution_source": "real_network",
+    "llm_execution_source": "real_network",
+    "composio_execution_source": "real_network",
+    "documentation_live_fetched": true,
+    "documentation_urls_attempted": [
+      "https://developers.pinterest.com/docs/api/v5/",
+      "https://developers.pinterest.com"
+    ],
+    "documentation_urls_succeeded": [
+      "https://developers.pinterest.com/docs/api/v5/introduction/?",
+      "https://developers.pinterest.com"
+    ],
+    "documentation_truncated": false,
+    "documentation_truncation_notes": null,
+    "llm_inference_attempted": true,
+    "llm_inference_executed": true,
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_error": null,
+    "composio_adapter_configured": true,
+    "composio_discovery_attempted": true,
+    "composio_discovery_succeeded": true,
+    "composio_toolkit_found": true,
+    "composio_discovery_error": null,
+    "composio_mcp_session_attempted": true,
+    "composio_mcp_session_created": true,
+    "composio_mcp_endpoint_returned": true,
+    "composio_mcp_endpoint": "https://backend.composio.dev/tool_router/trs__adqjUkLn8-Z/mcp",
+    "composio_mcp_session_error": null,
+    "live_verified": true,
+    "notes": "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+  },
+  "verification_status": "unverified",
+  "verification_notes": null,
+  "created_at": "2026-11-23T13:35:29.729656Z",
+  "updated_at": "2026-11-23T13:35:29.729657Z"
+}

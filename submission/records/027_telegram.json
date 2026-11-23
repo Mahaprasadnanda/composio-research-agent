@@ -1,0 +1,85 @@
+{
+  "app_name": "Telegram",
+  "category": "communication",
+  "description": "Telegram is a cloud‑based messaging platform offering chat, voice, and bot APIs.",
+  "auth_methods": [
+    "api_key"
+  ],
+  "self_service_access": "free_self_service",
+  "developer_access_tier": "free_self_service",
+  "production_access_tier": "free_self_service",
+  "access_requirements": "Create a bot via BotFather to obtain a free token",
+  "api_types": [
+    "rest"
+  ],
+  "api_breadth": "comprehensive",
+  "mcp_availability": "composio",
+  "has_composio_integration": true,
+  "composio_toolkit_slug": "telegram",
+  "buildability_verdict": "buildable",
+  "primary_blocker": "none",
+  "blocker_details": null,
+  "evidence_urls": [
+    "https://core.telegram.org/bots/api",
+    "https://core.telegram.org"
+  ],
+  "evidence_excerpts": [
+    "Each bot is given a unique authentication token when it is created . The token looks something like 123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11",
+    "MCP Supported: True"
+  ],
+  "evidence_items": [
+    {
+      "url": "https://core.telegram.org/bots/api",
+      "title": null,
+      "excerpt": "Each bot is given a unique authentication token when it is created . The token looks something like 123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11",
+      "retrieved_at": "2026-11-23T13:32:57.647421Z"
+    },
+    {
+      "url": "https://core.telegram.org/bots/api",
+      "title": null,
+      "excerpt": "MCP Supported: True",
+      "retrieved_at": "2026-11-23T13:32:57.647433Z"
+    }
+  ],
+  "research_status": "completed",
+  "confidence_level": "high",
+  "uncertainty_notes": null,
+  "llm_execution_source": "real_network",
+  "provenance": {
+    "execution_mode": "live",
+    "doc_execution_source": "real_network",
+    "llm_execution_source": "real_network",
+    "composio_execution_source": "real_network",
+    "documentation_live_fetched": true,
+    "documentation_urls_attempted": [
+      "https://core.telegram.org/bots/api",
+      "https://core.telegram.org"
+    ],
+    "documentation_urls_succeeded": [
+      "https://core.telegram.org/bots/api",
+      "https://core.telegram.org"
+    ],
+    "documentation_truncated": true,
+    "documentation_truncation_notes": "Original documentation length was 532867 chars. Truncated to 4993 chars prioritizing authentication, endpoints, access tiers, and MCP.; Original documentation length was 19537 chars. Truncated to 1893 chars prioritizing authentication, endpoints, access tiers, and MCP.",
+    "llm_inference_attempted": true,
+    "llm_inference_executed": true,
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_error": null,
+    "composio_adapter_configured": true,
+    "composio_discovery_attempted": true,
+    "composio_discovery_succeeded": true,
+    "composio_toolkit_found": true,
+    "composio_discovery_error": null,
+    "composio_mcp_session_attempted": true,
+    "composio_mcp_session_created": true,
+    "composio_mcp_endpoint_returned": true,
+    "composio_mcp_endpoint": "https://backend.composio.dev/tool_router/trs_2UQUkhCEtMW2/mcp",
+    "composio_mcp_session_error": null,
+    "live_verified": true,
+    "notes": "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+  },
+  "verification_status": "unverified",
+  "verification_notes": null,
+  "created_at": "2026-11-23T13:32:57.647464Z",
+  "updated_at": "2026-11-23T13:32:57.647465Z"
+}

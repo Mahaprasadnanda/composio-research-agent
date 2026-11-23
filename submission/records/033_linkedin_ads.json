@@ -1,0 +1,85 @@
+{
+  "app_name": "LinkedIn Ads",
+  "category": "marketing",
+  "description": "LinkedIn Ads API enables creation, management, and analytics of LinkedIn advertising campaigns.",
+  "auth_methods": [
+    "oauth2"
+  ],
+  "self_service_access": "admin_approval",
+  "developer_access_tier": null,
+  "production_access_tier": null,
+  "access_requirements": "Requires enrollment in the LinkedIn Marketing Developer Program and additional approval for private APIs",
+  "api_types": [
+    "rest"
+  ],
+  "api_breadth": "comprehensive",
+  "mcp_availability": "none",
+  "has_composio_integration": true,
+  "composio_toolkit_slug": "linkedin_ads",
+  "buildability_verdict": "conditionally_buildable",
+  "primary_blocker": "admin_approval_gate",
+  "blocker_details": "Access to LinkedIn Marketing APIs requires enrollment in the LinkedIn Marketing Developer Program and additional approval for certain private APIs (e.g., Matched Audiences, Audience Insights).",
+  "evidence_urls": [
+    "https://learn.microsoft.com/en-us/linkedin/marketing/overview?view=li-lms-2026-11",
+    "https://learn.microsoft.com/en-us/linkedin/marketing/?view=li-lms-2026-11"
+  ],
+  "evidence_excerpts": [
+    "\"Matched Audiences, Audience Insights, Media Planning API, and Company Intelligence API are private APIs and require additional approval.\"",
+    "\"How-To Guide Authentication\""
+  ],
+  "evidence_items": [
+    {
+      "url": "https://learn.microsoft.com/en-us/linkedin/marketing/overview?view=li-lms-2026-11",
+      "title": null,
+      "excerpt": "\"Matched Audiences, Audience Insights, Media Planning API, and Company Intelligence API are private APIs and require additional approval.\"",
+      "retrieved_at": "2026-11-23T13:34:13.950511Z"
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/linkedin/marketing/overview?view=li-lms-2026-11",
+      "title": null,
+      "excerpt": "\"How-To Guide Authentication\"",
+      "retrieved_at": "2026-11-23T13:34:13.950519Z"
+    }
+  ],
+  "research_status": "completed",
+  "confidence_level": "medium",
+  "uncertainty_notes": "OAuth2 authentication is inferred from LinkedIn's standard API practices; the provided excerpts do not contain an explicit statement of the auth method.",
+  "llm_execution_source": "real_network",
+  "provenance": {
+    "execution_mode": "live",
+    "doc_execution_source": "real_network",
+    "llm_execution_source": "real_network",
+    "composio_execution_source": "real_network",
+    "documentation_live_fetched": true,
+    "documentation_urls_attempted": [
+      "https://learn.microsoft.com/en-us/linkedin/marketing/overview",
+      "https://learn.microsoft.com/linkedin/marketing"
+    ],
+    "documentation_urls_succeeded": [
+      "https://learn.microsoft.com/en-us/linkedin/marketing/overview?view=li-lms-2026-11",
+      "https://learn.microsoft.com/en-us/linkedin/marketing/?view=li-lms-2026-11"
+    ],
+    "documentation_truncated": true,
+    "documentation_truncation_notes": "Original documentation length was 5033 chars. Truncated to 582 chars prioritizing authentication, endpoints, access tiers, and MCP.",
+    "llm_inference_attempted": true,
+    "llm_inference_executed": true,
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_error": null,
+    "composio_adapter_configured": true,
+    "composio_discovery_attempted": true,
+    "composio_discovery_succeeded": true,
+    "composio_toolkit_found": true,
+    "composio_discovery_error": null,
+    "composio_mcp_session_attempted": true,
+    "composio_mcp_session_created": false,
+    "composio_mcp_endpoint_returned": false,
+    "composio_mcp_endpoint": null,
+    "composio_mcp_session_error": "400 The following toolkits require auth configs but none exist and cannot be auto-created: linkedin_ads. Please specify them in auth_configs.",
+    "live_verified": true,
+    "notes": "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+  },
+  "verification_status": "unverified",
+  "verification_notes": null,
+  "created_at": "2026-11-23T13:34:13.950547Z",
+  "updated_at": "2026-11-23T13:34:13.950548Z"
+}

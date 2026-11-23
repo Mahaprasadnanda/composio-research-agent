@@ -1,0 +1,97 @@
+{
+  "app_name": "Stripe",
+  "category": "finance_accounting",
+  "description": "Payment processing platform offering APIs for payments, billing, and financial services.",
+  "auth_methods": [
+    "basic_auth",
+    "bearer_token"
+  ],
+  "self_service_access": "free_self_service",
+  "developer_access_tier": "free_self_service",
+  "production_access_tier": "free_self_service",
+  "access_requirements": "Free account provides test API keys; live keys require a verified Stripe account",
+  "api_types": [
+    "rest"
+  ],
+  "api_breadth": "comprehensive",
+  "mcp_availability": "none",
+  "has_composio_integration": true,
+  "composio_toolkit_slug": "stripe",
+  "buildability_verdict": "buildable",
+  "primary_blocker": "none",
+  "blocker_details": null,
+  "evidence_urls": [
+    "https://docs.stripe.com/api"
+  ],
+  "evidence_excerpts": [
+    "\"The Stripe API uses API keys to authenticate requests... The Stripe API authenticates requests using HTTP Basic Auth . Provide your API key as the basic auth username value.\"",
+    "\"Test mode secret keys start with sk_test_ and have unrestricted access to their sandboxes.\"",
+    "\"You can use the Stripe API in sandboxes without affecting your live data... Base URL https://api.stripe.com\"",
+    "\"The Stripe API is organized around REST .\""
+  ],
+  "evidence_items": [
+    {
+      "url": "https://docs.stripe.com/api",
+      "title": null,
+      "excerpt": "\"The Stripe API uses API keys to authenticate requests... The Stripe API authenticates requests using HTTP Basic Auth . Provide your API key as the basic auth username value.\"",
+      "retrieved_at": "2026-11-23T12:44:58.504247Z"
+    },
+    {
+      "url": "https://docs.stripe.com/api",
+      "title": null,
+      "excerpt": "\"Test mode secret keys start with sk_test_ and have unrestricted access to their sandboxes.\"",
+      "retrieved_at": "2026-11-23T12:44:58.504262Z"
+    },
+    {
+      "url": "https://docs.stripe.com/api",
+      "title": null,
+      "excerpt": "\"You can use the Stripe API in sandboxes without affecting your live data... Base URL https://api.stripe.com\"",
+      "retrieved_at": "2026-11-23T12:44:58.504267Z"
+    },
+    {
+      "url": "https://docs.stripe.com/api",
+      "title": null,
+      "excerpt": "\"The Stripe API is organized around REST .\"",
+      "retrieved_at": "2026-11-23T12:44:58.504271Z"
+    }
+  ],
+  "research_status": "completed",
+  "confidence_level": "high",
+  "uncertainty_notes": "Production access tier is free self‑service (no subscription), but live usage requires account verification and incurs transaction fees.",
+  "llm_execution_source": "real_network",
+  "provenance": {
+    "execution_mode": "live",
+    "doc_execution_source": "real_network",
+    "llm_execution_source": "real_network",
+    "composio_execution_source": "real_network",
+    "documentation_live_fetched": true,
+    "documentation_urls_attempted": [
+      "https://docs.stripe.com/api",
+      "https://stripe.com/docs/api"
+    ],
+    "documentation_urls_succeeded": [
+      "https://docs.stripe.com/api",
+      "https://docs.stripe.com/api"
+    ],
+    "llm_inference_attempted": true,
+    "llm_inference_executed": true,
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_error": null,
+    "composio_adapter_configured": true,
+    "composio_discovery_attempted": true,
+    "composio_discovery_succeeded": true,
+    "composio_toolkit_found": true,
+    "composio_discovery_error": null,
+    "composio_mcp_session_attempted": true,
+    "composio_mcp_session_created": true,
+    "composio_mcp_endpoint_returned": true,
+    "composio_mcp_endpoint": "https://backend.composio.dev/tool_router/trs_7iWz-Q_PyfKa/mcp",
+    "composio_mcp_session_error": null,
+    "live_verified": true,
+    "notes": "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+  },
+  "verification_status": "unverified",
+  "verification_notes": null,
+  "created_at": "2026-11-23T12:44:58.504327Z",
+  "updated_at": "2026-11-23T12:44:58.504328Z"
+}

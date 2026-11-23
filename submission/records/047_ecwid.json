@@ -1,0 +1,92 @@
+{
+  "app_name": "Ecwid",
+  "category": "ecommerce",
+  "description": "Ecwid is an ecommerce platform offering API access and webhooks for store automation.",
+  "auth_methods": [
+    "unknown"
+  ],
+  "self_service_access": "unknown",
+  "developer_access_tier": null,
+  "production_access_tier": null,
+  "access_requirements": "Requires creating an app to obtain API access; details not specified in documentation",
+  "api_types": [
+    "unknown"
+  ],
+  "api_breadth": "unknown",
+  "mcp_availability": "none",
+  "has_composio_integration": false,
+  "composio_toolkit_slug": "ecwid",
+  "buildability_verdict": "blocked",
+  "primary_blocker": "documentation_incomplete",
+  "blocker_details": "Documentation mentions API access and webhooks but does not specify authentication mechanisms, request formats, or access tiers, making automated integration infeasible.",
+  "evidence_urls": [
+    "https://docs.ecwid.com",
+    "https://docs.ecwid.com"
+  ],
+  "evidence_excerpts": [
+    "\"Get access to API with an app\"",
+    "\"Webhooks\"",
+    "\"Automation examples\""
+  ],
+  "evidence_items": [
+    {
+      "url": "https://docs.ecwid.com",
+      "title": null,
+      "excerpt": "\"Get access to API with an app\"",
+      "retrieved_at": "2026-11-23T13:37:56.890053Z"
+    },
+    {
+      "url": "https://docs.ecwid.com",
+      "title": null,
+      "excerpt": "\"Webhooks\"",
+      "retrieved_at": "2026-11-23T13:37:56.890065Z"
+    },
+    {
+      "url": "https://docs.ecwid.com",
+      "title": null,
+      "excerpt": "\"Automation examples\"",
+      "retrieved_at": "2026-11-23T13:37:56.890070Z"
+    }
+  ],
+  "research_status": "completed",
+  "confidence_level": "low",
+  "uncertainty_notes": "No explicit mention of auth method (e.g., API key, OAuth) or whether the API is publicly reachable; access may be limited to partner or paid plans.",
+  "llm_execution_source": "real_network",
+  "provenance": {
+    "execution_mode": "live",
+    "doc_execution_source": "real_network",
+    "llm_execution_source": "real_network",
+    "composio_execution_source": "real_network",
+    "documentation_live_fetched": true,
+    "documentation_urls_attempted": [
+      "https://api-docs.ecwid.com/reference/overview",
+      "https://api-docs.ecwid.com"
+    ],
+    "documentation_urls_succeeded": [
+      "https://docs.ecwid.com",
+      "https://docs.ecwid.com"
+    ],
+    "documentation_truncated": false,
+    "documentation_truncation_notes": null,
+    "llm_inference_attempted": true,
+    "llm_inference_executed": true,
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_error": null,
+    "composio_adapter_configured": true,
+    "composio_discovery_attempted": true,
+    "composio_discovery_succeeded": true,
+    "composio_toolkit_found": false,
+    "composio_discovery_error": null,
+    "composio_mcp_session_attempted": false,
+    "composio_mcp_session_created": false,
+    "composio_mcp_endpoint_returned": false,
+    "composio_mcp_endpoint": null,
+    "composio_mcp_session_error": null,
+    "live_verified": true,
+    "notes": "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+  },
+  "verification_status": "unverified",
+  "verification_notes": null,
+  "created_at": "2026-11-23T13:37:56.890108Z",
+  "updated_at": "2026-11-23T13:37:56.890109Z"
+}

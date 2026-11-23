@@ -1,0 +1,85 @@
+{
+  "app_name": "Help Scout",
+  "category": "customer_support",
+  "description": "Help Scout provides a cloud‑based help desk platform with email, chat, phone support and AI assistance.",
+  "auth_methods": [
+    "oauth2"
+  ],
+  "self_service_access": "unknown",
+  "developer_access_tier": null,
+  "production_access_tier": "paid_subscription",
+  "access_requirements": "Requires Help Scout account (plan dependent)",
+  "api_types": [
+    "rest"
+  ],
+  "api_breadth": "comprehensive",
+  "mcp_availability": "none",
+  "has_composio_integration": true,
+  "composio_toolkit_slug": "help_scout",
+  "buildability_verdict": "buildable",
+  "primary_blocker": "none",
+  "blocker_details": null,
+  "evidence_urls": [
+    "https://developer.helpscout.com/mailbox-api/",
+    "https://www.helpscout.com"
+  ],
+  "evidence_excerpts": [
+    "Welcome to the second generation of our Inbox API. This is an HTTPS‑only API, with OAuth 2 authentication and CORS support running at: https://api.helpscout.net/v2",
+    "Help Scout: The AI‑driven support platform for customer‑first brands"
+  ],
+  "evidence_items": [
+    {
+      "url": "https://developer.helpscout.com/mailbox-api/",
+      "title": null,
+      "excerpt": "Welcome to the second generation of our Inbox API. This is an HTTPS‑only API, with OAuth 2 authentication and CORS support running at: https://api.helpscout.net/v2",
+      "retrieved_at": "2026-11-23T13:30:14.261817Z"
+    },
+    {
+      "url": "https://developer.helpscout.com/mailbox-api/",
+      "title": null,
+      "excerpt": "Help Scout: The AI‑driven support platform for customer‑first brands",
+      "retrieved_at": "2026-11-23T13:30:14.261826Z"
+    }
+  ],
+  "research_status": "completed",
+  "confidence_level": "high",
+  "uncertainty_notes": "Exact self‑service access tier not specified; API likely requires a Help Scout subscription.",
+  "llm_execution_source": "real_network",
+  "provenance": {
+    "execution_mode": "live",
+    "doc_execution_source": "real_network",
+    "llm_execution_source": "real_network",
+    "composio_execution_source": "real_network",
+    "documentation_live_fetched": true,
+    "documentation_urls_attempted": [
+      "https://developer.helpscout.com/mailbox-api/",
+      "https://www.helpscout.com"
+    ],
+    "documentation_urls_succeeded": [
+      "https://developer.helpscout.com/mailbox-api/",
+      "https://www.helpscout.com"
+    ],
+    "documentation_truncated": false,
+    "documentation_truncation_notes": null,
+    "llm_inference_attempted": true,
+    "llm_inference_executed": true,
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_error": null,
+    "composio_adapter_configured": true,
+    "composio_discovery_attempted": true,
+    "composio_discovery_succeeded": true,
+    "composio_toolkit_found": true,
+    "composio_discovery_error": null,
+    "composio_mcp_session_attempted": true,
+    "composio_mcp_session_created": false,
+    "composio_mcp_endpoint_returned": false,
+    "composio_mcp_endpoint": null,
+    "composio_mcp_session_error": "400 The following toolkits require auth configs but none exist and cannot be auto-created: help_scout. Please specify them in auth_configs.",
+    "live_verified": true,
+    "notes": "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+  },
+  "verification_status": "unverified",
+  "verification_notes": null,
+  "created_at": "2026-11-23T13:30:14.261857Z",
+  "updated_at": "2026-11-23T13:30:14.261857Z"
+}

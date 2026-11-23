@@ -1,0 +1,84 @@
+{
+  "app_name": "Freshdesk",
+  "category": "customer_support",
+  "description": "Freshdesk is a cloud‑based helpdesk platform for ticketing, automation, and customer support.",
+  "auth_methods": [
+    "basic_auth",
+    "oauth2"
+  ],
+  "self_service_access": "free_self_service",
+  "developer_access_tier": null,
+  "production_access_tier": null,
+  "access_requirements": "API key (Base64‑encoded as \"APIkey:X\") provided in the Authorization header",
+  "api_types": [
+    "rest"
+  ],
+  "api_breadth": "comprehensive",
+  "mcp_availability": "none",
+  "has_composio_integration": true,
+  "composio_toolkit_slug": "freshdesk",
+  "buildability_verdict": "buildable",
+  "primary_blocker": "none",
+  "blocker_details": null,
+  "evidence_urls": [
+    "https://developers.freshdesk.com/api/"
+  ],
+  "evidence_excerpts": [
+    "If you are sure that your credentials are correct, but are still unable to access your helpdesk, make sure that the \"APIkey:X\" is Base64-encoded before passing it as an \"Authorization\" header.",
+    "The API rate limits for outbound messages cover both send and retrieve endpoints. These limits are set at 1,000 calls per minute for the Pro plan and 2,000 calls per minute for the Enterprise plan."
+  ],
+  "evidence_items": [
+    {
+      "url": "https://developers.freshdesk.com/api/",
+      "title": null,
+      "excerpt": "If you are sure that your credentials are correct, but are still unable to access your helpdesk, make sure that the \"APIkey:X\" is Base64-encoded before passing it as an \"Authorization\" header.",
+      "retrieved_at": "2026-11-23T13:28:43.196964Z"
+    },
+    {
+      "url": "https://developers.freshdesk.com/api/",
+      "title": null,
+      "excerpt": "The API rate limits for outbound messages cover both send and retrieve endpoints. These limits are set at 1,000 calls per minute for the Pro plan and 2,000 calls per minute for the Enterprise plan.",
+      "retrieved_at": "2026-11-23T13:28:43.196972Z"
+    }
+  ],
+  "research_status": "completed",
+  "confidence_level": "high",
+  "uncertainty_notes": "Exact self‑service tier (free vs trial) and presence of a dedicated developer sandbox are not explicitly documented; assumptions are based on typical Freshdesk offering.",
+  "llm_execution_source": "real_network",
+  "provenance": {
+    "execution_mode": "live",
+    "doc_execution_source": "real_network",
+    "llm_execution_source": "real_network",
+    "composio_execution_source": "real_network",
+    "documentation_live_fetched": true,
+    "documentation_urls_attempted": [
+      "https://developers.freshdesk.com/api/",
+      "https://www.freshdesk.com"
+    ],
+    "documentation_urls_succeeded": [
+      "https://developers.freshdesk.com/api/"
+    ],
+    "documentation_truncated": true,
+    "documentation_truncation_notes": "Original documentation length was 661328 chars. Truncated to 4993 chars prioritizing authentication, endpoints, access tiers, and MCP.",
+    "llm_inference_attempted": true,
+    "llm_inference_executed": true,
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_error": null,
+    "composio_adapter_configured": true,
+    "composio_discovery_attempted": true,
+    "composio_discovery_succeeded": true,
+    "composio_toolkit_found": true,
+    "composio_discovery_error": null,
+    "composio_mcp_session_attempted": true,
+    "composio_mcp_session_created": true,
+    "composio_mcp_endpoint_returned": true,
+    "composio_mcp_endpoint": "https://backend.composio.dev/tool_router/trs_GAoK-mtTwBm0/mcp",
+    "composio_mcp_session_error": null,
+    "live_verified": true,
+    "notes": "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+  },
+  "verification_status": "unverified",
+  "verification_notes": null,
+  "created_at": "2026-11-23T13:28:43.197009Z",
+  "updated_at": "2026-11-23T13:28:43.197010Z"
+}

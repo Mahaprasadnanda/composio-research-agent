@@ -1,0 +1,106 @@
+{
+  "app_name": "Pumble",
+  "category": "communication",
+  "description": "Team communication platform with channels, messaging, video/voice calls, and AI agent integration via MCP",
+  "auth_methods": [
+    "api_key"
+  ],
+  "self_service_access": "free_self_service",
+  "developer_access_tier": "free_self_service",
+  "production_access_tier": "free_self_service",
+  "access_requirements": "Install API addon (available on all plans) and generate an API key via the UI",
+  "api_types": [
+    "rest"
+  ],
+  "api_breadth": "comprehensive",
+  "mcp_availability": "official",
+  "has_composio_integration": true,
+  "composio_toolkit_slug": "pumble",
+  "buildability_verdict": "buildable",
+  "primary_blocker": "none",
+  "blocker_details": null,
+  "evidence_urls": [
+    "https://pumble.com/help/integrations/automation-workflow-integrations/api-keys-integration/",
+    "https://pumble.com"
+  ],
+  "evidence_excerpts": [
+    "\"By using the Pumble API addon, you can interact with Pumble’s API documentation without using any complex authentication processes. This addon lets you generate an API key that allows you to send messages, reactions, and more via simple HTTP requests.\"",
+    "\"The generated key enables interaction with the Addon’s public API, allowing users to send requests and execute various actions within Pumble...\"",
+    "\"The rate limit is up to 1000 requests per minute per user.\"",
+    "\"Available on all plans\"",
+    "\"Connect AI agents Use Pumble’s MCP server to optimize collaboration with AI agents.\""
+  ],
+  "evidence_items": [
+    {
+      "url": "https://pumble.com/help/integrations/automation-workflow-integrations/api-keys-integration/",
+      "title": null,
+      "excerpt": "\"By using the Pumble API addon, you can interact with Pumble’s API documentation without using any complex authentication processes. This addon lets you generate an API key that allows you to send messages, reactions, and more via simple HTTP requests.\"",
+      "retrieved_at": "2026-11-23T13:32:12.425730Z"
+    },
+    {
+      "url": "https://pumble.com/help/integrations/automation-workflow-integrations/api-keys-integration/",
+      "title": null,
+      "excerpt": "\"The generated key enables interaction with the Addon’s public API, allowing users to send requests and execute various actions within Pumble...\"",
+      "retrieved_at": "2026-11-23T13:32:12.425741Z"
+    },
+    {
+      "url": "https://pumble.com/help/integrations/automation-workflow-integrations/api-keys-integration/",
+      "title": null,
+      "excerpt": "\"The rate limit is up to 1000 requests per minute per user.\"",
+      "retrieved_at": "2026-11-23T13:32:12.425745Z"
+    },
+    {
+      "url": "https://pumble.com/help/integrations/automation-workflow-integrations/api-keys-integration/",
+      "title": null,
+      "excerpt": "\"Available on all plans\"",
+      "retrieved_at": "2026-11-23T13:32:12.425748Z"
+    },
+    {
+      "url": "https://pumble.com/help/integrations/automation-workflow-integrations/api-keys-integration/",
+      "title": null,
+      "excerpt": "\"Connect AI agents Use Pumble’s MCP server to optimize collaboration with AI agents.\"",
+      "retrieved_at": "2026-11-23T13:32:12.425750Z"
+    }
+  ],
+  "research_status": "completed",
+  "confidence_level": "high",
+  "uncertainty_notes": null,
+  "llm_execution_source": "real_network",
+  "provenance": {
+    "execution_mode": "live",
+    "doc_execution_source": "real_network",
+    "llm_execution_source": "real_network",
+    "composio_execution_source": "real_network",
+    "documentation_live_fetched": true,
+    "documentation_urls_attempted": [
+      "https://pumble.com/help/integrations/api/",
+      "https://pumble.com"
+    ],
+    "documentation_urls_succeeded": [
+      "https://pumble.com/help/integrations/automation-workflow-integrations/api-keys-integration/",
+      "https://pumble.com"
+    ],
+    "documentation_truncated": false,
+    "documentation_truncation_notes": null,
+    "llm_inference_attempted": true,
+    "llm_inference_executed": true,
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_error": null,
+    "composio_adapter_configured": true,
+    "composio_discovery_attempted": true,
+    "composio_discovery_succeeded": true,
+    "composio_toolkit_found": true,
+    "composio_discovery_error": null,
+    "composio_mcp_session_attempted": true,
+    "composio_mcp_session_created": true,
+    "composio_mcp_endpoint_returned": true,
+    "composio_mcp_endpoint": "https://backend.composio.dev/tool_router/trs_PcYwG3K72hkP/mcp",
+    "composio_mcp_session_error": null,
+    "live_verified": true,
+    "notes": "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+  },
+  "verification_status": "unverified",
+  "verification_notes": null,
+  "created_at": "2026-11-23T13:32:12.425791Z",
+  "updated_at": "2026-11-23T13:32:12.425792Z"
+}
