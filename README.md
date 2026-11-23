@@ -168,17 +168,24 @@ $env:PYTHONPATH="src"; pytest -v
 
 ## Implementation Status
 
-### Milestone 1: Engineering Foundation & Data Schema (Current)
+### Milestone 1: Engineering Foundation & Data Schema (Completed)
 - [x] Repository initialized and connected to GitHub origin.
 - [x] Standard project structure established (`src/`, `data/`, `tests/`, `output/`, `docs/`).
 - [x] Secure configuration module (`src/research_agent/config.py`) with strict key masking and actionable error messages.
 - [x] Typed Pydantic data schemas and enums (`src/research_agent/models.py`) covering all 17 research dimensions.
 - [x] Security controls verified: `.env` excluded via `.gitignore`, credentials masked in representations.
-- [x] Unit test suite passing (`14 passed`).
+- [x] Unit test suite passing.
 - [x] Clean `requirements.txt` with Composio, Groq, and Pydantic dependencies.
 
+### Milestone 2: Application Dataset and Research Rubric (Completed)
+- [x] Exact 100-application ground-truth dataset curated preserving original assignment categories (10 categories, 10 apps each).
+- [x] Generated `data/raw/seed_apps.json` and tabular export `data/raw/seed_apps.csv`.
+- [x] Strict Pydantic seed models (`SeedAppRecord`, `SeedDataset`, `OriginalCategory`) with built-in integrity validator.
+- [x] Authored comprehensive research rubric (`docs/research_rubric.md`) covering auth methods, self-service access tiers, API surface breadth, MCP classifications, and buildability decision trees.
+- [x] Authored formal output data contract (`docs/research_output_schema.md`) defining field requirements, category mappings, excerpt grounding, and edge-case protocols.
+- [x] Full test suite expanded to 23 automated unit tests (`23 passed`), ensuring zero duplicate IDs, unique names, valid URLs, and complete category parity.
+
 ### Planned Milestones
-- **Milestone 2:** Application list curation (100 target SaaS applications across categories) & research prompt design.
 - **Milestone 3:** Groq LLM integration & Composio tool/MCP research execution agent.
 - **Milestone 4:** Full batch research execution & structured data extraction (`data/processed/`).
 - **Milestone 5:** Human verification of representative sample (pre/post-audit accuracy evaluation).

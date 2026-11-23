@@ -287,3 +287,81 @@ class ResearchDataset(BaseModel):
         for record in self.records:
             counts[record.verification_status.value] += 1
         return counts
+
+
+class OriginalCategory(str, Enum):
+    """Original 10 category groupings from the Composio take-home assignment."""
+
+    CRM_AND_SALES = "CRM and Sales"
+    SUPPORT_AND_HELPDESK = "Support and Helpdesk"
+    COMMUNICATIONS_AND_MESSAGING = "Communications and Messaging"
+    MARKETING_ADS_EMAIL_SOCIAL = "Marketing, Ads, Email and Social"
+    ECOMMERCE = "Ecommerce"
+    DATA_SEO_SCRAPING = "Data, SEO and Scraping"
+    DEVELOPER_INFRA_DATA_PLATFORMS = "Developer, Infra and Data platforms"
+    PRODUCTIVITY_PROJECT_MANAGEMENT = "Productivity and Project Management"
+    FINANCE_AND_FINTECH = "Finance and Fintech"
+    AI_RESEARCH_MEDIA_NATIVE = "AI, Research and Media-native"
+
+
+class SeedAppRecord(BaseModel):
+    """Seed input record for one of the 100 SaaS applications to be researched."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    id: int = Field(ge=1, le=100, description="Deterministic 1-100 identifier.")
+    name: str = Field(description="Official name of the SaaS application.")
+    category: OriginalCategory = Field(
+        description="Original category designation from the assignment."
+    )
+    website: str = Field(description="Primary official website URL.")
+    documentation_hint: str = Field(
+        description="Documentation or developer portal hint URL."
+    )
+    research_status: ResearchStatus = Field(
+        default=ResearchStatus.PENDING,
+        description="Initial research status (pending).",
+    )
+
+
+class SeedDataset(BaseModel):
+    """Collection container for all 100 seed application records."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    version: str = Field(default="1.0.0", description="Dataset schema version identifier.")
+    total_apps: int = Field(default=100, description="Total number of applications.")
+    apps: list[SeedAppRecord] = Field(
+        description="List of exactly 100 seed application records."
+    )
+
+    def validate_dataset_integrity(self) -> None:
+        """Validate that the dataset meets all strict ground truth requirements."""
+        if len(self.apps) != 100:
+            raise ValueError(f"Expected exactly 100 apps, got {len(self.apps)}")
+
+        ids = [a.id for a in self.apps]
+        if len(set(ids)) != 100:
+            raise ValueError("Duplicate application IDs detected")
+        if set(ids) != set(range(1, 101)):
+            raise ValueError("Application IDs must be consecutive integers 1 to 100")
+
+        names = [a.name for a in self.apps]
+        if len(set(names)) != 100:
+            raise ValueError("Duplicate application names detected")
+
+        # Verify category counts (exactly 10 per category)
+        counts = self.category_distribution()
+        for cat in OriginalCategory:
+            if counts.get(cat.value, 0) != 10:
+                raise ValueError(
+                    f"Expected 10 apps in category '{cat.value}', got {counts.get(cat.value, 0)}"
+                )
+
+    def category_distribution(self) -> dict[str, int]:
+        """Return application counts grouped by original category."""
+        counts: dict[str, int] = {}
+        for a in self.apps:
+            counts[a.category.value] = counts.get(a.category.value, 0) + 1
+        return counts
+
