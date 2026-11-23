@@ -42,7 +42,7 @@ This system automates the preliminary developer diligence, cross-verifies findin
                                         ▼
                   ┌───────────────────────────────────────────┐
                   │          Research Execution Agent         │
-                  │  - Free-tier LLM: Groq (Llama-3.3-70b)    │
+                  │  - Free-tier LLM: Groq (GPT-OSS-120B)     │
                   │  - Search & Tools: Composio SDK / MCP     │
                   │  - Target: Official Dev Docs & Portals    │
                   └─────────────────────┬─────────────────────┘
@@ -111,7 +111,7 @@ composio-research-agent/
 │       │   ├── __init__.py
 │       │   ├── composio_client.py       # Composio SDK & MCP session adapter
 │       │   ├── documentation_search.py  # HTTP documentation fetcher & text sanitizer
-│       │   └── groq_client.py           # Groq LLM inference adapter (Llama-3.3-70b)
+│       │   └── groq_client.py           # Groq LLM inference adapter (GPT-OSS-120B)
 │       ├── services/         # Orchestration & caching
 │       │   ├── __init__.py
 │       │   └── research_service.py      # End-to-end evidence gathering & synthesis

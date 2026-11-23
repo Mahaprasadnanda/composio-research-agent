@@ -156,11 +156,14 @@ def test_composio_adapter_unconfigured():
     discovery = adapter.discover_toolkit("Slack")
     assert discovery.is_integrated is False
     assert discovery.slug == "slack"
+    assert discovery.discovery_attempted is False
+    assert discovery.discovery_succeeded is False
+    assert discovery.toolkit_found is False
     assert "not configured" in discovery.error
 
 
 def test_composio_adapter_discover_toolkit_mocked():
-    """Verify Composio discovery when toolkit and tools are found."""
+    """Verify Composio discovery when toolkit and tools are found and MCP session is created."""
     adapter = ComposioAdapter(api_key="mock_valid_key")
     adapter.is_configured = True
 
@@ -193,12 +196,20 @@ def test_composio_adapter_discover_toolkit_mocked():
     assert discovery.slug == "slack"
     assert discovery.toolkit_name == "Slack Platform"
     assert discovery.available_tools_count == 1
+    assert discovery.discovery_attempted is True
+    assert discovery.discovery_succeeded is True
+    assert discovery.toolkit_found is True
+    assert discovery.session_creation_attempted is True
+    assert discovery.session_created is True
     assert discovery.mcp_supported is True
     assert discovery.mcp_endpoint == "https://mcp.composio.dev/session/123"
 
 
 def test_composio_adapter_toolkit_not_found():
-    """Verify behavior when app is not in Composio catalog."""
+    """Verify behavior when app is looked up in Composio catalog but not found (404).
+
+    Lookup succeeded over network, but toolkit is absent.
+    """
     adapter = ComposioAdapter(api_key="mock_key")
     adapter.is_configured = True
 
@@ -208,6 +219,51 @@ def test_composio_adapter_toolkit_not_found():
 
     discovery = adapter.discover_toolkit("NonExistentSaaSApp")
     assert discovery.is_integrated is False
+    assert discovery.discovery_attempted is True
+    assert discovery.discovery_succeeded is True
+    assert discovery.toolkit_found is False
+    assert discovery.session_creation_attempted is False
+
+
+def test_composio_adapter_mcp_session_failure():
+    """Verify handling when toolkit is found but MCP session creation fails."""
+    adapter = ComposioAdapter(api_key="mock_key")
+    adapter.is_configured = True
+
+    mock_client = MagicMock()
+    mock_toolkit = MagicMock()
+    mock_toolkit.name = "Custom App"
+    mock_client.toolkits.get.return_value = mock_toolkit
+    mock_client.tools.get.return_value = []
+    mock_client.sessions.create.side_effect = Exception("Connected account required to start MCP")
+    adapter._client = mock_client
+
+    discovery = adapter.discover_toolkit("Custom App")
+    assert discovery.is_integrated is True
+    assert discovery.discovery_succeeded is True
+    assert discovery.toolkit_found is True
+    assert discovery.session_creation_attempted is True
+    assert discovery.session_created is False
+    assert discovery.mcp_supported is False
+    assert discovery.mcp_endpoint is None
+    assert "Connected account required" in str(discovery.session_error)
+
+
+def test_composio_adapter_network_or_auth_failure():
+    """Verify handling when network or authentication to Composio fails (e.g. 401)."""
+    adapter = ComposioAdapter(api_key="mock_key")
+    adapter.is_configured = True
+
+    mock_client = MagicMock()
+    mock_client.toolkits.get.side_effect = Exception("401 Unauthorized API key")
+    adapter._client = mock_client
+
+    discovery = adapter.discover_toolkit("Slack")
+    assert discovery.is_integrated is False
+    assert discovery.discovery_attempted is True
+    assert discovery.discovery_succeeded is False
+    assert discovery.toolkit_found is False
+    assert "Unauthorized" in str(discovery.error)
 
 
 # ============================================================================

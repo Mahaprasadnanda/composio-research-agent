@@ -67,8 +67,19 @@ class ComposioToolkitDiscovery:
     auth_schemes: list[str] = field(default_factory=list)
     available_tools_count: int = 0
     sample_tools: list[dict[str, Any]] = field(default_factory=list)
+
+    # Explicit discovery outcome tracking
+    discovery_attempted: bool = False
+    discovery_succeeded: bool = False
+    toolkit_found: bool = False
+
+    # Explicit MCP session provenance
+    session_creation_attempted: bool = False
+    session_created: bool = False
     mcp_endpoint: Optional[str] = None
     mcp_supported: bool = False
+    session_error: Optional[str] = None
+
     requires_connected_account: bool = False
     error: Optional[str] = None
 
@@ -101,18 +112,40 @@ class ComposioAdapter:
                 app_name=app_name,
                 slug=slug,
                 is_integrated=False,
+                discovery_attempted=False,
+                discovery_succeeded=False,
+                toolkit_found=False,
                 error="Composio API key is not configured or SDK unavailable.",
             )
 
         try:
             # Query toolkit details
-            toolkit = self._client.toolkits.get(slug=slug)
+            toolkit = None
+            try:
+                toolkit = self._client.toolkits.get(slug=slug)
+            except Exception as get_exc:
+                err_text = str(get_exc).lower()
+                # 404 / not found means query succeeded, but toolkit is not in catalog
+                if "404" in err_text or "not found" in err_text:
+                    return ComposioToolkitDiscovery(
+                        app_name=app_name,
+                        slug=slug,
+                        is_integrated=False,
+                        discovery_attempted=True,
+                        discovery_succeeded=True,
+                        toolkit_found=False,
+                    )
+                # Any other error (e.g. 401 unauthorized, timeout, 500) means query failed
+                raise
 
             if not toolkit:
                 return ComposioToolkitDiscovery(
                     app_name=app_name,
                     slug=slug,
                     is_integrated=False,
+                    discovery_attempted=True,
+                    discovery_succeeded=True,
+                    toolkit_found=False,
                 )
 
             name = getattr(toolkit, "name", "") or getattr(toolkit, "display_name", "") or slug
@@ -140,19 +173,28 @@ class ComposioAdapter:
             except Exception as tool_exc:
                 logger.debug("Tool discovery query notice for %s: %s", slug, tool_exc)
 
-            # Check MCP session availability
+            # Check MCP session creation explicitly
             mcp_endpoint: Optional[str] = None
             mcp_supported = False
+            session_creation_attempted = True
+            session_created = False
+            session_error: Optional[str] = None
+
             try:
                 session = self._client.sessions.create(
                     user_id="research_agent",
                     toolkits=[slug],
                     mcp=True,
                 )
-                if hasattr(session, "mcp") and session.mcp:
-                    mcp_endpoint = getattr(session.mcp, "url", None)
-                    mcp_supported = bool(mcp_endpoint)
+                if session is not None:
+                    session_created = True
+                    if hasattr(session, "mcp") and session.mcp:
+                        endpoint = getattr(session.mcp, "url", None)
+                        if endpoint:
+                            mcp_endpoint = str(endpoint)
+                            mcp_supported = True
             except Exception as mcp_exc:
+                session_error = str(mcp_exc)
                 logger.debug("MCP session setup for %s: %s", slug, mcp_exc)
 
             return ComposioToolkitDiscovery(
@@ -165,19 +207,27 @@ class ComposioAdapter:
                 auth_schemes=auth_schemes,
                 available_tools_count=len(sample_tools),
                 sample_tools=sample_tools,
+                discovery_attempted=True,
+                discovery_succeeded=True,
+                toolkit_found=True,
+                session_creation_attempted=session_creation_attempted,
+                session_created=session_created,
                 mcp_endpoint=mcp_endpoint,
                 mcp_supported=mcp_supported,
+                session_error=session_error,
                 requires_connected_account=True,
             )
 
         except Exception as exc:
             err_msg = str(exc)
-            # Differentiate unauthorized vs not found
             if "401" in err_msg or "unauthorized" in err_msg.lower():
                 return ComposioToolkitDiscovery(
                     app_name=app_name,
                     slug=slug,
                     is_integrated=False,
+                    discovery_attempted=True,
+                    discovery_succeeded=False,
+                    toolkit_found=False,
                     error="Unauthorized: COMPOSIO_API_KEY is invalid or expired.",
                 )
             if "404" in err_msg or "not found" in err_msg.lower():
@@ -185,10 +235,16 @@ class ComposioAdapter:
                     app_name=app_name,
                     slug=slug,
                     is_integrated=False,
+                    discovery_attempted=True,
+                    discovery_succeeded=True,
+                    toolkit_found=False,
                 )
             return ComposioToolkitDiscovery(
                 app_name=app_name,
                 slug=slug,
                 is_integrated=False,
+                discovery_attempted=True,
+                discovery_succeeded=False,
+                toolkit_found=False,
                 error=f"Composio query failed: {type(exc).__name__}",
             )

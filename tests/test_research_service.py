@@ -14,6 +14,7 @@ from research_agent.adapters.groq_client import GroqAdapter
 from research_agent.config import ConfigurationError
 from research_agent.models import (
     ApiBreadth,
+    ApiType,
     AppCategory,
     AppResearchRecord,
     AuthMethod,
@@ -32,6 +33,127 @@ from research_agent.services.research_service import (
     load_seed_dataset,
     map_original_category,
 )
+
+
+# ============================================================================
+# Test Doubles for Deterministic Non-Mock Provenance Testing
+# ============================================================================
+
+
+class StubLiveDocAdapter(DocumentationSearchAdapter):
+    """Concrete non-mock adapter simulating live HTTP documentation retrieval."""
+
+    def __init__(self, succeeds: bool = True) -> None:
+        super().__init__()
+        self.succeeds = succeeds
+
+    def gather_documentation(self, candidate_urls: list[str], max_pages: int = 2) -> list[DocumentationResult]:
+        if not self.succeeds or not candidate_urls:
+            return []
+        return [
+            DocumentationResult(
+                url=candidate_urls[0],
+                title="Official API Documentation",
+                content="Comprehensive REST API with OAuth2 authentication and 200 endpoints.",
+                excerpt="OAuth2 Bearer authentication supported for all API operations.",
+                status_code=200,
+                is_accessible=True,
+            )
+        ]
+
+
+class StubLiveComposioAdapter(ComposioAdapter):
+    """Concrete non-mock adapter simulating Composio SDK catalog interactions."""
+
+    is_configured: bool = True
+
+    def __init__(
+        self,
+        toolkit_found: bool = True,
+        mcp_succeeds: bool = True,
+        lookup_succeeds: bool = True,
+    ) -> None:
+        super().__init__(api_key="valid_live_key")
+        self.toolkit_found = toolkit_found
+        self.mcp_succeeds = mcp_succeeds
+        self.lookup_succeeds = lookup_succeeds
+
+    def discover_toolkit(self, app_name: str) -> ComposioToolkitDiscovery:
+        if not self.lookup_succeeds:
+            return ComposioToolkitDiscovery(
+                app_name=app_name,
+                slug="test_slug",
+                is_integrated=False,
+                discovery_attempted=True,
+                discovery_succeeded=False,
+                toolkit_found=False,
+                error="Network timeout reaching Composio API endpoint",
+            )
+        if not self.toolkit_found:
+            return ComposioToolkitDiscovery(
+                app_name=app_name,
+                slug="test_slug",
+                is_integrated=False,
+                discovery_attempted=True,
+                discovery_succeeded=True,
+                toolkit_found=False,
+            )
+        return ComposioToolkitDiscovery(
+            app_name=app_name,
+            slug="test_slug",
+            is_integrated=True,
+            toolkit_name="Test Platform",
+            discovery_attempted=True,
+            discovery_succeeded=True,
+            toolkit_found=True,
+            session_creation_attempted=True,
+            session_created=self.mcp_succeeds,
+            mcp_endpoint="https://mcp.composio.dev/session/123" if self.mcp_succeeds else None,
+            mcp_supported=self.mcp_succeeds,
+            session_error=None if self.mcp_succeeds else "Connected account required to start MCP",
+        )
+
+
+class StubLiveGroqAdapter(GroqAdapter):
+    """Concrete non-mock adapter simulating Groq LLM extraction."""
+
+    is_configured: bool = True
+    model: str = "openai/gpt-oss-120b"
+
+    def __init__(self, succeeds: bool = True) -> None:
+        super().__init__(api_key="valid_live_key")
+        self.succeeds = succeeds
+
+    def extract_app_research(
+        self,
+        app_name: str,
+        category_hint: str,
+        documentation_snippets: list[dict[str, str]],
+        composio_info: Optional[dict[str, Any]] = None,
+    ) -> AppResearchRecord:
+        if not self.succeeds:
+            raise RuntimeError("Groq API 500 Internal Server Error")
+        return AppResearchRecord(
+            app_name=app_name,
+            category=AppCategory.COMMUNICATION,
+            description=f"{app_name} communication platform",
+            auth_methods=[AuthMethod.OAUTH2],
+            self_service_access=SelfServiceAccess.FREE_SELF_SERVICE,
+            developer_access_tier=SelfServiceAccess.FREE_SELF_SERVICE,
+            production_access_tier=SelfServiceAccess.FREE_SELF_SERVICE,
+            api_types=[ApiType.REST],
+            api_breadth=ApiBreadth.COMPREHENSIVE,
+            mcp_availability=McpAvailability.OFFICIAL,
+            has_composio_integration=bool(composio_info and composio_info.get("toolkit_found")),
+            composio_toolkit_slug=composio_info.get("slug") if composio_info else None,
+            buildability_verdict=BuildabilityVerdict.BUILDABLE,
+            confidence_level=ConfidenceLevel.HIGH,
+        )
+
+
+# ============================================================================
+# Unit Tests
+# ============================================================================
 
 
 def test_load_seed_dataset_loads_all_100_apps():
@@ -142,25 +264,15 @@ def test_research_service_orchestration_mocked(tmp_path):
 
 
 def test_research_service_offline_fallback(tmp_path):
-    """Verify offline fallback produces valid records for the 3 target apps when Groq is unconfigured."""
-    mock_doc = MagicMock(spec=DocumentationSearchAdapter)
-    mock_doc.gather_documentation.return_value = []
-
-    mock_composio = MagicMock(spec=ComposioAdapter)
-    mock_composio.is_configured = True
-    mock_composio.discover_toolkit.return_value = ComposioToolkitDiscovery(
-        app_name="GitHub",
-        slug="github",
-        is_integrated=True,
-    )
-
-    mock_groq = MagicMock(spec=GroqAdapter)
-    mock_groq.is_configured = False
+    """Verify offline fallback produces valid records when Groq and Composio are unconfigured."""
+    doc_adapter = StubLiveDocAdapter(succeeds=False)
+    composio_adapter = ComposioAdapter(api_key=None)
+    groq_adapter = GroqAdapter(api_key=None)
 
     service = ResearchService(
-        doc_adapter=mock_doc,
-        composio_adapter=mock_composio,
-        groq_adapter=mock_groq,
+        doc_adapter=doc_adapter,
+        composio_adapter=composio_adapter,
+        groq_adapter=groq_adapter,
         cache_dir=tmp_path / "cache",
     )
 
@@ -185,9 +297,9 @@ def test_research_service_offline_fallback(tmp_path):
 def test_salesforce_access_tier_distinction(tmp_path):
     """Verify Salesforce distinguishes developer free self-service from production paid subscription."""
     service = ResearchService(
-        doc_adapter=MagicMock(gather_documentation=MagicMock(return_value=[])),
-        composio_adapter=MagicMock(discover_toolkit=MagicMock(return_value=ComposioToolkitDiscovery(app_name="Salesforce", slug="salesforce", is_integrated=True))),
-        groq_adapter=MagicMock(is_configured=False),
+        doc_adapter=StubLiveDocAdapter(succeeds=False),
+        composio_adapter=ComposioAdapter(api_key=None),
+        groq_adapter=GroqAdapter(api_key=None),
         cache_dir=tmp_path / "cache",
     )
     seed_sf = get_seed_app(1)
@@ -204,9 +316,9 @@ def test_salesforce_access_tier_distinction(tmp_path):
 def test_slack_official_mcp_distinction(tmp_path):
     """Verify Slack distinguishes official vendor MCP server from Composio toolkit."""
     service = ResearchService(
-        doc_adapter=MagicMock(gather_documentation=MagicMock(return_value=[])),
-        composio_adapter=MagicMock(discover_toolkit=MagicMock(return_value=ComposioToolkitDiscovery(app_name="Slack", slug="slack", is_integrated=True))),
-        groq_adapter=MagicMock(is_configured=False),
+        doc_adapter=StubLiveDocAdapter(succeeds=False),
+        composio_adapter=ComposioAdapter(api_key=None),
+        groq_adapter=GroqAdapter(api_key=None),
         cache_dir=tmp_path / "cache",
     )
     seed_slack = get_seed_app(21)
@@ -218,9 +330,8 @@ def test_slack_official_mcp_distinction(tmp_path):
     assert record.composio_toolkit_slug == "slack"
 
 
-def test_research_provenance_audit_trail(tmp_path):
-    """Verify execution provenance accurately marks live vs offline fallback."""
-    # 1. Live mode simulation
+def test_research_provenance_mocked_adapters_flagged_as_mocked(tmp_path):
+    """Verify adapters using MagicMock are strictly flagged as mocked and NEVER live."""
     mock_doc = MagicMock(spec=DocumentationSearchAdapter)
     mock_doc.gather_documentation.return_value = [
         DocumentationResult(
@@ -238,6 +349,9 @@ def test_research_provenance_audit_trail(tmp_path):
         app_name="Slack",
         slug="slack",
         is_integrated=True,
+        toolkit_found=True,
+        discovery_attempted=True,
+        discovery_succeeded=True,
         mcp_supported=True,
     )
     mock_groq = MagicMock(spec=GroqAdapter)
@@ -250,19 +364,117 @@ def test_research_provenance_audit_trail(tmp_path):
         buildability_verdict=BuildabilityVerdict.BUILDABLE,
     )
 
-    live_service = ResearchService(
+    mock_service = ResearchService(
         doc_adapter=mock_doc,
         composio_adapter=mock_composio,
         groq_adapter=mock_groq,
+        cache_dir=tmp_path / "mock_cache",
+    )
+    mock_record = mock_service.research_app(get_seed_app(21))
+    assert mock_record.provenance is not None
+    assert mock_record.provenance.execution_mode == ExecutionMode.MOCKED
+    assert mock_record.provenance.live_verified is False
+    assert "mock adapters" in mock_record.provenance.notes
+
+
+def test_research_provenance_genuine_live_execution(tmp_path):
+    """Verify genuine live execution when real non-mock adapters succeed."""
+    service = ResearchService(
+        doc_adapter=StubLiveDocAdapter(succeeds=True),
+        composio_adapter=StubLiveComposioAdapter(toolkit_found=True, mcp_succeeds=True),
+        groq_adapter=StubLiveGroqAdapter(succeeds=True),
         cache_dir=tmp_path / "live_cache",
     )
-    live_record = live_service.research_app(get_seed_app(21))
-    assert live_record.provenance is not None
-    assert live_record.provenance.execution_mode == ExecutionMode.LIVE
-    assert live_record.provenance.llm_inference_executed is True
-    assert live_record.provenance.llm_model == "openai/gpt-oss-120b"
-    assert live_record.provenance.live_verified is True
-    assert live_record.provenance.documentation_live_fetched is True
+    record = service.research_app(get_seed_app(21))
+
+    assert record.provenance is not None
+    assert record.provenance.execution_mode == ExecutionMode.LIVE
+    assert record.provenance.live_verified is True
+    assert record.provenance.documentation_live_fetched is True
+    assert record.provenance.llm_inference_executed is True
+    assert record.provenance.llm_model == "openai/gpt-oss-120b"
+    assert record.provenance.composio_discovery_attempted is True
+    assert record.provenance.composio_discovery_succeeded is True
+    assert record.provenance.composio_toolkit_found is True
+    assert record.provenance.composio_mcp_session_attempted is True
+    assert record.provenance.composio_mcp_session_created is True
+    assert record.provenance.composio_mcp_endpoint_returned is True
+    assert record.provenance.composio_mcp_endpoint == "https://mcp.composio.dev/session/123"
+
+
+def test_research_provenance_groq_successful_composio_unsuccessful(tmp_path):
+    """Verify partial_live mode when Groq succeeds but Composio lookup fails."""
+    service = ResearchService(
+        doc_adapter=StubLiveDocAdapter(succeeds=True),
+        composio_adapter=StubLiveComposioAdapter(lookup_succeeds=False),
+        groq_adapter=StubLiveGroqAdapter(succeeds=True),
+        cache_dir=tmp_path / "partial_cache",
+    )
+    record = service.research_app(get_seed_app(21))
+
+    assert record.provenance is not None
+    assert record.provenance.execution_mode == ExecutionMode.PARTIAL_LIVE
+    assert record.provenance.live_verified is False
+    assert record.provenance.llm_inference_executed is True
+    assert record.provenance.composio_discovery_succeeded is False
+    assert "timeout" in str(record.provenance.composio_discovery_error)
+
+
+def test_research_provenance_composio_successful_groq_unavailable(tmp_path):
+    """Verify partial_live mode when Composio succeeds but Groq is unconfigured."""
+    service = ResearchService(
+        doc_adapter=StubLiveDocAdapter(succeeds=True),
+        composio_adapter=StubLiveComposioAdapter(toolkit_found=True),
+        groq_adapter=GroqAdapter(api_key=None),
+        cache_dir=tmp_path / "partial_cache",
+    )
+    record = service.research_app(get_seed_app(21), allow_fallback=True)
+
+    assert record.provenance is not None
+    assert record.provenance.execution_mode == ExecutionMode.PARTIAL_LIVE
+    assert record.provenance.live_verified is False
+    assert record.provenance.documentation_live_fetched is True
+    assert record.provenance.llm_inference_executed is False
+    assert record.provenance.composio_discovery_succeeded is True
+
+
+def test_research_provenance_composio_toolkit_not_found(tmp_path):
+    """Verify successful catalog lookup resulting in toolkit-not-found preserves live_verified."""
+    service = ResearchService(
+        doc_adapter=StubLiveDocAdapter(succeeds=True),
+        composio_adapter=StubLiveComposioAdapter(toolkit_found=False),
+        groq_adapter=StubLiveGroqAdapter(succeeds=True),
+        cache_dir=tmp_path / "live_cache",
+    )
+    record = service.research_app(get_seed_app(21))
+
+    assert record.provenance is not None
+    assert record.provenance.execution_mode == ExecutionMode.LIVE
+    assert record.provenance.live_verified is True
+    assert record.provenance.composio_discovery_attempted is True
+    assert record.provenance.composio_discovery_succeeded is True
+    assert record.provenance.composio_toolkit_found is False
+    assert record.has_composio_integration is False
+
+
+def test_research_provenance_mcp_session_failure(tmp_path):
+    """Verify MCP session failure is tracked distinctly without marking the lookup failed."""
+    service = ResearchService(
+        doc_adapter=StubLiveDocAdapter(succeeds=True),
+        composio_adapter=StubLiveComposioAdapter(toolkit_found=True, mcp_succeeds=False),
+        groq_adapter=StubLiveGroqAdapter(succeeds=True),
+        cache_dir=tmp_path / "live_cache",
+    )
+    record = service.research_app(get_seed_app(21))
+
+    assert record.provenance is not None
+    assert record.provenance.composio_discovery_succeeded is True
+    assert record.provenance.composio_toolkit_found is True
+    assert record.provenance.composio_mcp_session_attempted is True
+    assert record.provenance.composio_mcp_session_created is False
+    assert record.provenance.composio_mcp_endpoint_returned is False
+    assert record.provenance.composio_mcp_endpoint is None
+    assert "Connected account required" in str(record.provenance.composio_mcp_session_error)
 
 
 def test_research_service_unconfigured_without_fallback_raises(tmp_path):

@@ -7,6 +7,7 @@ import logging
 from dataclasses import asdict
 from pathlib import Path
 from typing import Any, Optional
+from unittest.mock import Mock
 
 from research_agent.adapters.composio_client import (
     ComposioAdapter,
@@ -267,36 +268,38 @@ class ResearchService:
         composio_dict = asdict(composio_discovery)
 
         # 4. Perform LLM synthesis
-        if self.groq_adapter.is_configured:
-            record = self.groq_adapter.extract_app_research(
-                app_name=seed_app.name,
-                category_hint=seed_app.category.value,
-                documentation_snippets=doc_snippets,
-                composio_info=composio_dict,
-            )
-            exec_mode = ExecutionMode.LIVE
-            llm_executed = True
+        llm_attempted = False
+        llm_executed = False
+        llm_model: Optional[str] = None
+        llm_error: Optional[str] = None
+
+        if getattr(self.groq_adapter, "is_configured", False):
+            llm_attempted = True
             llm_model = getattr(self.groq_adapter, "model", None)
-            composio_executed = self.composio_adapter.is_configured
-            composio_mcp = bool(composio_dict.get("mcp_supported", False)) if composio_executed else False
-            live_verified = llm_executed and composio_executed
-            notes = "Live research completed with Groq LLM inference, Composio tool discovery, and live documentation."
+            try:
+                record = self.groq_adapter.extract_app_research(
+                    app_name=seed_app.name,
+                    category_hint=seed_app.category.value,
+                    documentation_snippets=doc_snippets,
+                    composio_info=composio_dict,
+                )
+                llm_executed = True
+            except Exception as exc:
+                llm_error = str(exc)
+                logger.warning("Live LLM extraction failed for %s: %s", seed_app.name, exc)
+                if allow_fallback:
+                    record = self._build_offline_fallback(
+                        seed_app=seed_app,
+                        doc_snippets=doc_snippets,
+                        composio_info=composio_dict,
+                    )
+                else:
+                    raise
         elif allow_fallback:
             record = self._build_offline_fallback(
                 seed_app=seed_app,
                 doc_snippets=doc_snippets,
                 composio_info=composio_dict,
-            )
-            exec_mode = ExecutionMode.OFFLINE_FALLBACK
-            llm_executed = False
-            llm_model = None
-            composio_executed = False
-            composio_mcp = False
-            live_verified = False
-            notes = (
-                "Documentation retrieved live over HTTP from official portal/website; "
-                "structured findings populated from verified baseline fixtures because "
-                "GROQ_API_KEY/COMPOSIO_API_KEY credentials were not configured."
             )
         else:
             raise ConfigurationError(
@@ -305,15 +308,73 @@ class ResearchService:
 
         # 5. Attach audit-grade ResearchProvenance metadata
         succeeded_urls = [d.url for d in doc_results if d.is_accessible]
+        docs_live = len(succeeded_urls) > 0
+
+        # Detect if any adapter is a test double / mock object
+        is_mocked = any(
+            isinstance(a, Mock)
+            for a in (self.doc_adapter, self.composio_adapter, self.groq_adapter)
+        )
+
+        composio_adapter_configured = getattr(self.composio_adapter, "is_configured", False)
+        composio_attempted = getattr(composio_discovery, "discovery_attempted", False)
+        composio_succeeded = getattr(composio_discovery, "discovery_succeeded", False)
+        composio_found = getattr(composio_discovery, "toolkit_found", False)
+        composio_err = getattr(composio_discovery, "error", None)
+
+        session_attempted = getattr(composio_discovery, "session_creation_attempted", False)
+        session_created = getattr(composio_discovery, "session_created", False)
+        mcp_endpoint = getattr(composio_discovery, "mcp_endpoint", None)
+        mcp_endpoint_returned = bool(mcp_endpoint)
+        session_error = getattr(composio_discovery, "session_error", None)
+
+        if is_mocked:
+            exec_mode = ExecutionMode.MOCKED
+            live_verified = False
+            notes = "Executed within test double / unit test environment utilizing mock adapters."
+        elif docs_live and llm_executed and composio_succeeded:
+            exec_mode = ExecutionMode.LIVE
+            live_verified = True
+            notes = "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully."
+        elif docs_live or llm_executed or composio_succeeded:
+            exec_mode = ExecutionMode.PARTIAL_LIVE
+            live_verified = False
+            parts = []
+            if docs_live:
+                parts.append("live documentation fetched")
+            if llm_executed:
+                parts.append("live LLM extraction succeeded")
+            else:
+                parts.append("LLM offline fallback")
+            if composio_succeeded:
+                parts.append(f"Composio discovery succeeded (toolkit {'found' if composio_found else 'not found'})")
+            else:
+                parts.append("Composio unconfigured/failed")
+            notes = f"Partial live execution ({', '.join(parts)}). Not fully live-verified."
+        else:
+            exec_mode = ExecutionMode.OFFLINE_FALLBACK
+            live_verified = False
+            notes = "Findings constructed entirely from verified baseline fixtures without live API calls."
+
         provenance = ResearchProvenance(
             execution_mode=exec_mode,
-            documentation_live_fetched=len(succeeded_urls) > 0,
+            documentation_live_fetched=docs_live,
             documentation_urls_attempted=candidate_urls,
             documentation_urls_succeeded=succeeded_urls,
+            llm_inference_attempted=llm_attempted,
             llm_inference_executed=llm_executed,
             llm_model=llm_model,
-            composio_discovery_executed=composio_executed,
-            composio_mcp_session_created=composio_mcp,
+            llm_error=llm_error,
+            composio_adapter_configured=composio_adapter_configured,
+            composio_discovery_attempted=composio_attempted,
+            composio_discovery_succeeded=composio_succeeded,
+            composio_toolkit_found=composio_found,
+            composio_discovery_error=composio_err,
+            composio_mcp_session_attempted=session_attempted,
+            composio_mcp_session_created=session_created,
+            composio_mcp_endpoint_returned=mcp_endpoint_returned,
+            composio_mcp_endpoint=mcp_endpoint,
+            composio_mcp_session_error=session_error,
             live_verified=live_verified,
             notes=notes,
         )
@@ -371,6 +432,14 @@ class ResearchService:
             if not self.groq_adapter.is_configured:
                 uncertainty = f"[Offline mode: GROQ_API_KEY unconfigured] {uncertainty}"
 
+            # Determine Composio integration factually from live discovery if it ran, else from baseline
+            if composio_info.get("discovery_attempted") and composio_info.get("discovery_succeeded"):
+                has_composio = bool(composio_info.get("toolkit_found", False))
+                composio_slug = composio_info.get("slug") if has_composio else None
+            else:
+                has_composio = baseline.get("has_composio_integration", False)
+                composio_slug = baseline.get("composio_toolkit_slug")
+
             return AppResearchRecord(
                 app_name=seed_app.name,
                 category=baseline["category"],
@@ -383,8 +452,8 @@ class ResearchService:
                 api_types=baseline["api_types"],
                 api_breadth=baseline["api_breadth"],
                 mcp_availability=baseline["mcp_availability"],
-                has_composio_integration=baseline.get("has_composio_integration", False),
-                composio_toolkit_slug=baseline.get("composio_toolkit_slug"),
+                has_composio_integration=has_composio,
+                composio_toolkit_slug=composio_slug,
                 buildability_verdict=baseline["buildability_verdict"],
                 primary_blocker=baseline["primary_blocker"],
                 blocker_details=baseline["blocker_details"],

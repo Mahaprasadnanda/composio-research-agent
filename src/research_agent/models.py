@@ -158,21 +158,45 @@ class EvidenceItem(BaseModel):
 
 
 class ExecutionMode(str, Enum):
-    """Operational mode used to generate research findings."""
+    """Operational mode reflecting the factual execution status of research pipelines.
+
+    LIVE: All real external network operations (live HTTP documentation fetching, live Groq
+        LLM extraction, and live Composio catalog discovery) were executed against real remote APIs
+        using non-mock adapters and completed successfully.
+    PARTIAL_LIVE: At least one real external network operation executed successfully (e.g. live HTTP
+        documentation was retrieved), but one or more other operations were unconfigured, failed,
+        or relied on fallback data.
+    OFFLINE_FALLBACK: Zero live network operations were executed against external APIs; findings were
+        constructed entirely from verified baseline fixtures.
+    MOCKED: Executed within a test double / unit test environment utilizing mock adapters (e.g., MagicMock).
+    """
 
     LIVE = "live"
+    PARTIAL_LIVE = "partial_live"
     OFFLINE_FALLBACK = "offline_fallback"
     MOCKED = "mocked"
 
 
 class ResearchProvenance(BaseModel):
-    """Detailed provenance tracking the origin and verification level of research claims."""
+    """Audit-grade provenance tracking the exact origin and verification level of research claims.
+
+    Verification Invariant:
+        live_verified is strictly True IF AND ONLY IF:
+            1. execution_mode == ExecutionMode.LIVE (not mocked, partial, or fallback).
+            2. documentation_live_fetched is True (at least one official URL retrieved over HTTP 200).
+            3. llm_inference_executed is True (real remote LLM inference completed successfully).
+            4. composio_discovery_attempted is True AND composio_discovery_succeeded is True
+               (real Composio API catalog lookup completed successfully).
+        If any of these conditions are False, live_verified MUST BE False.
+    """
 
     model_config = ConfigDict(frozen=True, extra="forbid")
 
     execution_mode: ExecutionMode = Field(
-        description="Execution mode: live (real APIs called), offline_fallback (baseline data), or mocked (tests)."
+        description="Factual execution mode: live, partial_live, offline_fallback, or mocked."
     )
+
+    # Documentation retrieval provenance
     documentation_live_fetched: bool = Field(
         default=False,
         description="Whether official documentation pages were fetched live over HTTP during this run.",
@@ -185,25 +209,73 @@ class ResearchProvenance(BaseModel):
         default_factory=list,
         description="URLs successfully retrieved with HTTP 200.",
     )
+
+    # LLM extraction provenance
+    llm_inference_attempted: bool = Field(
+        default=False,
+        description="Whether live LLM extraction was attempted.",
+    )
     llm_inference_executed: bool = Field(
         default=False,
-        description="Whether live LLM inference was executed to extract findings.",
+        description="Whether live remote LLM inference successfully returned structured findings.",
     )
     llm_model: Optional[str] = Field(
         default=None,
         description="Exact model identifier used for inference (e.g. 'openai/gpt-oss-120b').",
     )
-    composio_discovery_executed: bool = Field(
+    llm_error: Optional[str] = Field(
+        default=None,
+        description="Error details if LLM inference failed.",
+    )
+
+    # Composio discovery provenance
+    composio_adapter_configured: bool = Field(
         default=False,
-        description="Whether live Composio API was queried for toolkit discovery.",
+        description="Whether Composio adapter held a valid, non-placeholder API key.",
+    )
+    composio_discovery_attempted: bool = Field(
+        default=False,
+        description="Whether Composio catalog lookup was actually attempted over the network.",
+    )
+    composio_discovery_succeeded: bool = Field(
+        default=False,
+        description="Whether Composio catalog lookup succeeded (independent of toolkit presence).",
+    )
+    composio_toolkit_found: bool = Field(
+        default=False,
+        description="Whether the application toolkit was confirmed present in the Composio catalog.",
+    )
+    composio_discovery_error: Optional[str] = Field(
+        default=None,
+        description="Error details if Composio discovery request failed.",
+    )
+
+    # Composio MCP session provenance
+    composio_mcp_session_attempted: bool = Field(
+        default=False,
+        description="Whether Composio hosted MCP session creation was attempted.",
     )
     composio_mcp_session_created: bool = Field(
         default=False,
-        description="Whether live Composio hosted MCP session was initiated.",
+        description="Whether Composio hosted MCP session was successfully created.",
     )
+    composio_mcp_endpoint_returned: bool = Field(
+        default=False,
+        description="Whether a usable MCP endpoint URL was returned from the created session.",
+    )
+    composio_mcp_endpoint: Optional[str] = Field(
+        default=None,
+        description="The exact MCP session endpoint URL if returned.",
+    )
+    composio_mcp_session_error: Optional[str] = Field(
+        default=None,
+        description="Error details if Composio MCP session creation failed.",
+    )
+
+    # Verification Invariant
     live_verified: bool = Field(
         default=False,
-        description="Strictly True ONLY when live LLM inference and live tool discovery executed.",
+        description="Strictly True ONLY when execution_mode is LIVE with live docs, live LLM, and live Composio discovery all successfully executed without mocks.",
     )
     notes: str = Field(
         default="",

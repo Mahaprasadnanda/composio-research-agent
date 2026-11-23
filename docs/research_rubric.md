@@ -138,3 +138,24 @@ Every record produced by the research agent must satisfy the following traceabil
 | **High** | Primary official developer portal was directly retrieved and reviewed. Authentication, pricing tier, and API reference endpoints are unambiguous and current. |
 | **Medium** | Developer documentation was accessed, but secondary aspects (such as exact plan pricing gating or rate limits) required cross-referencing pricing pages or terms of service. |
 | **Low** | Official developer documentation was partially gated, required inference from secondary sources, or presented conflicting terms. Flagged for human review. |
+
+---
+
+## 5. Research Provenance & Verification Invariants
+
+To guarantee research integrity and prevent simulated, mock, or fallback outputs from masquerading as live evidence, every record is bound by the following execution invariant:
+
+### Execution Modes (`ExecutionMode`)
+- **`live`**: All real external network operations (live HTTP documentation fetching, live Groq LLM extraction, and live Composio catalog discovery) were executed against real remote APIs using non-mock adapters and completed successfully.
+- **`partial_live`**: At least one real external network operation executed successfully (e.g. live HTTP documentation was retrieved), but one or more other operations were unconfigured, failed, or relied on fallback data.
+- **`offline_fallback`**: Zero live network operations were executed against external APIs; findings were constructed entirely from verified baseline fixtures.
+- **`mocked`**: Executed within a test double / unit test environment utilizing mock adapters (e.g., `MagicMock`).
+
+### Verification Invariant (`live_verified`)
+`live_verified` is strictly **True** if and only if:
+1. `execution_mode == ExecutionMode.LIVE` (not mocked, partial, or fallback).
+2. `documentation_live_fetched is True` (at least one official URL retrieved over HTTP 200).
+3. `llm_inference_executed is True` (real remote LLM inference completed successfully).
+4. `composio_discovery_attempted is True` AND `composio_discovery_succeeded is True` (real Composio API catalog lookup completed successfully).
+
+If any of these conditions are False, `live_verified` MUST BE **False**. Configured credentials, mock test doubles, or MCP endpoint capabilities alone never establish `live_verified = True`.
