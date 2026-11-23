@@ -78,9 +78,10 @@ def test_check_missing_credentials_accepts_valid():
     assert missing == []
 
 
-def test_load_settings_missing_credentials_raises_configuration_error(monkeypatch):
+def test_load_settings_missing_credentials_raises_configuration_error(monkeypatch, tmp_path):
     monkeypatch.delenv("GROQ_API_KEY", raising=False)
     monkeypatch.delenv("COMPOSIO_API_KEY", raising=False)
+    monkeypatch.setattr("research_agent.config.PROJECT_ROOT", tmp_path)
 
     with pytest.raises(ConfigurationError) as exc_info:
         load_settings(env_file=None)
@@ -91,7 +92,8 @@ def test_load_settings_missing_credentials_raises_configuration_error(monkeypatc
     assert "Action required" in error_message
 
 
-def test_load_settings_success(monkeypatch):
+def test_load_settings_success(monkeypatch, tmp_path):
+    monkeypatch.setattr("research_agent.config.PROJECT_ROOT", tmp_path)
     monkeypatch.setenv("GROQ_API_KEY", "gsk_valid_mock_key_abc123")
     monkeypatch.setenv("COMPOSIO_API_KEY", "cmp_valid_mock_key_xyz789")
     monkeypatch.setenv("GROQ_MODEL", "openai/gpt-oss-120b")
@@ -102,9 +104,10 @@ def test_load_settings_success(monkeypatch):
     assert settings.groq_model == "openai/gpt-oss-120b"
 
 
-def test_load_settings_default_model(monkeypatch):
+def test_load_settings_default_model(monkeypatch, tmp_path):
     from research_agent.config import DEFAULT_GROQ_MODEL
 
+    monkeypatch.setattr("research_agent.config.PROJECT_ROOT", tmp_path)
     monkeypatch.setenv("GROQ_API_KEY", "gsk_valid_mock_key_abc123")
     monkeypatch.setenv("COMPOSIO_API_KEY", "cmp_valid_mock_key_xyz789")
     monkeypatch.delenv("GROQ_MODEL", raising=False)
@@ -114,7 +117,8 @@ def test_load_settings_default_model(monkeypatch):
     assert settings.groq_model == DEFAULT_GROQ_MODEL
 
 
-def test_load_settings_custom_model_override(monkeypatch):
+def test_load_settings_custom_model_override(monkeypatch, tmp_path):
+    monkeypatch.setattr("research_agent.config.PROJECT_ROOT", tmp_path)
     monkeypatch.setenv("GROQ_API_KEY", "gsk_valid_mock_key_abc123")
     monkeypatch.setenv("COMPOSIO_API_KEY", "cmp_valid_mock_key_xyz789")
     monkeypatch.setenv("GROQ_MODEL", "openai/gpt-oss-20b")

@@ -8,7 +8,10 @@ from __future__ import annotations
 
 import os
 
+from dotenv import load_dotenv
 import pytest
+
+load_dotenv()
 
 from research_agent.adapters.composio_client import ComposioAdapter
 from research_agent.adapters.documentation_search import DocumentationSearchAdapter
