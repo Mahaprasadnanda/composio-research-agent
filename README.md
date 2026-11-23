@@ -114,13 +114,16 @@ composio-research-agent/
 │       │   └── groq_client.py           # Groq LLM inference adapter (GPT-OSS-120B)
 │       ├── services/         # Orchestration & caching
 │       │   ├── __init__.py
+│       │   ├── batch_runner.py          # Resumable batch runner & checkpoint manager
 │       │   └── research_service.py      # End-to-end evidence gathering & synthesis
 │       └── use_cases/        # Execution entry points
 │           ├── __init__.py
-│           └── run_single_research.py   # CLI runner for single or batch app targets
+│           ├── run_batch_research.py    # CLI runner for multi-application batches
+│           └── run_single_research.py   # CLI runner for single or test app targets
 └── tests/
     ├── __init__.py           # Test suite marker
     ├── test_adapters.py      # Adapter unit tests with mocks (Groq, Composio, Docs)
+    ├── test_batch_runner.py  # Batch execution, resume, retry, and checkpoint tests
     ├── test_config.py        # Settings validation & secret masking tests
     ├── test_live_integration.py # Live external network integration tests
     ├── test_models.py        # Pydantic model validation & aggregation tests
@@ -197,6 +200,29 @@ $env:PYTHONPATH="src"; python -m research_agent.cli --app-name "Slack"
 
 Results are saved as validated JSON in `output/research_results/`.
 
+### 8. Run Batch Research Pipeline
+
+Execute batch research across applications with chunking, resuming, and progress tracking:
+
+```powershell
+# Research selected applications by ID with checkpoint resume
+$env:PYTHONPATH="src"; python -m research_agent.cli batch --ids 1,21,61 --resume
+
+# Research selected applications by name
+$env:PYTHONPATH="src"; python -m research_agent.cli batch --names "Slack,GitHub" --resume
+
+# Research full 100-app dataset in chunks of 10
+$env:PYTHONPATH="src"; python -m research_agent.cli batch --batch-size 10 --resume
+
+# Force regeneration of research records even if cached
+$env:PYTHONPATH="src"; python -m research_agent.cli batch --ids 1,21,61 --force-refresh
+```
+
+Batch execution outputs:
+- `output/research_results/{id:03d}_{slug}.json`: Individual application records.
+- `output/research_dataset.json`: Consolidated, validated dataset of all completed applications.
+- `output/batch_run_summary.json`: Batch run metrics, execution-mode breakdown, verdict counts, and failure summaries.
+
 ---
 
 ## Implementation Status
@@ -244,12 +270,22 @@ Results are saved as validated JSON in `output/research_results/`.
 - [x] **Proven Execution Breakdown**:
   - Honest audit: Documentation was fetched live over HTTP via `httpx`, while structured classifications were provided via verified baseline fixtures due to unconfigured API keys.
   - Zero fabricated negative findings or mock masquerading.
-- [x] **Test Suite**:
-  - Expanded to **50 automated tests** (`49 passed`, `1 skipped` live test when unconfigured).
-  - Added tests for Groq model selection, access tier distinctions, MCP classifications, and research provenance tracking.
+
+### Milestone 3.2 & 3.3: Provenance Integrity & Elimination of False Live Claims (Completed)
+- [x] Added `ExecutionSource` (`real_network`, `simulated`, `fixture`, `mocked`, `unknown`) to track operational origin at the network boundary.
+- [x] Eliminated adapter-class-based assumptions (`isinstance(adapter, Mock)`).
+- [x] Enforced strict fail-closed verification: `live_verified = True` strictly requires confirmed `real_network` execution across HTTP documentation, Groq inference, and Composio discovery.
+- [x] Renamed test doubles to `Simulated*` and verified that test stubs strictly produce `execution_mode = MOCKED` and `live_verified = False`.
+
+### Milestone 4: Resumable 100-App Batch Research Pipeline (Completed)
+- [x] Implemented `BatchResearchRunner` (`src/research_agent/services/batch_runner.py`) supporting configurable batch chunking (default: 10), resume capability, and per-app progress reporting.
+- [x] Implemented bounded retries with exponential backoff for transient errors (429, timeouts, 5xx), with immediate fail-fast on permanent errors (401, 404, invalid keys).
+- [x] Added checkpoint persistence after each batch chunk, writing individual JSON records, consolidated `research_dataset.json`, and comprehensive `batch_run_summary.json`.
+- [x] Added `BatchRunSummary` and `FailedAppSummary` Pydantic models for execution-mode and verdict breakdowns.
+- [x] Extended CLI (`src/research_agent/cli.py`) with `batch` subcommand supporting `--batch-size`, `--ids`, `--names`, `--resume`, `--no-resume`, `--force-refresh`, and `--allow-fallback`.
+- [x] Verified full unit test suite with 13 dedicated batch tests (`71 passed`, `1 skipped`). Tested end-to-end on simulated subsets without launching unapproved full live runs.
 
 ### Planned Milestones
-- **Milestone 4:** Full batch research execution & structured data extraction (`data/processed/`).
 - **Milestone 5:** Human verification of representative sample (pre/post-audit accuracy evaluation).
 - **Milestone 6:** Analytics generation (Pandas) & standalone interactive HTML case study report (`output/`).
 

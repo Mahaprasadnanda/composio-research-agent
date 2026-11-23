@@ -223,6 +223,10 @@ class ResearchService:
             logger.warning("Failed to load cached record at %s: %s", path, exc)
             return None
 
+    def has_cached_record(self, seed_app: SeedAppRecord) -> bool:
+        """Check whether a valid cached research record exists on disk."""
+        return self.get_cached_record(seed_app) is not None
+
     def save_record(self, seed_app: SeedAppRecord, record: AppResearchRecord) -> Path:
         """Persist structured research record to disk as validated JSON."""
         self.cache_dir.mkdir(parents=True, exist_ok=True)

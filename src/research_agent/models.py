@@ -475,6 +475,55 @@ class ResearchDataset(BaseModel):
             counts[record.verification_status.value] += 1
         return counts
 
+    def summary_by_execution_mode(self) -> dict[str, int]:
+        """Aggregate counts of applications by factual execution mode."""
+        counts: dict[str, int] = {m.value: 0 for m in ExecutionMode}
+        for record in self.records:
+            if record.provenance:
+                mode_val = record.provenance.execution_mode.value
+                counts[mode_val] = counts.get(mode_val, 0) + 1
+        return counts
+
+
+class FailedAppSummary(BaseModel):
+    """Summary of an application that failed during batch research."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    app_id: int = Field(ge=1, le=100, description="Seed application identifier.")
+    app_name: str = Field(description="Official name of the SaaS application.")
+    error: str = Field(description="Concise description of the failure reason.")
+
+
+class BatchRunSummary(BaseModel):
+    """Execution metrics and aggregated breakdown for a batch research run."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    total_applications: int = Field(description="Total number of applications targeted in this batch run.")
+    newly_researched_count: int = Field(description="Number of applications actively researched during this run.")
+    cached_count: int = Field(description="Number of applications loaded from existing valid cache.")
+    failed_count: int = Field(description="Number of applications that failed research execution.")
+    counts_by_execution_mode: dict[str, int] = Field(
+        default_factory=dict,
+        description="Application counts grouped by factual execution mode (live, partial_live, offline_fallback, mocked).",
+    )
+    counts_by_buildability_verdict: dict[str, int] = Field(
+        default_factory=dict,
+        description="Application counts grouped by agent toolkit buildability verdict.",
+    )
+    counts_by_category: dict[str, int] = Field(
+        default_factory=dict,
+        description="Application counts grouped by primary functional category.",
+    )
+    failed_apps: list[FailedAppSummary] = Field(
+        default_factory=list,
+        description="List of failed applications with concise error reasons.",
+    )
+    started_at: datetime = Field(description="Batch run start UTC timestamp.")
+    completed_at: datetime = Field(description="Batch run completion UTC timestamp.")
+    duration_seconds: float = Field(description="Total duration of the batch run in seconds.")
+
 
 class OriginalCategory(str, Enum):
     """Original 10 category groupings from the Composio take-home assignment."""
