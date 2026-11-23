@@ -157,6 +157,23 @@ class EvidenceItem(BaseModel):
     )
 
 
+class ExecutionSource(str, Enum):
+    """Origin of an operation result to ensure research integrity and prevent false live claims.
+
+    REAL_NETWORK: Confirmed real external network execution against remote API or HTTP endpoints.
+    SIMULATED: Produced by a local test double, stub, or simulation without network execution.
+    FIXTURE: Loaded from static offline baseline fixtures or pre-recorded fallback data.
+    MOCKED: Produced by dynamic mock framework objects (e.g. MagicMock, Mock).
+    UNKNOWN: Unspecified or indeterminate execution origin (fails closed to unverified).
+    """
+
+    REAL_NETWORK = "real_network"
+    SIMULATED = "simulated"
+    FIXTURE = "fixture"
+    MOCKED = "mocked"
+    UNKNOWN = "unknown"
+
+
 class ExecutionMode(str, Enum):
     """Operational mode reflecting the factual execution status of research pipelines.
 
@@ -168,7 +185,8 @@ class ExecutionMode(str, Enum):
         or relied on fallback data.
     OFFLINE_FALLBACK: Zero live network operations were executed against external APIs; findings were
         constructed entirely from verified baseline fixtures.
-    MOCKED: Executed within a test double / unit test environment utilizing mock adapters (e.g., MagicMock).
+    MOCKED: Executed within a test double / unit test environment utilizing mock adapters (e.g., MagicMock)
+        or simulated test stubs.
     """
 
     LIVE = "live"
@@ -182,18 +200,36 @@ class ResearchProvenance(BaseModel):
 
     Verification Invariant:
         live_verified is strictly True IF AND ONLY IF:
-            1. execution_mode == ExecutionMode.LIVE (not mocked, partial, or fallback).
-            2. documentation_live_fetched is True (at least one official URL retrieved over HTTP 200).
-            3. llm_inference_executed is True (real remote LLM inference completed successfully).
-            4. composio_discovery_attempted is True AND composio_discovery_succeeded is True
-               (real Composio API catalog lookup completed successfully).
-        If any of these conditions are False, live_verified MUST BE False.
+            1. execution_mode == ExecutionMode.LIVE (not mocked, simulated, partial, or fallback).
+            2. doc_execution_source == ExecutionSource.REAL_NETWORK and documentation_live_fetched is True
+               (at least one official URL retrieved over real HTTP 200).
+            3. llm_execution_source == ExecutionSource.REAL_NETWORK and llm_inference_executed is True
+               (real remote LLM inference completed successfully over the network).
+            4. composio_execution_source == ExecutionSource.REAL_NETWORK and
+               composio_discovery_attempted is True AND composio_discovery_succeeded is True
+               (real Composio API catalog lookup completed successfully over the network).
+            5. No operation or adapter is simulated, mocked, or from offline fixtures.
+        If any of these conditions are False, live_verified MUST BE False. The system fails closed.
     """
 
     model_config = ConfigDict(frozen=True, extra="forbid")
 
     execution_mode: ExecutionMode = Field(
         description="Factual execution mode: live, partial_live, offline_fallback, or mocked."
+    )
+
+    # Granular operation execution sources
+    doc_execution_source: ExecutionSource = Field(
+        default=ExecutionSource.UNKNOWN,
+        description="Factual execution origin of documentation retrieval: real_network, simulated, fixture, mocked.",
+    )
+    llm_execution_source: ExecutionSource = Field(
+        default=ExecutionSource.UNKNOWN,
+        description="Factual execution origin of LLM inference: real_network, simulated, fixture, mocked.",
+    )
+    composio_execution_source: ExecutionSource = Field(
+        default=ExecutionSource.UNKNOWN,
+        description="Factual execution origin of Composio discovery: real_network, simulated, fixture, mocked.",
     )
 
     # Documentation retrieval provenance
@@ -374,6 +410,10 @@ class AppResearchRecord(BaseModel):
     uncertainty_notes: Optional[str] = Field(
         default=None,
         description="Unresolved questions, conflicting sources, or ambiguity notes.",
+    )
+    llm_execution_source: Optional[ExecutionSource] = Field(
+        default=None,
+        description="Explicit execution source of LLM extraction: real_network, simulated, fixture, mocked.",
     )
     provenance: Optional[ResearchProvenance] = Field(
         default=None,

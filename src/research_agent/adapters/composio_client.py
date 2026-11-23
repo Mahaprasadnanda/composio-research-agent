@@ -7,6 +7,8 @@ import re
 from dataclasses import dataclass, field
 from typing import Any, Optional
 
+from research_agent.models import ExecutionSource
+
 logger = logging.getLogger(__name__)
 
 # Known slugs for standard SaaS apps in Composio
@@ -83,6 +85,10 @@ class ComposioToolkitDiscovery:
     requires_connected_account: bool = False
     error: Optional[str] = None
 
+    # Execution provenance
+    execution_source: ExecutionSource = ExecutionSource.SIMULATED
+    is_live_network: bool = False
+
 
 class ComposioAdapter:
     """Interacts with Composio Python SDK for discovery and MCP enablement."""
@@ -116,6 +122,8 @@ class ComposioAdapter:
                 discovery_succeeded=False,
                 toolkit_found=False,
                 error="Composio API key is not configured or SDK unavailable.",
+                execution_source=ExecutionSource.FIXTURE,
+                is_live_network=False,
             )
 
         try:
@@ -134,6 +142,8 @@ class ComposioAdapter:
                         discovery_attempted=True,
                         discovery_succeeded=True,
                         toolkit_found=False,
+                        execution_source=ExecutionSource.REAL_NETWORK,
+                        is_live_network=True,
                     )
                 # Any other error (e.g. 401 unauthorized, timeout, 500) means query failed
                 raise
@@ -146,6 +156,8 @@ class ComposioAdapter:
                     discovery_attempted=True,
                     discovery_succeeded=True,
                     toolkit_found=False,
+                    execution_source=ExecutionSource.REAL_NETWORK,
+                    is_live_network=True,
                 )
 
             name = getattr(toolkit, "name", "") or getattr(toolkit, "display_name", "") or slug
@@ -216,6 +228,8 @@ class ComposioAdapter:
                 mcp_supported=mcp_supported,
                 session_error=session_error,
                 requires_connected_account=True,
+                execution_source=ExecutionSource.REAL_NETWORK,
+                is_live_network=True,
             )
 
         except Exception as exc:
@@ -229,6 +243,8 @@ class ComposioAdapter:
                     discovery_succeeded=False,
                     toolkit_found=False,
                     error="Unauthorized: COMPOSIO_API_KEY is invalid or expired.",
+                    execution_source=ExecutionSource.REAL_NETWORK,
+                    is_live_network=True,
                 )
             if "404" in err_msg or "not found" in err_msg.lower():
                 return ComposioToolkitDiscovery(
@@ -238,6 +254,8 @@ class ComposioAdapter:
                     discovery_attempted=True,
                     discovery_succeeded=True,
                     toolkit_found=False,
+                    execution_source=ExecutionSource.REAL_NETWORK,
+                    is_live_network=True,
                 )
             return ComposioToolkitDiscovery(
                 app_name=app_name,
@@ -247,4 +265,6 @@ class ComposioAdapter:
                 discovery_succeeded=False,
                 toolkit_found=False,
                 error=f"Composio query failed: {type(exc).__name__}",
+                execution_source=ExecutionSource.REAL_NETWORK,
+                is_live_network=True,
             )

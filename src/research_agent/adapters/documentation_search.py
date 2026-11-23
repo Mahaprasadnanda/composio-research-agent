@@ -11,6 +11,8 @@ from urllib.parse import urlparse
 
 import httpx
 
+from research_agent.models import ExecutionSource
+
 # Keywords used to extract high-relevance documentation snippets
 RELEVANCE_KEYWORDS = [
     "authentication",
@@ -48,6 +50,8 @@ class DocumentationResult:
     retrieved_at: str = field(
         default_factory=lambda: datetime.now(timezone.utc).isoformat()
     )
+    execution_source: ExecutionSource = ExecutionSource.SIMULATED
+    is_live_network: bool = False
 
 
 def clean_html_to_text(html_content: str, max_chars: int = 15000) -> tuple[str, str]:
@@ -141,6 +145,8 @@ class DocumentationSearchAdapter:
                         error_message=(
                             f"HTTP {response.status_code} client/server error while accessing documentation."
                         ),
+                        is_live_network=True,
+                        execution_source=ExecutionSource.REAL_NETWORK,
                     )
 
                 content_type = response.headers.get("content-type", "").lower()
@@ -161,6 +167,8 @@ class DocumentationSearchAdapter:
                     excerpt=snippet,
                     status_code=response.status_code,
                     is_accessible=True,
+                    is_live_network=True,
+                    execution_source=ExecutionSource.REAL_NETWORK,
                 )
 
         except httpx.TimeoutException:
@@ -168,18 +176,24 @@ class DocumentationSearchAdapter:
                 url=url,
                 is_accessible=False,
                 error_message=f"Connection timed out after {self.timeout}s.",
+                is_live_network=True,
+                execution_source=ExecutionSource.REAL_NETWORK,
             )
         except httpx.RequestError as exc:
             return DocumentationResult(
                 url=url,
                 is_accessible=False,
                 error_message=f"Network error while reaching destination: {type(exc).__name__}",
+                is_live_network=True,
+                execution_source=ExecutionSource.REAL_NETWORK,
             )
         except Exception as exc:
             return DocumentationResult(
                 url=url,
                 is_accessible=False,
                 error_message=f"Unexpected error retrieving documentation: {str(exc)}",
+                is_live_network=True,
+                execution_source=ExecutionSource.REAL_NETWORK,
             )
 
     def gather_documentation(

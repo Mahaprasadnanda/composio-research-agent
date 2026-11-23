@@ -145,17 +145,26 @@ Every record produced by the research agent must satisfy the following traceabil
 
 To guarantee research integrity and prevent simulated, mock, or fallback outputs from masquerading as live evidence, every record is bound by the following execution invariant:
 
+### Operation Execution Sources (`ExecutionSource`)
+Every adapter operation produces explicit provenance metadata at its real execution boundary:
+- **`real_network`**: Confirmed real external network execution against remote endpoints over HTTP/TCP/TLS.
+- **`simulated`**: Produced by a local test double, stub, or simulation without making external network calls.
+- **`fixture`**: Loaded from static offline baseline fixtures or pre-recorded fallback data.
+- **`mocked`**: Produced by dynamic test mock frameworks (e.g. `unittest.mock.MagicMock`).
+- **`unknown`**: Indeterminate or missing execution source (fails closed).
+
 ### Execution Modes (`ExecutionMode`)
-- **`live`**: All real external network operations (live HTTP documentation fetching, live Groq LLM extraction, and live Composio catalog discovery) were executed against real remote APIs using non-mock adapters and completed successfully.
+- **`live`**: All real external network operations (live HTTP documentation fetching, live Groq LLM extraction, and live Composio catalog discovery) were executed against real remote APIs and completed successfully without test doubles.
 - **`partial_live`**: At least one real external network operation executed successfully (e.g. live HTTP documentation was retrieved), but one or more other operations were unconfigured, failed, or relied on fallback data.
 - **`offline_fallback`**: Zero live network operations were executed against external APIs; findings were constructed entirely from verified baseline fixtures.
-- **`mocked`**: Executed within a test double / unit test environment utilizing mock adapters (e.g., `MagicMock`).
+- **`mocked`**: Executed within a test double / unit test environment utilizing mock adapters (e.g., `MagicMock`) or concrete simulated test doubles (e.g. `SimulatedDocAdapter`, `SimulatedGroqAdapter`, `SimulatedComposioAdapter`).
 
 ### Verification Invariant (`live_verified`)
 `live_verified` is strictly **True** if and only if:
-1. `execution_mode == ExecutionMode.LIVE` (not mocked, partial, or fallback).
-2. `documentation_live_fetched is True` (at least one official URL retrieved over HTTP 200).
-3. `llm_inference_executed is True` (real remote LLM inference completed successfully).
-4. `composio_discovery_attempted is True` AND `composio_discovery_succeeded is True` (real Composio API catalog lookup completed successfully).
+1. `execution_mode == ExecutionMode.LIVE` (not mocked, simulated, partial, or fallback).
+2. `doc_execution_source == ExecutionSource.REAL_NETWORK` AND `documentation_live_fetched is True` (at least one official URL retrieved over HTTP 200).
+3. `llm_execution_source == ExecutionSource.REAL_NETWORK` AND `llm_inference_executed is True` (real remote LLM inference completed successfully over the network).
+4. `composio_execution_source == ExecutionSource.REAL_NETWORK` AND `composio_discovery_attempted is True` AND `composio_discovery_succeeded is True` (real Composio API catalog lookup completed successfully over the network).
+5. Zero operations or adapters originate from mocks, stubs, or offline fixtures.
 
-If any of these conditions are False, `live_verified` MUST BE **False**. Configured credentials, mock test doubles, or MCP endpoint capabilities alone never establish `live_verified = True`.
+If any of these conditions are False, `live_verified` MUST BE **False**. Configured credentials, mock test doubles, concrete simulated subclasses, or MCP endpoint capabilities alone never establish `live_verified = True`. The system fails closed.

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 import json
 import logging
 import time
@@ -16,6 +17,7 @@ from research_agent.models import (
     BuildabilityVerdict,
     ConfidenceLevel,
     EvidenceItem,
+    ExecutionSource,
     McpAvailability,
     PrimaryBlocker,
     ResearchStatus,
@@ -66,6 +68,19 @@ RULES:
 """
 
 
+@dataclass(frozen=True)
+class LLMExecutionReceipt:
+    """Execution receipt documenting factual origin and response metadata from LLM inference."""
+
+    execution_source: ExecutionSource
+    is_live_network: bool
+    model: str
+    response_id: Optional[str] = None
+    prompt_tokens: Optional[int] = None
+    completion_tokens: Optional[int] = None
+    error: Optional[str] = None
+
+
 class GroqAdapter:
     """Client wrapper for Groq inference with structured JSON output and bounded retries."""
 
@@ -84,6 +99,7 @@ class GroqAdapter:
         self.timeout = timeout
         self._client: Any = None
         self.is_configured = bool(api_key and not api_key.startswith("your_"))
+        self.last_execution_receipt: Optional[LLMExecutionReceipt] = None
 
         if self.is_configured:
             try:
@@ -155,6 +171,20 @@ class GroqAdapter:
                     temperature=0.1,
                 )
 
+                resp_id = getattr(response, "id", None)
+                usage = getattr(response, "usage", None)
+                p_tokens = getattr(usage, "prompt_tokens", None) if usage else None
+                c_tokens = getattr(usage, "completion_tokens", None) if usage else None
+
+                self.last_execution_receipt = LLMExecutionReceipt(
+                    execution_source=ExecutionSource.REAL_NETWORK,
+                    is_live_network=True,
+                    model=self.model,
+                    response_id=resp_id,
+                    prompt_tokens=p_tokens,
+                    completion_tokens=c_tokens,
+                )
+
                 raw_content = response.choices[0].message.content
                 if not raw_content:
                     raise ValueError("Groq returned empty response body.")
@@ -163,6 +193,7 @@ class GroqAdapter:
 
                 # Ensure required fields conform to schema
                 record = self._parse_and_validate_record(app_name, data, documentation_snippets)
+                record = record.model_copy(update={"llm_execution_source": ExecutionSource.REAL_NETWORK})
                 return record
 
             except Exception as exc:
@@ -179,6 +210,12 @@ class GroqAdapter:
                     sleep_time = INITIAL_BACKOFF * (2 ** (attempt - 1))
                     time.sleep(sleep_time)
 
+        self.last_execution_receipt = LLMExecutionReceipt(
+            execution_source=ExecutionSource.REAL_NETWORK,
+            is_live_network=True,
+            model=self.model,
+            error=str(last_error),
+        )
         raise RuntimeError(
             f"Groq extraction failed after {self.max_retries} attempts: {last_error}"
         )

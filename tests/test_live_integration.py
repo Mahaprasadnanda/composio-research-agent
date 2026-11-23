@@ -14,6 +14,7 @@ from research_agent.adapters.composio_client import ComposioAdapter
 from research_agent.adapters.documentation_search import DocumentationSearchAdapter
 from research_agent.adapters.groq_client import GroqAdapter
 from research_agent.config import check_missing_credentials, load_settings
+from research_agent.models import ExecutionMode, ExecutionSource
 from research_agent.services.research_service import ResearchService, get_seed_app
 
 HAS_LIVE_CREDENTIALS = len(check_missing_credentials()) == 0
@@ -44,6 +45,12 @@ def test_live_groq_and_composio_research(tmp_path):
     assert record.app_name == "GitHub"
     assert record.buildability_verdict is not None
     assert len(record.evidence_urls) > 0
+    assert record.provenance is not None
+    assert record.provenance.execution_mode == ExecutionMode.LIVE
+    assert record.provenance.live_verified is True
+    assert record.provenance.doc_execution_source == ExecutionSource.REAL_NETWORK
+    assert record.provenance.llm_execution_source == ExecutionSource.REAL_NETWORK
+    assert record.provenance.composio_execution_source == ExecutionSource.REAL_NETWORK
 
 
 def test_documentation_adapter_live_fetching_accessible_public_site():
@@ -55,5 +62,7 @@ def test_documentation_adapter_live_fetching_accessible_public_site():
     if res.is_accessible:
         assert res.status_code == 200
         assert len(res.content) > 0
+        assert res.execution_source == ExecutionSource.REAL_NETWORK
+        assert res.is_live_network is True
     else:
         assert res.error_message is not None

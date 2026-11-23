@@ -29,6 +29,7 @@ from research_agent.models import (
     ConfidenceLevel,
     EvidenceItem,
     ExecutionMode,
+    ExecutionSource,
     McpAvailability,
     OriginalCategory,
     PrimaryBlocker,
@@ -306,21 +307,66 @@ class ResearchService:
                 f"Cannot research {seed_app.name}: GROQ_API_KEY is not configured and allow_fallback is False."
             )
 
-        # 5. Attach audit-grade ResearchProvenance metadata
-        succeeded_urls = [d.url for d in doc_results if d.is_accessible]
-        docs_live = len(succeeded_urls) > 0
+        # 5. Determine operation execution sources and enforce research integrity invariants
 
-        # Detect if any adapter is a test double / mock object
-        is_mocked = any(
-            isinstance(a, Mock)
-            for a in (self.doc_adapter, self.composio_adapter, self.groq_adapter)
-        )
+        # A. Documentation Retrieval Execution Source
+        doc_sources: set[ExecutionSource] = set()
+        for d in doc_results:
+            src = getattr(d, "execution_source", None)
+            if isinstance(src, ExecutionSource):
+                doc_sources.add(src)
+            elif src == "real_network":
+                doc_sources.add(ExecutionSource.REAL_NETWORK)
+            elif src in ("mocked", "simulated", "fixture"):
+                doc_sources.add(ExecutionSource(src))
+            else:
+                doc_sources.add(ExecutionSource.UNKNOWN)
+
+        if any(isinstance(d, Mock) for d in doc_results) or isinstance(self.doc_adapter, Mock):
+            doc_exec_source = ExecutionSource.MOCKED
+        elif ExecutionSource.SIMULATED in doc_sources:
+            doc_exec_source = ExecutionSource.SIMULATED
+        elif ExecutionSource.REAL_NETWORK in doc_sources:
+            doc_exec_source = ExecutionSource.REAL_NETWORK
+        elif not doc_results:
+            doc_exec_source = ExecutionSource.FIXTURE
+        else:
+            doc_exec_source = ExecutionSource.UNKNOWN
+
+        succeeded_urls = [
+            d.url for d in doc_results
+            if getattr(d, "is_accessible", False)
+            and getattr(d, "is_live_network", False) is True
+            and getattr(d, "execution_source", None) == ExecutionSource.REAL_NETWORK
+        ]
+        docs_live_fetched = (doc_exec_source == ExecutionSource.REAL_NETWORK) and (len(succeeded_urls) > 0)
+
+        # B. Composio Discovery Execution Source
+        comp_src = getattr(composio_discovery, "execution_source", None)
+        if isinstance(self.composio_adapter, Mock) or isinstance(composio_discovery, Mock):
+            composio_exec_source = ExecutionSource.MOCKED
+        elif isinstance(comp_src, ExecutionSource):
+            composio_exec_source = comp_src
+        elif comp_src == "real_network":
+            composio_exec_source = ExecutionSource.REAL_NETWORK
+        elif comp_src in ("simulated", "fixture", "mocked"):
+            composio_exec_source = ExecutionSource(comp_src)
+        else:
+            composio_exec_source = ExecutionSource.UNKNOWN
 
         composio_adapter_configured = getattr(self.composio_adapter, "is_configured", False)
         composio_attempted = getattr(composio_discovery, "discovery_attempted", False)
         composio_succeeded = getattr(composio_discovery, "discovery_succeeded", False)
         composio_found = getattr(composio_discovery, "toolkit_found", False)
         composio_err = getattr(composio_discovery, "error", None)
+        composio_is_live = getattr(composio_discovery, "is_live_network", False) is True
+
+        composio_live_succeeded = (
+            composio_exec_source == ExecutionSource.REAL_NETWORK
+            and composio_is_live
+            and composio_attempted
+            and composio_succeeded
+        )
 
         session_attempted = getattr(composio_discovery, "session_creation_attempted", False)
         session_created = getattr(composio_discovery, "session_created", False)
@@ -328,28 +374,79 @@ class ResearchService:
         mcp_endpoint_returned = bool(mcp_endpoint)
         session_error = getattr(composio_discovery, "session_error", None)
 
-        if is_mocked:
+        # C. LLM Inference Execution Source
+        receipt = getattr(self.groq_adapter, "last_execution_receipt", None)
+        record_llm_source = getattr(record, "llm_execution_source", None)
+
+        if isinstance(self.groq_adapter, Mock) or isinstance(receipt, Mock):
+            llm_exec_source = ExecutionSource.MOCKED
+        elif receipt is not None and getattr(receipt, "execution_source", None) == ExecutionSource.SIMULATED:
+            llm_exec_source = ExecutionSource.SIMULATED
+        elif record_llm_source == ExecutionSource.SIMULATED:
+            llm_exec_source = ExecutionSource.SIMULATED
+        elif (
+            receipt is not None
+            and getattr(receipt, "execution_source", None) == ExecutionSource.REAL_NETWORK
+            and getattr(receipt, "is_live_network", False) is True
+            and record_llm_source == ExecutionSource.REAL_NETWORK
+        ):
+            llm_exec_source = ExecutionSource.REAL_NETWORK
+        elif not llm_attempted:
+            llm_exec_source = ExecutionSource.FIXTURE
+        else:
+            llm_exec_source = ExecutionSource.UNKNOWN
+
+        llm_live_executed = (
+            llm_exec_source == ExecutionSource.REAL_NETWORK
+            and llm_executed
+            and (llm_error is None)
+        )
+
+        # D. Determine Operational Execution Mode & Verification Invariant
+        has_simulated_or_mocked = any(
+            src in (ExecutionSource.MOCKED, ExecutionSource.SIMULATED)
+            for src in (doc_exec_source, composio_exec_source, llm_exec_source)
+        ) or any(
+            isinstance(a, Mock)
+            for a in (self.doc_adapter, self.composio_adapter, self.groq_adapter)
+        )
+
+        if has_simulated_or_mocked:
             exec_mode = ExecutionMode.MOCKED
             live_verified = False
-            notes = "Executed within test double / unit test environment utilizing mock adapters."
-        elif docs_live and llm_executed and composio_succeeded:
+            notes = "Executed within test double / unit test environment utilizing simulated or mock adapters."
+        elif docs_live_fetched and llm_live_executed and composio_live_succeeded:
             exec_mode = ExecutionMode.LIVE
             live_verified = True
-            notes = "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully."
-        elif docs_live or llm_executed or composio_succeeded:
+            notes = "Live research verified: live documentation retrieval, real Groq LLM inference, and live Composio discovery all executed successfully over remote networks."
+        elif (
+            (doc_exec_source == ExecutionSource.REAL_NETWORK and len(succeeded_urls) > 0)
+            or llm_live_executed
+            or (composio_exec_source == ExecutionSource.REAL_NETWORK and composio_attempted)
+        ):
             exec_mode = ExecutionMode.PARTIAL_LIVE
             live_verified = False
             parts = []
-            if docs_live:
+            if docs_live_fetched:
                 parts.append("live documentation fetched")
-            if llm_executed:
+            elif doc_exec_source == ExecutionSource.REAL_NETWORK:
+                parts.append("live documentation attempted (0 succeeded)")
+            else:
+                parts.append("docs not live")
+
+            if llm_live_executed:
                 parts.append("live LLM extraction succeeded")
+            elif llm_exec_source == ExecutionSource.REAL_NETWORK:
+                parts.append("live LLM attempted (failed)")
             else:
                 parts.append("LLM offline fallback")
-            if composio_succeeded:
+
+            if composio_live_succeeded:
                 parts.append(f"Composio discovery succeeded (toolkit {'found' if composio_found else 'not found'})")
+            elif composio_exec_source == ExecutionSource.REAL_NETWORK:
+                parts.append("Composio live discovery attempted (failed)")
             else:
-                parts.append("Composio unconfigured/failed")
+                parts.append("Composio unconfigured")
             notes = f"Partial live execution ({', '.join(parts)}). Not fully live-verified."
         else:
             exec_mode = ExecutionMode.OFFLINE_FALLBACK
@@ -358,11 +455,14 @@ class ResearchService:
 
         provenance = ResearchProvenance(
             execution_mode=exec_mode,
-            documentation_live_fetched=docs_live,
+            doc_execution_source=doc_exec_source,
+            llm_execution_source=llm_exec_source,
+            composio_execution_source=composio_exec_source,
+            documentation_live_fetched=docs_live_fetched,
             documentation_urls_attempted=candidate_urls,
             documentation_urls_succeeded=succeeded_urls,
             llm_inference_attempted=llm_attempted,
-            llm_inference_executed=llm_executed,
+            llm_inference_executed=llm_live_executed,
             llm_model=llm_model,
             llm_error=llm_error,
             composio_adapter_configured=composio_adapter_configured,
@@ -463,6 +563,7 @@ class ResearchService:
                 research_status=ResearchStatus.COMPLETED,
                 confidence_level=baseline["confidence_level"],
                 uncertainty_notes=uncertainty,
+                llm_execution_source=ExecutionSource.FIXTURE,
                 verification_status=VerificationStatus.UNVERIFIED,
             )
 
@@ -492,5 +593,6 @@ class ResearchService:
             research_status=ResearchStatus.COMPLETED,
             confidence_level=ConfidenceLevel.LOW,
             uncertainty_notes="Record generated in offline fallback mode without live LLM inference.",
+            llm_execution_source=ExecutionSource.FIXTURE,
             verification_status=VerificationStatus.UNVERIFIED,
         )
