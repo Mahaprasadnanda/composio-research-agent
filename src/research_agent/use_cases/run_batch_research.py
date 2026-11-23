@@ -7,7 +7,7 @@ import logging
 from pathlib import Path
 from typing import Optional
 
-from research_agent.config import OUTPUT_DIR
+from research_agent.config import OUTPUT_DIR, ConfigurationError
 from research_agent.models import BatchRunSummary, ResearchDataset
 from research_agent.services.batch_runner import BatchResearchRunner
 from research_agent.use_cases.run_single_research import initialize_research_service
@@ -57,6 +57,12 @@ def execute_batch_research(
     cache_dir = out_dir / "research_results"
     service, is_live = initialize_research_service(cache_dir=cache_dir)
 
+    if not is_live and not allow_fallback:
+        raise ConfigurationError(
+            "Live credentials not configured (missing or invalid GROQ_API_KEY / COMPOSIO_API_KEY) "
+            "and offline fallback is disallowed (--disallow-fallback)."
+        )
+
     runner = BatchResearchRunner(
         research_service=service,
         batch_size=batch_size,
@@ -69,7 +75,7 @@ def execute_batch_research(
         target_app_names=target_names,
         resume=resume,
         force_refresh=force_refresh,
-        allow_fallback=allow_fallback or not is_live,
+        allow_fallback=allow_fallback,
     )
 
     print("\n" + "=" * 70)
