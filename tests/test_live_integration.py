@@ -43,7 +43,12 @@ def test_live_groq_and_composio_research(tmp_path):
     )
 
     seed_github = get_seed_app(61)
-    record = service.research_app(seed_github, force_refresh=True)
+    try:
+        record = service.research_app(seed_github, force_refresh=True)
+    except RuntimeError as exc:
+        if "429" in str(exc) or "rate_limit" in str(exc).lower():
+            pytest.skip(f"Groq API quota exhausted or rate limited: {exc}")
+        raise
 
     assert record.app_name == "GitHub"
     assert record.buildability_verdict is not None

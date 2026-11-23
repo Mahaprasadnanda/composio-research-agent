@@ -94,6 +94,32 @@ def build_parser() -> argparse.ArgumentParser:
     )
 
     # ------------------------------------------------------------------------
+    # Subcommand: analytics
+    # ------------------------------------------------------------------------
+    analytics_parser = subparsers.add_parser(
+        "analytics",
+        help="Execute offline analytics, data reconciliation, category statistics, and generate HTML case study.",
+    )
+    analytics_parser.add_argument(
+        "--output-dir",
+        type=Path,
+        default=None,
+        help="Custom output directory containing research data (default: PROJECT_ROOT/output).",
+    )
+    analytics_parser.add_argument(
+        "--reports-dir",
+        type=Path,
+        default=None,
+        help="Custom directory to write HTML case study (default: PROJECT_ROOT/reports).",
+    )
+    analytics_parser.add_argument(
+        "--seed-path",
+        type=Path,
+        default=None,
+        help="Custom path to seed_apps.json (default: PROJECT_ROOT/data/raw/seed_apps.json).",
+    )
+
+    # ------------------------------------------------------------------------
     # Top-level / single arguments (for backwards compatibility)
     # ------------------------------------------------------------------------
     single_group = parser.add_argument_group("Single & Test Target Options")
@@ -153,6 +179,37 @@ def main(argv: Optional[list[str]] = None) -> int:
                 output_dir=args.output_dir,
                 inter_app_delay=args.delay,
             )
+            return 0
+
+        if args.command == "analytics":
+            from research_agent.services.analytics_service import run_full_analytics
+
+            result = run_full_analytics(
+                output_dir=args.output_dir,
+                reports_dir=args.reports_dir,
+                seed_path=args.seed_path,
+            )
+            reconcil = result["reconciliation"]
+            overall_files = result["overall_summary"]["all_available_outputs"]
+            prov_stats = overall_files.get("provenance_and_verification", {})
+            build_stats = overall_files.get("buildability_summary", {})
+            comp_stats = overall_files.get("composio_ecosystem", {})
+
+            print("\n======================================================================")
+            print("COMPOSIO RESEARCH AGENT - ANALYTICS & CASE STUDY COMPLETE")
+            print("======================================================================")
+            print(f"Seed Applications:        {reconcil.get('seed_applications_count', 0)}")
+            print(f"Consolidated Records:     {reconcil.get('consolidated_dataset_records_count', 0)}")
+            print(f"Individual Result Files:  {reconcil.get('individual_result_files_count', 0)}")
+            print(f"Total Unique Researched:  {len(reconcil.get('unique_ids_across_all_outputs', []))}")
+            print(f"Live Verified Rate:       {prov_stats.get('live_verified_percentage', 0.0)}%")
+            print(f"Buildable Rate:           {build_stats.get('percentages', {}).get('buildable', 0.0)}%")
+            print(f"Composio Toolkit Rate:    {comp_stats.get('toolkit_discovery_rate', 0.0)}%")
+            print(f"MCP Session Success:      {comp_stats.get('mcp_session_success_rate_of_discovered', 0.0)}%")
+            print("\nGenerated Output Artifacts:")
+            for name, path in result.get("generated_files", {}).items():
+                print(f"  - {name}: {path}")
+            print("======================================================================\n")
             return 0
 
         # Handle top-level single / test-target flags
