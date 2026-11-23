@@ -76,7 +76,7 @@ def test_verification_save_reports(tmp_path: Path):
 
     # Verify Markdown summary headings
     md_text = files["verification_audit_summary_md"].read_text(encoding="utf-8")
-    assert "# Independent Verification Audit Summary" in md_text
+    assert "# Benchmark-Based Ground-Truth Verification Audit Summary" in md_text
     assert "## 1. Executive Summary & Purpose" in md_text
     assert "## 2. The 15-Application Audit Sample" in md_text
 

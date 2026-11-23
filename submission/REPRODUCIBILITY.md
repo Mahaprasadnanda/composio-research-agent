@@ -53,9 +53,9 @@ python -m research_agent.cli analytics
 
 ---
 
-## 3. Reproducing the Independent Verification Audit (Offline)
+## 3. Reproducing the Benchmark-Based Ground-Truth Verification Audit (Offline)
 
-The verification audit inspects the stratified 15-application sample against vendor-grounded benchmarks, computing pre- and post-correction accuracy metrics.
+The verification audit inspects the stratified 15-application sample against curated official vendor documentation benchmarks and developer portal references, computing pre- and post-correction accuracy metrics. This audit represents an internal benchmark-grounded evaluation rather than an external third-party human review.
 
 ```bash
 # Run the verification audit command
@@ -70,9 +70,27 @@ python -m research_agent.cli verify
 
 ---
 
-## 4. Running the Complete Automated Test Suite (Offline)
+## 4. Running the Automated Test Suite
 
-All automated unit and regression tests run completely offline with mock isolation, guaranteeing zero outbound HTTP network calls.
+The repository contains a 98-test automated suite covering data models, configuration safety, adapters, HTML preprocessing/token budgeting, batch orchestration, analytical reporting, and verification audits.
+
+### Option A: Strictly Offline Test Suite (Guaranteed Zero Network Calls)
+96 of the 98 tests run with strict mock isolation, guaranteeing zero outbound HTTP network calls:
+
+```bash
+# Execute the offline unit test suite
+pytest -v --ignore=tests/test_live_integration.py
+```
+
+**Expected Result:**
+```
+96 passed in ~17-18s (100% pass rate)
+```
+
+### Option B: Full Test Suite (Including Live Integration Tests)
+The full suite includes 2 integration tests in `tests/test_live_integration.py`:
+- `test_documentation_adapter_live_fetching_accessible_public_site`: performs a real HTTP GET request to `https://httpbin.org/html` to test live documentation scraping.
+- `test_live_groq_and_composio_research`: performs live end-to-end research on GitHub (ID 61) using real Groq and Composio APIs when valid credentials exist in `.env` (skips cleanly if credentials are missing or if external rate limits/429 occur).
 
 ```bash
 # Execute the full pytest suite
@@ -81,9 +99,9 @@ pytest -v
 
 **Expected Result:**
 ```
-97 passed, 1 skipped in ~3.5s (100% pass rate)
+98 passed in ~25-30s (100% pass rate)
 ```
-*(The single skipped test is a live integration test that automatically skips when external live rate limits are active).*
+*(Note: If external Groq API rate limits are active, `test_live_groq_and_composio_research` will skip with `97 passed, 1 skipped`).*
 
 ---
 

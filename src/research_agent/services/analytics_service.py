@@ -1594,11 +1594,11 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
     </section>
 
-    <!-- 7. MANUAL VERIFICATION & GROUND-TRUTH ACCURACY AUDIT -->
+    <!-- 7. BENCHMARK-BASED GROUND-TRUTH ACCURACY AUDIT -->
     <section id="verification-audit">
       <div class="section-header">
-        <h2>7. Manual Verification & Ground-Truth Accuracy Audit</h2>
-        <p>Independent vendor-grounded audit of a 15-application stratified sample evaluating automated fidelity against official developer documentation.</p>
+        <h2>7. Benchmark-Based Ground-Truth Accuracy Audit</h2>
+        <p>Benchmark-based evaluation of a 15-application stratified sample against official vendor documentation (internal ground-truth audit rather than external third-party human review).</p>
       </div>
 
       <div class="kpi-grid">

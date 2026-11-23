@@ -16,11 +16,11 @@ An automated, evidence-grounded research pipeline evaluating **100 enterprise Sa
   - [1. Single Application Research](#1-single-application-research)
   - [2. Batch Research Pipeline](#2-batch-research-pipeline)
   - [3. Offline Analytics & HTML Case Study](#3-offline-analytics--html-case-study)
-  - [4. Independent Verification Audit](#4-independent-verification-audit)
+  - [4. Benchmark-Based Verification Audit](#4-benchmark-based-verification-audit)
 - [Evaluation Rubric & Decision Matrix](#evaluation-rubric--decision-matrix)
 - [Dataset Reconciliation & Coverage](#dataset-reconciliation--coverage)
 - [Analytical Findings & Key Insights](#analytical-findings--key-insights)
-- [Independent Verification Audit Findings](#independent-verification-audit-findings)
+- [Benchmark-Based Verification Audit Findings](#benchmark-based-verification-audit-findings)
 - [Viewing the HTML Case Study](#viewing-the-html-case-study)
 - [Testing & Quality Verification](#testing--quality-verification)
 - [Known Limitations & Integrity Caveats](#known-limitations--integrity-caveats)
@@ -329,9 +329,9 @@ Generated Output Artifacts:
 
 ---
 
-### 4. Independent Verification Audit
+### 4. Benchmark-Based Verification Audit
 
-Execute the vendor-grounded independent verification audit over the stratified 15-application sample:
+Execute the vendor-grounded verification audit over the stratified 15-application sample (internal benchmark evaluation against official vendor documentation rather than external third-party human review):
 
 ```powershell
 $env:PYTHONPATH="src"; python -m research_agent.cli verify
@@ -443,17 +443,20 @@ Derived from [output/analytics/insights.json](file:///c:/Users/mail2/OneDrive/De
 
 ---
 
-## Independent Verification Audit Findings
+## Benchmark-Based Verification Audit Findings
 
-To ensure scientific rigor and detect potential automated divergence, a manual and vendor-grounded independent verification audit was performed on a stratified sample of **15 applications (23.8% of all researched apps)** across 9 categories:
+To ensure scientific rigor and detect potential automated divergence, a benchmark-based ground-truth verification audit was performed on a stratified sample of **15 applications (23.8% of all 63 researched apps)** across 9 categories. This represents an internal evaluation against official vendor documentation benchmarks rather than an external third-party human review:
 
 | Evaluation Metric | Automated Pre-Correction | Post-Correction Verified | Analysis & Variance |
 | :--- | :---: | :---: | :--- |
-| **Field-Level Agreement (105 fields)** | **62.9%** | **92.4%** | +29.5% enriched from conservative `unknown` classifications. |
-| **Composio Toolkit Discovery** | **100.0%** | **100.0%** | 15 / 15 exact match (zero false positives/negatives). |
-| **Buildability Verdict Agreement** | **73.3%** | **100.0%** | 11 exact matches; 4 refined (WhatsApp, Meta Ads, SendGrid, DataForSEO). |
-| **MCP Availability Identification** | **80.0%** | **100.0%** | Slack, GitHub, Notion correctly flagged for vendor/reference MCP support. |
-| **Primary Blocker Agreement** | **60.0%** | **100.0%** | 11 exact matches; 4 refined from doc truncation caveats. |
+| **Field-Level Agreement (105 fields)** | **62.9%** (66/105) | **92.4%** (97/105) | +29.5% enriched from conservative `unknown` classifications. |
+| **Composio Toolkit Discovery** | **100.0%** (15/15) | **100.0%** (15/15) | 15 / 15 exact match (zero false positives/negatives). |
+| **Buildability Verdict Agreement** | **73.3%** (11/15) | **100.0%** (15/15) | 11 exact matches; 4 refined (WhatsApp Business, Meta Ads, SendGrid, DataForSEO). |
+| **MCP Availability Identification** | **80.0%** (12/15) | **100.0%** (15/15) | 12 / 15 exact match (Slack, GitHub, Notion correctly flagged). |
+| **Primary Blocker Agreement** | **60.0%** (9/15) | **100.0%** (15/15) | 9 exact matches; 6 refined from doc truncation / enterprise gating. |
+| **Developer Access Tier Agreement** | **46.7%** (7/15) | **100.0%** (15/15) | 7 exact matches; 8 enriched from `None` / default. |
+| **Auth Methods Exact Match** | **26.7%** (4/15) | **100.0%** (15/15) | 4 exact; 11 safely fell back to `unknown` without hallucinating. |
+| **API Types Exact Match** | **53.3%** (8/15) | **100.0%** (15/15) | 8 exact; 7 expanded with complete protocol specs. |
 
 ### The 15-Application Audit Sample Summary
 
@@ -505,13 +508,21 @@ Start-Process reports\case_study.html
 
 ## Testing & Quality Verification
 
-The test suite enforces schema validity, adapter mocking, secret masking, batch checkpointing, HTML generation, independent verification audit, and the strict provenance invariant:
+The test suite enforces schema validity, adapter mocking, secret masking, batch checkpointing, HTML generation, benchmark verification audit, and the strict provenance invariant:
 
+### Strictly Offline Test Suite (Guaranteed Zero Network Calls)
+```powershell
+$env:PYTHONPATH="src"; pytest -v --ignore=tests/test_live_integration.py
+```
+*Expected Result:* `96 passed in ~17-18s` (100% pass rate, mock-isolated).
+
+### Full Test Suite (Including Live Integration Tests)
 ```powershell
 $env:PYTHONPATH="src"; pytest -v
 ```
+*Expected Result:* `98 passed in ~25-30s` (100% pass rate; or 97 passed, 1 skipped if external Groq rate limits are active).
 
-### Test Coverage (98 Total Tests):
+### Test Coverage (98 Total Tests across 10 Test Modules):
 - `tests/test_adapters.py` (14 tests): HTML cleaning, snippet extraction, HTTP fetching, slug normalization, Composio discovery mocks, Groq model selection.
 - `tests/test_analytics.py` (13 tests): Reconciliation accuracy, missing/duplicate ID detection, category aggregations, verdict distributions, zero-network verification, exact 59 live-verified regression check, HTML generation, CLI execution.
 - `tests/test_batch_runner.py` (13 tests): Batch chunking, resume behavior, cache bypass, checkpoint persistence, transient vs permanent retry limits.
@@ -522,8 +533,6 @@ $env:PYTHONPATH="src"; pytest -v
 - `tests/test_research_service.py` (18 tests): Research orchestration, offline fallback, access-tier separation, strict provenance invariant (stubs strictly produce `MOCKED`).
 - `tests/test_seed_dataset.py` (9 tests): 100-app ground-truth dataset integrity, consecutive IDs, unique names, category distribution, CSV parity.
 - `tests/test_verification.py` (5 tests): Verification audit sampling, field evaluation metrics, report persistence (JSON, CSV, MD), zero-network enforcement, CLI execution.
-
-**Test Result:** `98 passed in ~32s` (100% pass rate).
 
 ---
 
