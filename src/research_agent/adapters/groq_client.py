@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 import json
 import logging
+import re
 import time
 from typing import Any, Optional
 
@@ -30,6 +31,7 @@ logger = logging.getLogger(__name__)
 
 MAX_RETRIES = 3
 INITIAL_BACKOFF = 1.5
+DEFAULT_MAX_TOTAL_DOC_CHARS = 7000  # Conservative total prompt documentation budget (~1,750 tokens)
 
 EXTRACTION_SYSTEM_PROMPT = """You are an expert AI software engineer analyzing SaaS developer platforms to determine if an autonomous AI agent toolkit can be built for the application.
 
@@ -92,11 +94,13 @@ class GroqAdapter:
         model: str = DEFAULT_GROQ_MODEL,
         max_retries: int = MAX_RETRIES,
         timeout: float = 30.0,
+        max_total_doc_chars: int = DEFAULT_MAX_TOTAL_DOC_CHARS,
     ) -> None:
         self.api_key = api_key
         self.model = model
         self.max_retries = max_retries
         self.timeout = timeout
+        self.max_total_doc_chars = max_total_doc_chars
         self._client: Any = None
         self.is_configured = bool(api_key and not api_key.startswith("your_"))
         self.last_execution_receipt: Optional[LLMExecutionReceipt] = None
@@ -110,40 +114,48 @@ class GroqAdapter:
                 logger.warning("Failed to initialize Groq client: %s", exc)
                 self.is_configured = False
 
-    def extract_app_research(
+    def _build_user_prompt(
         self,
         app_name: str,
         category_hint: str,
+        composio_info: Optional[dict[str, Any]],
         documentation_snippets: list[dict[str, str]],
-        composio_info: Optional[dict[str, Any]] = None,
-    ) -> AppResearchRecord:
-        """Execute structured LLM extraction on documentation evidence."""
-        if not self.is_configured or self._client is None:
-            raise RuntimeError(
-                "Groq client is not configured. Set GROQ_API_KEY in .env to run live extraction."
-            )
+        max_doc_chars: int,
+    ) -> str:
+        """Construct prompt enforcing total documentation character budget."""
+        num_docs = max(1, len(documentation_snippets))
+        per_doc_limit = max_doc_chars // num_docs
 
-        # Build context payload
         evidence_block = ""
         for i, doc in enumerate(documentation_snippets, 1):
+            raw_content = doc.get("content", "")
+            if len(raw_content) > per_doc_limit:
+                content = raw_content[:per_doc_limit] + "\n...[CONTENT TRUNCATED TO FIT MODEL TOKEN BUDGET]"
+            else:
+                content = raw_content
+
             evidence_block += (
                 f"\n--- SOURCE {i} ({doc.get('url', 'Unknown URL')}) ---\n"
                 f"Title: {doc.get('title', 'N/A')}\n"
-                f"Content:\n{doc.get('content', '')}\n"
+                f"Content:\n{content}\n"
             )
 
         composio_block = ""
         if composio_info:
+            sample_tools_summary = [
+                {"name": str(t.get("name", ""))[:80], "description": str(t.get("description", ""))[:120]}
+                for t in composio_info.get("sample_tools", [])[:5]
+            ]
             composio_block = (
                 f"\n--- COMPOSIO TOOLKIT INTEGRATION DATA ---\n"
                 f"Integrated in Composio: {composio_info.get('is_integrated')}\n"
                 f"Toolkit Slug: {composio_info.get('slug')}\n"
                 f"Tools Count: {composio_info.get('available_tools_count')}\n"
                 f"MCP Supported: {composio_info.get('mcp_supported')}\n"
-                f"Sample Tools: {json.dumps(composio_info.get('sample_tools', []))}\n"
+                f"Sample Tools: {json.dumps(sample_tools_summary)}\n"
             )
 
-        user_prompt = (
+        return (
             f"Target Application: {app_name}\n"
             f"Assigned Category: {category_hint}\n"
             f"{composio_block}\n"
@@ -151,15 +163,61 @@ class GroqAdapter:
             f"Analyze the above evidence and output the JSON research record."
         )
 
+    def _parse_retry_after(self, exc: Exception, default_delay: float = 5.0) -> float:
+        """Extract retry-after duration from response headers or error messages."""
+        resp = getattr(exc, "response", None)
+        if resp is not None:
+            headers = getattr(resp, "headers", {})
+            retry_header = headers.get("retry-after")
+            if retry_header:
+                try:
+                    return min(max(float(retry_header) + 1.0, 1.0), 60.0)
+                except ValueError:
+                    pass
+
+        msg = str(exc)
+        match = re.search(r"(?:try again in|retry in|wait)\s+([\d.]+)\s*s(?:econds?)?", msg, re.IGNORECASE)
+        if match:
+            try:
+                return min(max(float(match.group(1)) + 1.0, 1.0), 60.0)
+            except ValueError:
+                pass
+
+        return min(default_delay, 60.0)
+
+    def extract_app_research(
+        self,
+        app_name: str,
+        category_hint: str,
+        documentation_snippets: list[dict[str, str]],
+        composio_info: Optional[dict[str, Any]] = None,
+    ) -> AppResearchRecord:
+        """Execute structured LLM extraction on documentation evidence with token budgeting and rate-limit recovery."""
+        if not self.is_configured or self._client is None:
+            raise RuntimeError(
+                "Groq client is not configured. Set GROQ_API_KEY in .env to run live extraction."
+            )
+
+        current_doc_budget = self.max_total_doc_chars
         last_error: Optional[Exception] = None
+
         for attempt in range(1, self.max_retries + 1):
+            user_prompt = self._build_user_prompt(
+                app_name=app_name,
+                category_hint=category_hint,
+                composio_info=composio_info,
+                documentation_snippets=documentation_snippets,
+                max_doc_chars=current_doc_budget,
+            )
+
             try:
                 logger.info(
-                    "Calling Groq (%s) for %s [attempt %d/%d]",
+                    "Calling Groq (%s) for %s [attempt %d/%d, doc_budget=%d chars]",
                     self.model,
                     app_name,
                     attempt,
                     self.max_retries,
+                    current_doc_budget,
                 )
                 response = self._client.chat.completions.create(
                     model=self.model,
@@ -198,14 +256,78 @@ class GroqAdapter:
 
             except Exception as exc:
                 last_error = exc
-                err_msg = str(exc)
+                err_lower = str(exc).lower()
+
+                # 1. Handle HTTP 413 / Request too large / TPM ceiling
+                is_payload_too_large = (
+                    "413" in err_lower
+                    or "payload too large" in err_lower
+                    or "request too large" in err_lower
+                    or ("rate_limit_exceeded" in err_lower and "tpm" in err_lower)
+                )
+
+                if is_payload_too_large:
+                    wait_time = self._parse_retry_after(exc, default_delay=15.0)
+                    if current_doc_budget > 2500:
+                        new_budget = max(2500, current_doc_budget // 2)
+                        logger.warning(
+                            "Groq 413 / TPM ceiling for %s on attempt %d (requested budget: %d chars). "
+                            "Dynamically compressing documentation budget to %d chars and waiting %0.1fs...",
+                            app_name,
+                            attempt,
+                            current_doc_budget,
+                            new_budget,
+                            wait_time,
+                        )
+                        current_doc_budget = new_budget
+                        time.sleep(wait_time)
+                        continue
+                    elif attempt < self.max_retries:
+                        logger.warning(
+                            "Groq TPM window throttled for %s at minimum budget (%d chars). "
+                            "Waiting %0.1fs for rolling token bucket reset before retry...",
+                            app_name,
+                            current_doc_budget,
+                            wait_time,
+                        )
+                        time.sleep(wait_time)
+                        continue
+                    else:
+                        logger.error(
+                            "Groq 413 / TPM rate limit persists for %s after %d retries. Failing fast.",
+                            app_name,
+                            self.max_retries,
+                        )
+                        break
+
+                # 2. Handle HTTP 429 Rate Limit (RPM / TPM window)
+                is_rate_limit = (
+                    "429" in err_lower
+                    or "rate_limit" in err_lower
+                    or "too many requests" in err_lower
+                )
+
+                if is_rate_limit and attempt < self.max_retries:
+                    wait_time = self._parse_retry_after(
+                        exc, default_delay=INITIAL_BACKOFF * (2 ** (attempt - 1))
+                    )
+                    logger.warning(
+                        "Groq rate-limit (429) encountered for %s on attempt %d. "
+                        "Waiting %0.1fs before retry as requested by API...",
+                        app_name,
+                        attempt,
+                        wait_time,
+                    )
+                    time.sleep(wait_time)
+                    continue
+
+                # 3. Handle other transient errors with standard backoff
                 logger.warning(
                     "Groq extraction attempt %d failed for %s: %s",
                     attempt,
                     app_name,
-                    err_msg,
+                    exc,
                 )
-                # Exponential backoff on rate limits or network issues
                 if attempt < self.max_retries:
                     sleep_time = INITIAL_BACKOFF * (2 ** (attempt - 1))
                     time.sleep(sleep_time)

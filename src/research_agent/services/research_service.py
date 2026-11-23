@@ -259,13 +259,23 @@ class ResearchService:
         )
 
         doc_snippets: list[dict[str, str]] = []
+        any_doc_truncated = False
+        truncation_notes_list: list[str] = []
+
         for doc in doc_results:
             if doc.is_accessible and doc.content:
+                is_trunc = getattr(doc, "is_truncated", False)
+                if is_trunc:
+                    any_doc_truncated = True
+                    t_note = getattr(doc, "truncation_notes", None)
+                    if t_note:
+                        truncation_notes_list.append(t_note)
                 doc_snippets.append({
                     "url": doc.url,
                     "title": doc.title,
                     "content": doc.content,
                     "excerpt": doc.excerpt,
+                    "is_truncated": str(is_trunc),
                 })
 
         # 3. Discover Composio integration and MCP session status
@@ -465,6 +475,8 @@ class ResearchService:
             documentation_live_fetched=docs_live_fetched,
             documentation_urls_attempted=candidate_urls,
             documentation_urls_succeeded=succeeded_urls,
+            documentation_truncated=any_doc_truncated,
+            documentation_truncation_notes="; ".join(truncation_notes_list) if truncation_notes_list else None,
             llm_inference_attempted=llm_attempted,
             llm_inference_executed=llm_live_executed,
             llm_model=llm_model,

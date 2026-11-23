@@ -179,9 +179,24 @@ class ComposioAdapter:
                     items = getattr(tools_response, "items", tools_response)
                     if isinstance(items, list):
                         for item in items[:5]:
-                            tool_name = getattr(item, "name", str(item))
-                            tool_desc = getattr(item, "description", "")
-                            sample_tools.append({"name": tool_name, "description": tool_desc})
+                            tool_name = ""
+                            tool_desc = ""
+                            if isinstance(item, dict):
+                                fn = item.get("function", {}) if isinstance(item.get("function"), dict) else {}
+                                tool_name = fn.get("name") or item.get("name") or "unknown"
+                                tool_desc = fn.get("description") or item.get("description") or ""
+                            else:
+                                fn = getattr(item, "function", None)
+                                if fn and hasattr(fn, "name"):
+                                    tool_name = getattr(fn, "name", "")
+                                    tool_desc = getattr(fn, "description", "")
+                                else:
+                                    tool_name = getattr(item, "name", "")
+                                    tool_desc = getattr(item, "description", "")
+                            sample_tools.append({
+                                "name": str(tool_name)[:80],
+                                "description": str(tool_desc)[:150],
+                            })
             except Exception as tool_exc:
                 logger.debug("Tool discovery query notice for %s: %s", slug, tool_exc)
 

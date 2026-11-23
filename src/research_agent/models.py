@@ -245,6 +245,14 @@ class ResearchProvenance(BaseModel):
         default_factory=list,
         description="URLs successfully retrieved with HTTP 200.",
     )
+    documentation_truncated: bool = Field(
+        default=False,
+        description="Whether documentation content was truncated to fit the LLM token budget.",
+    )
+    documentation_truncation_notes: Optional[str] = Field(
+        default=None,
+        description="Details regarding documentation token budgeting and truncation (e.g. original vs retained chars).",
+    )
 
     # LLM extraction provenance
     llm_inference_attempted: bool = Field(
