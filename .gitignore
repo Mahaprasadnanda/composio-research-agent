@@ -1,0 +1,49 @@
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# Environment variables & secrets (CRITICAL: never commit credentials)
+.env
+.env.local
+.env.*.local
+*.env
+!.env.example
+
+# Testing, coverage, and linting
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# IDE and editor artifacts
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+
+# Build and packaging
+dist/
+build/
+*.egg-info/
+
+# Operating system files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Temporary outputs (preserve structure via .gitkeep)
+output/*
+!output/.gitkeep

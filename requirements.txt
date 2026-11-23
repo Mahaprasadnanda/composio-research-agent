@@ -1,0 +1,18 @@
+# Composio Research Agent - Dependencies
+# Python 3.11+ required (Python 3.13 supported)
+
+# Core data modeling, validation, and environment configuration
+pydantic>=2.10.0,<3.0.0
+python-dotenv>=1.0.0,<2.0.0
+
+# LLM provider (Groq API - free tier)
+groq>=0.18.0
+
+# Tool execution and integration ecosystem
+composio>=0.34.0
+
+# Data analysis and summary generation
+pandas>=2.2.0
+
+# Development, testing, and quality assurance
+pytest>=8.0.0
