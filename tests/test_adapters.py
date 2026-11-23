@@ -215,6 +215,18 @@ def test_composio_adapter_toolkit_not_found():
 # ============================================================================
 
 
+def test_groq_adapter_model_configuration():
+    """Verify default and customized Groq model selection."""
+    from research_agent.config import DEFAULT_GROQ_MODEL
+
+    adapter = GroqAdapter(api_key=None)
+    assert adapter.model == "openai/gpt-oss-120b"
+    assert adapter.model == DEFAULT_GROQ_MODEL
+
+    custom_adapter = GroqAdapter(api_key=None, model="openai/gpt-oss-20b")
+    assert custom_adapter.model == "openai/gpt-oss-20b"
+
+
 def test_groq_adapter_unconfigured_raises():
     """Verify error when attempting extraction without valid credentials."""
     adapter = GroqAdapter(api_key=None)
@@ -238,11 +250,15 @@ def test_groq_adapter_extraction_success():
         "category": "crm",
         "description": "Enterprise cloud customer relationship management platform.",
         "auth_methods": ["oauth2", "bearer_token"],
-        "self_service_access": "paid_subscription",
-        "access_requirements": "Requires Enterprise Edition org.",
+        "self_service_access": "free_self_service",
+        "developer_access_tier": "free_self_service",
+        "production_access_tier": "paid_subscription",
+        "access_requirements": "Requires Enterprise Edition org for production.",
         "api_types": ["rest", "graphql"],
         "api_breadth": "comprehensive",
-        "mcp_availability": "composio",
+        "mcp_availability": "community",
+        "has_composio_integration": True,
+        "composio_toolkit_slug": "salesforce",
         "buildability_verdict": "buildable",
         "primary_blocker": "none",
         "blocker_details": None,
@@ -278,9 +294,13 @@ def test_groq_adapter_extraction_success():
     assert record.app_name == "Salesforce"
     assert record.category == AppCategory.CRM
     assert AuthMethod.OAUTH2 in record.auth_methods
-    assert record.self_service_access == SelfServiceAccess.PAID_SUBSCRIPTION
+    assert record.self_service_access == SelfServiceAccess.FREE_SELF_SERVICE
+    assert record.developer_access_tier == SelfServiceAccess.FREE_SELF_SERVICE
+    assert record.production_access_tier == SelfServiceAccess.PAID_SUBSCRIPTION
     assert record.api_breadth == ApiBreadth.COMPREHENSIVE
-    assert record.mcp_availability == McpAvailability.COMPOSIO
+    assert record.mcp_availability == McpAvailability.COMMUNITY
+    assert record.has_composio_integration is True
+    assert record.composio_toolkit_slug == "salesforce"
     assert record.buildability_verdict == BuildabilityVerdict.BUILDABLE
     assert record.confidence_level == ConfidenceLevel.HIGH
     assert len(record.evidence_items) == 1

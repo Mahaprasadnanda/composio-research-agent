@@ -34,7 +34,7 @@ def test_settings_repr_never_leaks_secrets():
     settings = Settings(
         groq_api_key="gsk_secret_groq_token_value_here",
         composio_api_key="cmp_secret_composio_token_value_here",
-        groq_model="llama-3.3-70b-versatile",
+        groq_model="openai/gpt-oss-120b",
     )
     repr_str = repr(settings)
     str_str = str(settings)
@@ -94,9 +94,31 @@ def test_load_settings_missing_credentials_raises_configuration_error(monkeypatc
 def test_load_settings_success(monkeypatch):
     monkeypatch.setenv("GROQ_API_KEY", "gsk_valid_mock_key_abc123")
     monkeypatch.setenv("COMPOSIO_API_KEY", "cmp_valid_mock_key_xyz789")
-    monkeypatch.setenv("GROQ_MODEL", "llama-3.3-70b-versatile")
+    monkeypatch.setenv("GROQ_MODEL", "openai/gpt-oss-120b")
 
     settings = load_settings(env_file=None)
     assert settings.groq_api_key == "gsk_valid_mock_key_abc123"
     assert settings.composio_api_key == "cmp_valid_mock_key_xyz789"
-    assert settings.groq_model == "llama-3.3-70b-versatile"
+    assert settings.groq_model == "openai/gpt-oss-120b"
+
+
+def test_load_settings_default_model(monkeypatch):
+    from research_agent.config import DEFAULT_GROQ_MODEL
+
+    monkeypatch.setenv("GROQ_API_KEY", "gsk_valid_mock_key_abc123")
+    monkeypatch.setenv("COMPOSIO_API_KEY", "cmp_valid_mock_key_xyz789")
+    monkeypatch.delenv("GROQ_MODEL", raising=False)
+
+    settings = load_settings(env_file=None)
+    assert settings.groq_model == "openai/gpt-oss-120b"
+    assert settings.groq_model == DEFAULT_GROQ_MODEL
+
+
+def test_load_settings_custom_model_override(monkeypatch):
+    monkeypatch.setenv("GROQ_API_KEY", "gsk_valid_mock_key_abc123")
+    monkeypatch.setenv("COMPOSIO_API_KEY", "cmp_valid_mock_key_xyz789")
+    monkeypatch.setenv("GROQ_MODEL", "openai/gpt-oss-20b")
+
+    settings = load_settings(env_file=None)
+    assert settings.groq_model == "openai/gpt-oss-20b"
+

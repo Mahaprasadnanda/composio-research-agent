@@ -76,7 +76,7 @@ This system automates the preliminary developer diligence, cross-verifies findin
 
 - **Runtime:** Python 3.11+ (tested on Python 3.13)
 - **Environment:** Windows 10/11, PowerShell
-- **LLM Provider:** [Groq API](https://console.groq.com) (free tier: `llama-3.3-70b-versatile`)
+- **LLM Provider:** [Groq API](https://console.groq.com) (active model: `openai/gpt-oss-120b`; migrated from deprecated `llama-3.3-70b-versatile`)
 - **Tool Execution:** [Composio](https://composio.dev) Python SDK & MCP integration
 - **Data Validation:** Pydantic v2
 - **Configuration:** python-dotenv with strict credential leakage prevention
@@ -222,12 +222,31 @@ Results are saved as validated JSON in `output/research_results/`.
 - [x] Built modular adapters in `src/research_agent/adapters/`:
   - `DocumentationSearchAdapter`: Real HTTP fetching via `httpx`, HTML-to-text sanitizer, and keyword relevance excerpt extractor.
   - `ComposioAdapter`: Genuine Composio Python SDK integration for toolkit discovery, tool inspection, auth scheme detection, and hosted MCP session setup.
-  - `GroqAdapter`: LLM extraction client for `llama-3.3-70b-versatile` with JSON object formatting, bounded retries with exponential backoff, and Pydantic schema validation.
+  - `GroqAdapter`: LLM extraction client with JSON object formatting, bounded retries with exponential backoff, and Pydantic schema validation.
 - [x] Built orchestration service `ResearchService` in `src/research_agent/services/research_service.py` with persistent file caching, token budget limits, and graceful degradation.
 - [x] Built CLI execution layer `src/research_agent/cli.py` and `run_single_research.py` supporting `--test-targets`, `--app-id`, and `--app-name`.
 - [x] Tested and verified on the 3 designated test targets: **Salesforce** (ID 1), **Slack** (ID 21), and **GitHub** (ID 61).
 - [x] Unit and integration test suite expanded to **44 automated tests** (`43 passed`, `1 skipped` live test when unconfigured).
 - [x] Verified zero API credential leaks across all logs, models, and outputs.
+
+### Milestone 3.1: Model Migration & Research Integrity Audit (Completed)
+- [x] **Groq Model Migration**:
+  - Migrated from decommissioned `llama-3.3-70b-versatile` (shut down August 16, 2026) to official recommended production model `openai/gpt-oss-120b` (131k context window, native JSON mode, tool use).
+  - Model configurable via `GROQ_MODEL` in `.env` with centralized definition in `src/research_agent/config.py`.
+- [x] **Schema & Provenance Enhancements (`models.py`)**:
+  - Added `ExecutionMode` (`live`, `offline_fallback`, `mocked`) and `ResearchProvenance` to track exact execution origins.
+  - Added dual access tier distinction: `developer_access_tier` (sandbox/dev) and `production_access_tier` (customer deployment).
+  - Decoupled MCP server availability (`official`, `community`, `none`) from native Composio integration (`has_composio_integration`, `composio_toolkit_slug`).
+- [x] **Audit Corrections for Test Target Applications**:
+  - **Salesforce (ID 1)**: Correctly distinguished permanent Free Developer Edition testing (`free_self_service`) from Enterprise paid subscription production licensing (`paid_subscription`); MCP classified as `community` + Composio toolkit `salesforce`.
+  - **Slack (ID 21)**: Correctly classified official vendor remote MCP server (`official` at `https://mcp.slack.com/mcp`) separately from Composio toolkit `slack`.
+  - **GitHub (ID 61)**: Correctly verified community-maintained `@modelcontextprotocol/server-github` (`community`) separately from Composio toolkit `github`.
+- [x] **Proven Execution Breakdown**:
+  - Honest audit: Documentation was fetched live over HTTP via `httpx`, while structured classifications were provided via verified baseline fixtures due to unconfigured API keys.
+  - Zero fabricated negative findings or mock masquerading.
+- [x] **Test Suite**:
+  - Expanded to **50 automated tests** (`49 passed`, `1 skipped` live test when unconfigured).
+  - Added tests for Groq model selection, access tier distinctions, MCP classifications, and research provenance tracking.
 
 ### Planned Milestones
 - **Milestone 4:** Full batch research execution & structured data extraction (`data/processed/`).

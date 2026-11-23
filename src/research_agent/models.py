@@ -51,6 +51,7 @@ class SelfServiceAccess(str, Enum):
     """Classification of how developers acquire API credentials."""
 
     FREE_SELF_SERVICE = "free_self_service"
+    FREE_TRIAL_SELF_SERVICE = "free_trial_self_service"
     PAID_SUBSCRIPTION = "paid_subscription"
     ADMIN_APPROVAL = "admin_approval"
     PARTNERSHIP = "partnership"
@@ -156,6 +157,60 @@ class EvidenceItem(BaseModel):
     )
 
 
+class ExecutionMode(str, Enum):
+    """Operational mode used to generate research findings."""
+
+    LIVE = "live"
+    OFFLINE_FALLBACK = "offline_fallback"
+    MOCKED = "mocked"
+
+
+class ResearchProvenance(BaseModel):
+    """Detailed provenance tracking the origin and verification level of research claims."""
+
+    model_config = ConfigDict(frozen=True, extra="forbid")
+
+    execution_mode: ExecutionMode = Field(
+        description="Execution mode: live (real APIs called), offline_fallback (baseline data), or mocked (tests)."
+    )
+    documentation_live_fetched: bool = Field(
+        default=False,
+        description="Whether official documentation pages were fetched live over HTTP during this run.",
+    )
+    documentation_urls_attempted: list[str] = Field(
+        default_factory=list,
+        description="URLs targeted for documentation retrieval.",
+    )
+    documentation_urls_succeeded: list[str] = Field(
+        default_factory=list,
+        description="URLs successfully retrieved with HTTP 200.",
+    )
+    llm_inference_executed: bool = Field(
+        default=False,
+        description="Whether live LLM inference was executed to extract findings.",
+    )
+    llm_model: Optional[str] = Field(
+        default=None,
+        description="Exact model identifier used for inference (e.g. 'openai/gpt-oss-120b').",
+    )
+    composio_discovery_executed: bool = Field(
+        default=False,
+        description="Whether live Composio API was queried for toolkit discovery.",
+    )
+    composio_mcp_session_created: bool = Field(
+        default=False,
+        description="Whether live Composio hosted MCP session was initiated.",
+    )
+    live_verified: bool = Field(
+        default=False,
+        description="Strictly True ONLY when live LLM inference and live tool discovery executed.",
+    )
+    notes: str = Field(
+        default="",
+        description="Human-readable provenance notes explaining source of findings.",
+    )
+
+
 class AppResearchRecord(BaseModel):
     """Pydantic model representing comprehensive research findings for a single SaaS application."""
 
@@ -174,6 +229,14 @@ class AppResearchRecord(BaseModel):
         default=SelfServiceAccess.UNKNOWN,
         description="Self-service access classification (free, paid, partnership, etc.).",
     )
+    developer_access_tier: Optional[SelfServiceAccess] = Field(
+        default=None,
+        description="Access classification for developer/sandbox environment (e.g. free Developer Edition).",
+    )
+    production_access_tier: Optional[SelfServiceAccess] = Field(
+        default=None,
+        description="Access classification for customer production environment (e.g. paid Enterprise tier).",
+    )
     access_requirements: str = Field(
         default="",
         description="Specific requirements to obtain API access (e.g. plan tier, verification).",
@@ -191,6 +254,14 @@ class AppResearchRecord(BaseModel):
     mcp_availability: McpAvailability = Field(
         default=McpAvailability.UNKNOWN,
         description="Existing MCP server availability (official, community, composio, none).",
+    )
+    has_composio_integration: bool = Field(
+        default=False,
+        description="Whether a native integration toolkit exists in Composio.",
+    )
+    composio_toolkit_slug: Optional[str] = Field(
+        default=None,
+        description="Official slug of the toolkit in Composio.",
     )
     buildability_verdict: BuildabilityVerdict = Field(
         default=BuildabilityVerdict.UNKNOWN,
@@ -231,6 +302,10 @@ class AppResearchRecord(BaseModel):
     uncertainty_notes: Optional[str] = Field(
         default=None,
         description="Unresolved questions, conflicting sources, or ambiguity notes.",
+    )
+    provenance: Optional[ResearchProvenance] = Field(
+        default=None,
+        description="Detailed execution provenance, tracking live vs offline evidence sources.",
     )
     verification_status: VerificationStatus = Field(
         default=VerificationStatus.UNVERIFIED,

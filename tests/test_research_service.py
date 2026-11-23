@@ -19,8 +19,10 @@ from research_agent.models import (
     AuthMethod,
     BuildabilityVerdict,
     ConfidenceLevel,
+    ExecutionMode,
     McpAvailability,
     OriginalCategory,
+    ResearchProvenance,
     SeedAppRecord,
     SelfServiceAccess,
 )
@@ -87,6 +89,7 @@ def test_research_service_orchestration_mocked(tmp_path):
     ]
 
     mock_composio = MagicMock(spec=ComposioAdapter)
+    mock_composio.is_configured = True
     mock_composio.discover_toolkit.return_value = ComposioToolkitDiscovery(
         app_name="Slack",
         slug="slack",
@@ -144,6 +147,7 @@ def test_research_service_offline_fallback(tmp_path):
     mock_doc.gather_documentation.return_value = []
 
     mock_composio = MagicMock(spec=ComposioAdapter)
+    mock_composio.is_configured = True
     mock_composio.discover_toolkit.return_value = ComposioToolkitDiscovery(
         app_name="GitHub",
         slug="github",
@@ -169,6 +173,96 @@ def test_research_service_offline_fallback(tmp_path):
     assert record.self_service_access == SelfServiceAccess.FREE_SELF_SERVICE
     assert record.buildability_verdict == BuildabilityVerdict.BUILDABLE
     assert record.confidence_level == ConfidenceLevel.HIGH
+    assert record.has_composio_integration is True
+    assert record.composio_toolkit_slug == "github"
+    assert record.mcp_availability == McpAvailability.COMMUNITY
+    assert record.provenance is not None
+    assert record.provenance.execution_mode == ExecutionMode.OFFLINE_FALLBACK
+    assert record.provenance.llm_inference_executed is False
+    assert record.provenance.live_verified is False
+
+
+def test_salesforce_access_tier_distinction(tmp_path):
+    """Verify Salesforce distinguishes developer free self-service from production paid subscription."""
+    service = ResearchService(
+        doc_adapter=MagicMock(gather_documentation=MagicMock(return_value=[])),
+        composio_adapter=MagicMock(discover_toolkit=MagicMock(return_value=ComposioToolkitDiscovery(app_name="Salesforce", slug="salesforce", is_integrated=True))),
+        groq_adapter=MagicMock(is_configured=False),
+        cache_dir=tmp_path / "cache",
+    )
+    seed_sf = get_seed_app(1)
+    record = service.research_app(seed_sf, allow_fallback=True)
+
+    assert record.app_name == "Salesforce"
+    assert record.developer_access_tier == SelfServiceAccess.FREE_SELF_SERVICE
+    assert record.production_access_tier == SelfServiceAccess.PAID_SUBSCRIPTION
+    assert record.has_composio_integration is True
+    assert record.composio_toolkit_slug == "salesforce"
+    assert record.mcp_availability == McpAvailability.COMMUNITY
+
+
+def test_slack_official_mcp_distinction(tmp_path):
+    """Verify Slack distinguishes official vendor MCP server from Composio toolkit."""
+    service = ResearchService(
+        doc_adapter=MagicMock(gather_documentation=MagicMock(return_value=[])),
+        composio_adapter=MagicMock(discover_toolkit=MagicMock(return_value=ComposioToolkitDiscovery(app_name="Slack", slug="slack", is_integrated=True))),
+        groq_adapter=MagicMock(is_configured=False),
+        cache_dir=tmp_path / "cache",
+    )
+    seed_slack = get_seed_app(21)
+    record = service.research_app(seed_slack, allow_fallback=True)
+
+    assert record.app_name == "Slack"
+    assert record.mcp_availability == McpAvailability.OFFICIAL
+    assert record.has_composio_integration is True
+    assert record.composio_toolkit_slug == "slack"
+
+
+def test_research_provenance_audit_trail(tmp_path):
+    """Verify execution provenance accurately marks live vs offline fallback."""
+    # 1. Live mode simulation
+    mock_doc = MagicMock(spec=DocumentationSearchAdapter)
+    mock_doc.gather_documentation.return_value = [
+        DocumentationResult(
+            url="https://api.slack.com",
+            title="Slack API",
+            content="Content",
+            excerpt="Excerpt",
+            status_code=200,
+            is_accessible=True,
+        )
+    ]
+    mock_composio = MagicMock(spec=ComposioAdapter)
+    mock_composio.is_configured = True
+    mock_composio.discover_toolkit.return_value = ComposioToolkitDiscovery(
+        app_name="Slack",
+        slug="slack",
+        is_integrated=True,
+        mcp_supported=True,
+    )
+    mock_groq = MagicMock(spec=GroqAdapter)
+    mock_groq.is_configured = True
+    mock_groq.model = "openai/gpt-oss-120b"
+    mock_groq.extract_app_research.return_value = AppResearchRecord(
+        app_name="Slack",
+        category=AppCategory.COMMUNICATION,
+        description="Slack team communication platform",
+        buildability_verdict=BuildabilityVerdict.BUILDABLE,
+    )
+
+    live_service = ResearchService(
+        doc_adapter=mock_doc,
+        composio_adapter=mock_composio,
+        groq_adapter=mock_groq,
+        cache_dir=tmp_path / "live_cache",
+    )
+    live_record = live_service.research_app(get_seed_app(21))
+    assert live_record.provenance is not None
+    assert live_record.provenance.execution_mode == ExecutionMode.LIVE
+    assert live_record.provenance.llm_inference_executed is True
+    assert live_record.provenance.llm_model == "openai/gpt-oss-120b"
+    assert live_record.provenance.live_verified is True
+    assert live_record.provenance.documentation_live_fetched is True
 
 
 def test_research_service_unconfigured_without_fallback_raises(tmp_path):
@@ -177,6 +271,7 @@ def test_research_service_unconfigured_without_fallback_raises(tmp_path):
     mock_doc.gather_documentation.return_value = []
 
     mock_composio = MagicMock(spec=ComposioAdapter)
+    mock_composio.is_configured = True
     mock_composio.discover_toolkit.return_value = ComposioToolkitDiscovery(
         app_name="Salesforce",
         slug="salesforce",

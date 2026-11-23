@@ -19,7 +19,10 @@ PROJECT_ROOT = PACKAGE_ROOT.parent.parent
 DATA_DIR = PROJECT_ROOT / "data"
 OUTPUT_DIR = PROJECT_ROOT / "output"
 
-DEFAULT_GROQ_MODEL = "llama-3.3-70b-versatile"
+# Active Groq model supporting native JSON object mode, tool calling, and MoE reasoning.
+# Note: llama-3.3-70b-versatile was deprecated by Groq on August 16, 2026.
+# Official Groq migration recommendation: openai/gpt-oss-120b.
+DEFAULT_GROQ_MODEL = "openai/gpt-oss-120b"
 PLACEHOLDER_MARKERS = {
     "your_groq_api_key_here",
     "your_composio_api_key_here",

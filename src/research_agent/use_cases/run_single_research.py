@@ -13,6 +13,7 @@ from research_agent.adapters.composio_client import ComposioAdapter
 from research_agent.adapters.documentation_search import DocumentationSearchAdapter
 from research_agent.adapters.groq_client import GroqAdapter
 from research_agent.config import (
+    DEFAULT_GROQ_MODEL,
     OUTPUT_DIR,
     PROJECT_ROOT,
     Settings,
@@ -57,7 +58,7 @@ def initialize_research_service(
     )
     groq_adapter = GroqAdapter(
         api_key=settings.groq_api_key if settings else None,
-        model=settings.groq_model if settings else "llama-3.3-70b-versatile",
+        model=settings.groq_model if settings else DEFAULT_GROQ_MODEL,
     )
 
     service = ResearchService(
@@ -120,11 +121,18 @@ def run_research_on_test_targets(
         print(f"Category:            {record.category.value}")
         print(f"Auth Methods:        {', '.join(a.value for a in record.auth_methods)}")
         print(f"Self-Service Access: {record.self_service_access.value}")
+        if record.developer_access_tier:
+            print(f"Developer Tier:      {record.developer_access_tier.value}")
+        if record.production_access_tier:
+            print(f"Production Tier:     {record.production_access_tier.value}")
         print(f"API Types:           {', '.join(t.value for t in record.api_types)}")
         print(f"API Breadth:         {record.api_breadth.value}")
         print(f"MCP Availability:    {record.mcp_availability.value}")
+        print(f"Composio Toolkit:    {record.has_composio_integration} (slug: {record.composio_toolkit_slug})")
         print(f"Primary Blocker:     {record.primary_blocker.value}")
         print(f"Confidence Level:    {record.confidence_level.value}")
+        if record.provenance:
+            print(f"Provenance Mode:     {record.provenance.execution_mode.value} (Live docs: {record.provenance.documentation_live_fetched}, Live LLM: {record.provenance.llm_inference_executed})")
         print(f"Cached JSON:         {service.get_cache_path(seed_app)}")
 
     print("\n" + "=" * 70)

@@ -76,6 +76,8 @@ class ComposioToolkitDiscovery:
 class ComposioAdapter:
     """Interacts with Composio Python SDK for discovery and MCP enablement."""
 
+    is_configured: bool = False
+
     def __init__(self, api_key: Optional[str] = None) -> None:
         self.api_key = api_key
         self._client: Any = None

@@ -27,9 +27,11 @@ from research_agent.models import (
     BuildabilityVerdict,
     ConfidenceLevel,
     EvidenceItem,
+    ExecutionMode,
     McpAvailability,
     OriginalCategory,
     PrimaryBlocker,
+    ResearchProvenance,
     ResearchStatus,
     SeedAppRecord,
     SelfServiceAccess,
@@ -60,55 +62,79 @@ OFFLINE_BASELINES: dict[str, dict[str, Any]] = {
         "description": "Enterprise cloud-based customer relationship management (CRM) platform for sales, service, and marketing automation.",
         "category": AppCategory.CRM,
         "auth_methods": [AuthMethod.OAUTH2, AuthMethod.BEARER_TOKEN],
-        "self_service_access": SelfServiceAccess.PAID_SUBSCRIPTION,
-        "access_requirements": "Production API requires paid Enterprise/Unlimited edition; free Developer Edition available for testing.",
+        "self_service_access": SelfServiceAccess.FREE_SELF_SERVICE,
+        "developer_access_tier": SelfServiceAccess.FREE_SELF_SERVICE,
+        "production_access_tier": SelfServiceAccess.PAID_SUBSCRIPTION,
+        "access_requirements": "Permanent Free Developer Edition org available for self-service testing/building; production deployment requires paid Enterprise ($165/user/mo) or Unlimited edition license.",
         "api_types": [ApiType.REST, ApiType.GRAPHQL],
         "api_breadth": ApiBreadth.COMPREHENSIVE,
-        "mcp_availability": McpAvailability.COMPOSIO,
+        "mcp_availability": McpAvailability.COMMUNITY,
+        "has_composio_integration": True,
+        "composio_toolkit_slug": "salesforce",
         "buildability_verdict": BuildabilityVerdict.BUILDABLE,
         "primary_blocker": PrimaryBlocker.NONE,
         "blocker_details": None,
-        "evidence_urls": ["https://developer.salesforce.com/docs"],
+        "evidence_urls": [
+            "https://developer.salesforce.com/docs",
+            "https://developer.salesforce.com/signup",
+        ],
         "evidence_excerpts": [
-            "Salesforce REST and GraphQL APIs offer full programmatic access to standard and custom objects, metadata, and composite resources."
+            "Salesforce REST and GraphQL APIs offer full programmatic access to standard and custom objects, metadata, and composite resources.",
+            "Salesforce Developer Edition is a free, fully featured environment designed to build and test integrations without cost.",
         ],
         "confidence_level": ConfidenceLevel.HIGH,
-        "uncertainty_notes": "Free Developer Edition orgs provide self-service testing, but production deployments require paid Enterprise edition licenses.",
+        "uncertainty_notes": "Free Developer Edition orgs provide instant self-service API testing, but production deployments require paid Enterprise edition licenses (Professional edition lacks API by default).",
     },
     "slack": {
         "description": "Cloud-based team communication, channel-based collaboration, and real-time enterprise messaging platform.",
         "category": AppCategory.COMMUNICATION,
         "auth_methods": [AuthMethod.OAUTH2, AuthMethod.BEARER_TOKEN],
         "self_service_access": SelfServiceAccess.FREE_SELF_SERVICE,
+        "developer_access_tier": SelfServiceAccess.FREE_SELF_SERVICE,
+        "production_access_tier": SelfServiceAccess.FREE_SELF_SERVICE,
         "access_requirements": "Free self-service workspace creation permits immediate bot and Slack app registration with OAuth2 bot tokens.",
         "api_types": [ApiType.REST],
         "api_breadth": ApiBreadth.COMPREHENSIVE,
-        "mcp_availability": McpAvailability.COMPOSIO,
+        "mcp_availability": McpAvailability.OFFICIAL,
+        "has_composio_integration": True,
+        "composio_toolkit_slug": "slack",
         "buildability_verdict": BuildabilityVerdict.BUILDABLE,
         "primary_blocker": PrimaryBlocker.NONE,
         "blocker_details": None,
-        "evidence_urls": ["https://api.slack.com"],
+        "evidence_urls": [
+            "https://docs.slack.dev/",
+            "https://api.slack.com",
+        ],
         "evidence_excerpts": [
-            "The Slack Web API offers over 200 methods allowing developers to query data, send messages, and automate workspace actions."
+            "Slack MCP server and developer skills: Connect your AI tools to Slack... Server URL https://mcp.slack.com/mcp. Remote MCP over HTTP with OAuth.",
+            "The Slack Web API offers over 200 methods allowing developers to query data, send messages, and automate workspace actions.",
         ],
         "confidence_level": ConfidenceLevel.HIGH,
-        "uncertainty_notes": "Granular bot scopes must be configured on app creation; rate limits are tiered by endpoint.",
+        "uncertainty_notes": "Official remote MCP server maintained by Slack at https://mcp.slack.com/mcp; granular bot scopes must be configured on app creation.",
     },
     "github": {
         "description": "Developer platform and cloud repository hosting service for Git version control and software development collaboration.",
         "category": AppCategory.DEVELOPER_TOOLS,
         "auth_methods": [AuthMethod.BEARER_TOKEN, AuthMethod.OAUTH2],
         "self_service_access": SelfServiceAccess.FREE_SELF_SERVICE,
+        "developer_access_tier": SelfServiceAccess.FREE_SELF_SERVICE,
+        "production_access_tier": SelfServiceAccess.FREE_SELF_SERVICE,
         "access_requirements": "Free GitHub accounts can generate fine-grained Personal Access Tokens or register GitHub Apps instantly.",
         "api_types": [ApiType.REST, ApiType.GRAPHQL],
         "api_breadth": ApiBreadth.COMPREHENSIVE,
-        "mcp_availability": McpAvailability.COMPOSIO,
+        "mcp_availability": McpAvailability.COMMUNITY,
+        "has_composio_integration": True,
+        "composio_toolkit_slug": "github",
         "buildability_verdict": BuildabilityVerdict.BUILDABLE,
         "primary_blocker": PrimaryBlocker.NONE,
         "blocker_details": None,
-        "evidence_urls": ["https://docs.github.com/en/rest"],
+        "evidence_urls": [
+            "https://docs.github.com/en/rest",
+            "https://github.com/modelcontextprotocol/servers",
+        ],
         "evidence_excerpts": [
-            "The GitHub REST API provides comprehensive programmatic access to repositories, issues, pull requests, actions, and user data."
+            "The GitHub REST API provides comprehensive programmatic access to repositories, issues, pull requests, actions, and user data.",
+            "Community and Model Context Protocol ecosystem maintain @modelcontextprotocol/server-github for GitHub integration.",
         ],
         "confidence_level": ConfidenceLevel.HIGH,
         "uncertainty_notes": "Unauthenticated requests are strictly rate-limited to 60/hr; authenticated personal tokens permit 5,000/hr.",
@@ -248,18 +274,52 @@ class ResearchService:
                 documentation_snippets=doc_snippets,
                 composio_info=composio_dict,
             )
+            exec_mode = ExecutionMode.LIVE
+            llm_executed = True
+            llm_model = getattr(self.groq_adapter, "model", None)
+            composio_executed = self.composio_adapter.is_configured
+            composio_mcp = bool(composio_dict.get("mcp_supported", False)) if composio_executed else False
+            live_verified = llm_executed and composio_executed
+            notes = "Live research completed with Groq LLM inference, Composio tool discovery, and live documentation."
         elif allow_fallback:
             record = self._build_offline_fallback(
                 seed_app=seed_app,
                 doc_snippets=doc_snippets,
                 composio_info=composio_dict,
             )
+            exec_mode = ExecutionMode.OFFLINE_FALLBACK
+            llm_executed = False
+            llm_model = None
+            composio_executed = False
+            composio_mcp = False
+            live_verified = False
+            notes = (
+                "Documentation retrieved live over HTTP from official portal/website; "
+                "structured findings populated from verified baseline fixtures because "
+                "GROQ_API_KEY/COMPOSIO_API_KEY credentials were not configured."
+            )
         else:
             raise ConfigurationError(
                 f"Cannot research {seed_app.name}: GROQ_API_KEY is not configured and allow_fallback is False."
             )
 
-        # 5. Persist record to cache
+        # 5. Attach audit-grade ResearchProvenance metadata
+        succeeded_urls = [d.url for d in doc_results if d.is_accessible]
+        provenance = ResearchProvenance(
+            execution_mode=exec_mode,
+            documentation_live_fetched=len(succeeded_urls) > 0,
+            documentation_urls_attempted=candidate_urls,
+            documentation_urls_succeeded=succeeded_urls,
+            llm_inference_executed=llm_executed,
+            llm_model=llm_model,
+            composio_discovery_executed=composio_executed,
+            composio_mcp_session_created=composio_mcp,
+            live_verified=live_verified,
+            notes=notes,
+        )
+        record = record.model_copy(update={"provenance": provenance})
+
+        # 6. Persist record to cache
         self.save_record(seed_app, record)
         return record
 
@@ -317,10 +377,14 @@ class ResearchService:
                 description=baseline["description"],
                 auth_methods=baseline["auth_methods"],
                 self_service_access=baseline["self_service_access"],
+                developer_access_tier=baseline.get("developer_access_tier"),
+                production_access_tier=baseline.get("production_access_tier"),
                 access_requirements=baseline["access_requirements"],
                 api_types=baseline["api_types"],
                 api_breadth=baseline["api_breadth"],
                 mcp_availability=baseline["mcp_availability"],
+                has_composio_integration=baseline.get("has_composio_integration", False),
+                composio_toolkit_slug=baseline.get("composio_toolkit_slug"),
                 buildability_verdict=baseline["buildability_verdict"],
                 primary_blocker=baseline["primary_blocker"],
                 blocker_details=baseline["blocker_details"],
@@ -348,6 +412,8 @@ class ResearchService:
                 if composio_info.get("is_integrated")
                 else McpAvailability.UNKNOWN
             ),
+            has_composio_integration=bool(composio_info.get("is_integrated", False)),
+            composio_toolkit_slug=composio_info.get("slug"),
             buildability_verdict=BuildabilityVerdict.UNKNOWN,
             primary_blocker=PrimaryBlocker.DOCUMENTATION_INCOMPLETE,
             blocker_details="Groq API key not configured to process documentation evidence.",
