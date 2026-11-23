@@ -120,6 +120,32 @@ def build_parser() -> argparse.ArgumentParser:
     )
 
     # ------------------------------------------------------------------------
+    # Subcommand: verify
+    # ------------------------------------------------------------------------
+    verify_parser = subparsers.add_parser(
+        "verify",
+        help="Execute ground-truth verification audit over the 15-app sample and generate audit reports.",
+    )
+    verify_parser.add_argument(
+        "--results-dir",
+        type=Path,
+        default=None,
+        help="Custom directory containing research result JSON files (default: PROJECT_ROOT/output/research_results).",
+    )
+    verify_parser.add_argument(
+        "--output-dir",
+        type=Path,
+        default=None,
+        help="Custom directory to write verification JSON/CSV reports (default: PROJECT_ROOT/output/verification).",
+    )
+    verify_parser.add_argument(
+        "--docs-dir",
+        type=Path,
+        default=None,
+        help="Custom directory to write verification Markdown summary (default: PROJECT_ROOT/docs).",
+    )
+
+    # ------------------------------------------------------------------------
     # Top-level / single arguments (for backwards compatibility)
     # ------------------------------------------------------------------------
     single_group = parser.add_argument_group("Single & Test Target Options")
@@ -208,6 +234,29 @@ def main(argv: Optional[list[str]] = None) -> int:
             print(f"MCP Session Success:      {comp_stats.get('mcp_session_success_rate_of_discovered', 0.0)}%")
             print("\nGenerated Output Artifacts:")
             for name, path in result.get("generated_files", {}).items():
+                print(f"  - {name}: {path}")
+            print("======================================================================\n")
+            return 0
+
+        if args.command == "verify":
+            from research_agent.services.verification_service import VerificationService
+
+            svc = VerificationService(results_dir=args.results_dir)
+            files = svc.save_reports(output_dir=args.output_dir, docs_dir=args.docs_dir)
+            audit = svc.evaluate_audit()
+            stats = audit["summary_statistics"]
+
+            print("\n======================================================================")
+            print("COMPOSIO RESEARCH AGENT - VERIFICATION AUDIT COMPLETE")
+            print("======================================================================")
+            print(f"Sample Applications:      {stats.get('sample_size')}")
+            print(f"Total Fields Evaluated:   {stats.get('total_evaluated_fields')}")
+            print(f"Exact Match Rate:         {stats.get('overall_field_exact_match_rate')}%")
+            print(f"Post-Correction Accuracy: {stats.get('overall_post_correction_accuracy')}%")
+            print(f"Composio Discovery Match: {stats.get('composio_discovery_agreement_rate')}%")
+            print(f"Verdict Agreement Rate:   {stats.get('verdict_agreement_rate')}%")
+            print("\nGenerated Verification Artifacts:")
+            for name, path in files.items():
                 print(f"  - {name}: {path}")
             print("======================================================================\n")
             return 0
