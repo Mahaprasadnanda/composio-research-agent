@@ -97,19 +97,35 @@ composio-research-agent/
 ├── README.md                 # Project documentation
 ├── requirements.txt          # Production and testing dependencies
 ├── data/
-│   ├── raw/                  # Raw crawl data and scraped documentation
-│   └── processed/            # Verified structured dataset (JSON/CSV)
-├── docs/                     # Architectural specs and documentation
-├── output/                   # Final reports and generated HTML case study
+│   ├── raw/                  # Ground-truth 100-app seed dataset (JSON/CSV)
+│   └── processed/            # Verified structured dataset
+├── docs/                     # Research rubric, output schema, specifications
+├── output/                   # Persistent cache & research results (JSON)
 ├── src/
 │   └── research_agent/
 │       ├── __init__.py       # Package definition
+│       ├── cli.py            # CLI entry point
 │       ├── config.py         # Secure environment settings & credential validation
-│       └── models.py         # Pydantic schemas, classification enums, datasets
+│       ├── models.py         # Pydantic schemas, classification enums, datasets
+│       ├── adapters/         # Modular provider clients
+│       │   ├── __init__.py
+│       │   ├── composio_client.py       # Composio SDK & MCP session adapter
+│       │   ├── documentation_search.py  # HTTP documentation fetcher & text sanitizer
+│       │   └── groq_client.py           # Groq LLM inference adapter (Llama-3.3-70b)
+│       ├── services/         # Orchestration & caching
+│       │   ├── __init__.py
+│       │   └── research_service.py      # End-to-end evidence gathering & synthesis
+│       └── use_cases/        # Execution entry points
+│           ├── __init__.py
+│           └── run_single_research.py   # CLI runner for single or batch app targets
 └── tests/
     ├── __init__.py           # Test suite marker
+    ├── test_adapters.py      # Adapter unit tests with mocks (Groq, Composio, Docs)
     ├── test_config.py        # Settings validation & secret masking tests
-    └── test_models.py        # Pydantic model validation & aggregation tests
+    ├── test_live_integration.py # Live external network integration tests
+    ├── test_models.py        # Pydantic model validation & aggregation tests
+    ├── test_research_service.py # ResearchService orchestration & cache tests
+    └── test_seed_dataset.py  # 100-app ground-truth dataset integrity tests
 ```
 
 ---
@@ -156,13 +172,30 @@ Open `.env` and set:
 
 > **Security Guarantee:** Real credentials must **never** be committed to source control. The `.gitignore` file strictly excludes `.env`. The configuration module will automatically sanitize and mask keys in all logging and string representations.
 
-### 6. Validate Installation
+### 6. Validate Installation and Run Tests
 
-Run the test suite to verify configuration loading and data models:
+Run the test suite to verify configuration loading, data models, adapter mocks, and service pipelines:
 
 ```powershell
 $env:PYTHONPATH="src"; pytest -v
 ```
+
+### 7. Run Research Agent on Test Targets
+
+Execute automated research on the designated test applications (**Salesforce**, **Slack**, and **GitHub**):
+
+```powershell
+$env:PYTHONPATH="src"; python -m research_agent.cli --test-targets
+```
+
+You can also target any individual application by ID (1-100) or name:
+
+```powershell
+$env:PYTHONPATH="src"; python -m research_agent.cli --app-id 21
+$env:PYTHONPATH="src"; python -m research_agent.cli --app-name "Slack"
+```
+
+Results are saved as validated JSON in `output/research_results/`.
 
 ---
 
@@ -185,8 +218,18 @@ $env:PYTHONPATH="src"; pytest -v
 - [x] Authored formal output data contract (`docs/research_output_schema.md`) defining field requirements, category mappings, excerpt grounding, and edge-case protocols.
 - [x] Full test suite expanded to 23 automated unit tests (`23 passed`), ensuring zero duplicate IDs, unique names, valid URLs, and complete category parity.
 
+### Milestone 3: Groq + Composio Research Agent (Completed)
+- [x] Built modular adapters in `src/research_agent/adapters/`:
+  - `DocumentationSearchAdapter`: Real HTTP fetching via `httpx`, HTML-to-text sanitizer, and keyword relevance excerpt extractor.
+  - `ComposioAdapter`: Genuine Composio Python SDK integration for toolkit discovery, tool inspection, auth scheme detection, and hosted MCP session setup.
+  - `GroqAdapter`: LLM extraction client for `llama-3.3-70b-versatile` with JSON object formatting, bounded retries with exponential backoff, and Pydantic schema validation.
+- [x] Built orchestration service `ResearchService` in `src/research_agent/services/research_service.py` with persistent file caching, token budget limits, and graceful degradation.
+- [x] Built CLI execution layer `src/research_agent/cli.py` and `run_single_research.py` supporting `--test-targets`, `--app-id`, and `--app-name`.
+- [x] Tested and verified on the 3 designated test targets: **Salesforce** (ID 1), **Slack** (ID 21), and **GitHub** (ID 61).
+- [x] Unit and integration test suite expanded to **44 automated tests** (`43 passed`, `1 skipped` live test when unconfigured).
+- [x] Verified zero API credential leaks across all logs, models, and outputs.
+
 ### Planned Milestones
-- **Milestone 3:** Groq LLM integration & Composio tool/MCP research execution agent.
 - **Milestone 4:** Full batch research execution & structured data extraction (`data/processed/`).
 - **Milestone 5:** Human verification of representative sample (pre/post-audit accuracy evaluation).
 - **Milestone 6:** Analytics generation (Pandas) & standalone interactive HTML case study report (`output/`).
